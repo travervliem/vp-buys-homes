@@ -20,14 +20,29 @@ const LINKS = [
 
 function FooterLogo() {
   return (
-    <svg viewBox="0 0 200 60" width="160" height="48" xmlns="http://www.w3.org/2000/svg" aria-label="VP Buys Homes">
-      <text x="0" y="52" fontFamily="'Barlow Semi Condensed','Arial Narrow',sans-serif" fontSize="56" fontWeight="700" fill="white" letterSpacing="1">VP</text>
-      <polygon points="88,4 110,18 110,56 66,56 66,18" fill="white" />
-      <rect x="78" y="36" width="22" height="20" rx="2" fill="#1B365D" />
-      <line x1="122" y1="12" x2="122" y2="52" stroke="white" strokeWidth="2" opacity="0.20" />
-      <text x="132" y="36" fontFamily="'Barlow Semi Condensed','Arial Narrow',sans-serif" fontSize="22" fontWeight="700" fill="white" letterSpacing="3">VP EQUITIES</text>
-      <text x="133" y="52" fontFamily="'Nunito Sans','Helvetica Neue',sans-serif" fontSize="10" fontWeight="600" fill="rgba(255,255,255,0.40)" letterSpacing="3">VPBUYSHOMES.COM</text>
-    </svg>
+    <div style={{ lineHeight: 1 }}>
+      <div style={{
+        fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
+        fontSize: '24px',
+        fontWeight: 700,
+        letterSpacing: '0.08em',
+        textTransform: 'uppercase',
+        color: 'white',
+      }}>
+        VP <span style={{ color: '#F2A65A' }}>Equities</span>
+      </div>
+      <div style={{
+        fontFamily: "'Nunito Sans','Helvetica Neue',sans-serif",
+        fontSize: '10px',
+        fontWeight: 600,
+        letterSpacing: '0.18em',
+        textTransform: 'uppercase',
+        color: 'rgba(255,255,255,0.40)',
+        marginTop: '4px',
+      }}>
+        VPBUYSHOMES.COM
+      </div>
+    </div>
   )
 }
 
@@ -50,7 +65,7 @@ export function Footer() {
                 P (912) 515-6060
               </a>
               <a href="mailto:leads@vpbuyshomes.com" style={{ color: 'rgba(255,255,255,0.70)', fontSize: '14px', fontFamily: "'Nunito Sans',sans-serif", textDecoration: 'none' }}>
-                W vpbuyshomes.com
+                E leads@vpbuyshomes.com
               </a>
             </div>
           </div>
