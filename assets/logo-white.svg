@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60" style="background:#1B365D">
+  
+  <text x="0" y="52" font-family="&#39;Barlow Semi Condensed&#39;, &#39;Arial Narrow&#39;, sans-serif" font-size="56" font-weight="700" fill="white" letter-spacing="1">VP</text>
+  
+  <polygon points="88,4 110,18 110,56 66,56 66,18" fill="white"></polygon>
+  
+  <rect x="78" y="36" width="22" height="20" rx="2" fill="#1B365D"></rect>
+  
+  <line x1="122" y1="12" x2="122" y2="52" stroke="white" stroke-width="2" opacity="0.25"></line>
+  
+  <text x="132" y="36" font-family="&#39;Barlow Semi Condensed&#39;, &#39;Arial Narrow&#39;, sans-serif" font-size="22" font-weight="700" fill="white" letter-spacing="3">VP EQUITIES</text>
+  <text x="133" y="52" font-family="&#39;Nunito Sans&#39;, &#39;Helvetica Neue&#39;, sans-serif" font-size="10" font-weight="600" fill="rgba(255,255,255,0.45)" letter-spacing="3">VPBUYSHOMES.COM</text>
+</svg>

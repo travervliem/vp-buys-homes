@@ -1,0 +1,19 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8"><title>Inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+body{margin:0;padding:22px 28px;background:#fff;display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:620px;font-family:var(--fb)}
+.fi{display:flex;flex-direction:column;gap:6px}
+.lb{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500)}
+.in{width:100%;padding:12px 14px;font-family:var(--fb);font-size:14px;color:var(--dark);background:#fff;border:1px solid var(--border);border-radius:6px;outline:none;transition:all 120ms}
+.in:focus{border-color:var(--navy);box-shadow:var(--ring-navy)}
+.in.focused{border-color:var(--navy);box-shadow:var(--ring-navy)}
+.in.err{border-color:var(--danger)}
+.help{font-size:11px;color:var(--gray-500)}
+.err-t{font-size:11px;color:var(--danger)}
+</style></head><body>
+<div class="fi"><label class="lb">Full name</label><input class="in" value="Jane Sellers"></div>
+<div class="fi"><label class="lb">Phone</label><input class="in focused" value="(912) 555-0120"></div>
+<div class="fi"><label class="lb">Email</label><input class="in" placeholder="name@email.com"></div>
+<div class="fi"><label class="lb">Property address</label><input class="in err" value=""><span class="err-t">Address is required.</span></div>
+</body></html>

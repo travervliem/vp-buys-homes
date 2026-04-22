@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VP Equities — Direct Mail Postcard</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700;800&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans','Helvetica Neue',sans-serif;background:#EEF2F7;padding:40px;min-height:100vh}
+.label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9CA3AF;font-weight:600;margin-bottom:10px}
+.wrap{margin-bottom:40px}
+.fh{font-family:'Barlow Semi Condensed','Arial Narrow',sans-serif}
+.note{font-size:12px;color:#9CA3AF;margin-top:32px;background:#fff;padding:16px 20px;border-radius:8px;line-height:1.7;max-width:730px}
+
+/* POSTCARD: 6" x 4" = 576px x 384px at 96dpi */
+.pc{width:576px;height:384px;border-radius:6px;overflow:hidden;box-shadow:0 4px 28px rgba(0,0,0,.14);position:relative}
+
+/* FRONT */
+.pcf{
+  width:576px;height:384px;
+  background:#1B365D;
+  padding:36px 40px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden
+}
+.pcf::before{
+  content:'';position:absolute;right:-50px;bottom:-80px;
+  width:260px;height:260px;border-radius:50%;
+  border:50px solid rgba(255,255,255,.04)
+}
+
+/* BACK */
+.pcb{
+  width:576px;height:384px;
+  background:#fff;
+  display:grid;grid-template-columns:1fr 148px;
+}
+.pcb-msg{padding:28px 28px 28px 32px}
+.pcb-mail{background:#EEF2F7;border-left:1px dashed #D1DCE8;padding:20px 16px;display:flex;flex-direction:column;justify-content:space-between}
+
+@media print{
+  body{background:#fff;padding:0}
+  .wrap{page-break-after:always}
+  .note,.label{display:none}
+  .pc{box-shadow:none}
+  @page{size:6in 4in;margin:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ FRONT ═══════════════════════════════ -->
+<div class="wrap">
+  <div class="label">Postcard Front — 6" × 4" (print bleed-safe)</div>
+  <div class="pc">
+    <div class="pcf">
+      <!-- Logo + badge row -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div style="display:flex;align-items:center;gap:5px">
+          <span class="fh" style="font-size:20px;font-weight:700;color:#fff;letter-spacing:.02em;line-height:1">VP</span>
+          <svg width="17" height="17" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/>
+            <rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/>
+          </svg>
+        </div>
+        <div style="background:#F2A65A;border-radius:20px;padding:5px 14px">
+          <span style="font-size:9.5px;font-weight:700;color:#fff;letter-spacing:.07em;text-transform:uppercase">Cash Offer in 24 Hours</span>
+        </div>
+      </div>
+
+      <!-- Main headline -->
+      <div>
+        <div class="fh" style="font-size:36px;font-weight:800;color:#fff;line-height:1.05;text-transform:uppercase;margin-bottom:10px">
+          We Buy Houses<br>
+          in <!-- CITY -->[City], GA<br>
+          for Cash.
+        </div>
+        <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.65">
+          No repairs required. No agent fees. No waiting.<br>
+          Any condition, any situation.
+        </div>
+      </div>
+
+      <!-- CTA bar -->
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="background:#F2A65A;padding:10px 22px;border-radius:4px">
+          <span class="fh" style="font-size:14px;font-weight:700;color:#fff;letter-spacing:.04em">
+            CALL / TEXT: <!-- PHONE -->[555-000-0000]
+          </span>
+        </div>
+        <span style="font-size:10px;color:rgba(255,255,255,.4)">vpbuyshomes.com</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BACK ════════════════════════════════ -->
+<div class="wrap">
+  <div class="label">Postcard Back</div>
+  <div class="pc">
+    <div class="pcb">
+      <!-- Message side -->
+      <div class="pcb-msg">
+        <div style="display:flex;align-items:center;gap:4px;margin-bottom:14px">
+          <span class="fh" style="font-size:16px;font-weight:700;color:#1B365D;letter-spacing:.02em;line-height:1">VP</span>
+          <svg width="13" height="13" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/>
+            <rect x="11" y="18" width="10" height="12" rx="1" fill="white"/>
+          </svg>
+          <div style="border-left:1px solid rgba(27,54,93,.15);padding-left:7px;margin-left:2px">
+            <span class="fh" style="font-size:10px;font-weight:700;letter-spacing:.1em;color:#1B365D;text-transform:uppercase">EQUITIES</span>
+          </div>
+        </div>
+
+        <div class="fh" style="font-size:15px;font-weight:700;color:#1B365D;letter-spacing:.03em;margin-bottom:8px;line-height:1.2">
+          IS YOUR HOME<br>CAUSING YOU STRESS?
+        </div>
+
+        <p style="font-size:11px;color:#6B7280;line-height:1.7;margin-bottom:10px">
+          Facing foreclosure, going through a divorce, dealing with an inherited property, or a home that needs more repairs than you can afford? VP Equities buys houses in any condition, for cash — with zero fees or commissions.
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:14px">
+          <div style="font-size:11px;color:#0D1B2A;display:flex;gap:6px;align-items:flex-start">
+            <span style="color:#F2A65A;font-weight:700;line-height:1.5">✓</span>
+            <span>Cash offer within 24 hours</span>
+          </div>
+          <div style="font-size:11px;color:#0D1B2A;display:flex;gap:6px;align-items:flex-start">
+            <span style="color:#F2A65A;font-weight:700;line-height:1.5">✓</span>
+            <span>Close in 7–21 days, on your schedule</span>
+          </div>
+          <div style="font-size:11px;color:#0D1B2A;display:flex;gap:6px;align-items:flex-start">
+            <span style="color:#F2A65A;font-weight:700;line-height:1.5">✓</span>
+            <span>No repairs, showings, or agent fees</span>
+          </div>
+          <div style="font-size:11px;color:#0D1B2A;display:flex;gap:6px;align-items:flex-start">
+            <span style="color:#F2A65A;font-weight:700;line-height:1.5">✓</span>
+            <span>Local — we know Southeast Georgia</span>
+          </div>
+        </div>
+
+        <div style="background:#1B365D;padding:8px 16px;border-radius:4px;display:inline-block">
+          <span class="fh" style="font-size:12px;font-weight:700;color:#fff;letter-spacing:.04em">
+            <!-- PHONE -->[555-000-0000] &nbsp;·&nbsp; vpbuyshomes.com
+          </span>
+        </div>
+      </div>
+
+      <!-- Mailing side -->
+      <div class="pcb-mail">
+        <!-- Stamp area -->
+        <div style="border:1px solid #D1DCE8;border-radius:4px;padding:8px;height:60px;display:flex;align-items:center;justify-content:center;margin-bottom:12px">
+          <span style="font-size:9px;color:#D1DCE8;text-align:center;letter-spacing:.04em;line-height:1.6">FIRST CLASS<br>PRESORT<br>U.S. POSTAGE PAID</span>
+        </div>
+
+        <!-- Indicia / return address -->
+        <div>
+          <div style="font-size:8px;color:#9CA3AF;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">From:</div>
+          <div style="font-size:9px;color:#6B7280;line-height:1.7">VP Equities<br><!-- RETURN ADDRESS -->[Street Address]<br>[City], GA [ZIP]<br>vpbuyshomes.com</div>
+        </div>
+
+        <!-- Delivery address -->
+        <div>
+          <div style="font-size:8px;color:#9CA3AF;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">To:</div>
+          <div style="font-size:10px;color:#0D1B2A;font-weight:600;line-height:1.7">
+            <!-- RECIPIENT -->
+            [Recipient Name]<br>
+            [Street Address]<br>
+            [City], GA [ZIP]
+          </div>
+        </div>
+
+        <!-- USPS barcode placeholder -->
+        <div style="border:1px dashed #D1DCE8;border-radius:3px;padding:4px 6px;text-align:center">
+          <span style="font-size:8px;color:#D1DCE8;letter-spacing:.04em">USPS BARCODE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  <strong>Print notes:</strong> Trim size is 6" × 4". Add 0.125" bleed on all edges when setting up in InDesign/Canva. Use a CMYK-capable print service. Navy ink: CMYK 71/42/0/64. Amber: CMYK 0/31/63/5. Minimum 100 lb. gloss cardstock recommended for direct mail. Replace all bracketed fields before sending to print or mail house.
+</div>
+
+</body>
+</html>

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VP Equities — Brand Guidelines 2025</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B365D;
+  --navy-deep:#0F2040;
+  --navy-mid:#264D80;
+  --white:#FFFFFF;
+  --amber:#F2A65A;
+  --amber-dark:#D4862E;
+  --light:#EEF2F7;
+  --border:#D1DCE8;
+  --dark:#0D1B2A;
+  --gray:#6B7280;
+  --fh:'Barlow Semi Condensed',Arial Narrow,sans-serif;
+  --fb:'Nunito Sans','Helvetica Neue',sans-serif;
+}
+body{font-family:var(--fb);color:var(--dark);background:#fff;line-height:1.6}
+.page{max-width:960px;margin:0 auto}
+
+/* LAYOUT */
+.sec{padding:72px 60px;border-bottom:1px solid var(--border)}
+.sec.dark{background:var(--navy);color:#fff;border-bottom:none}
+.sec.light{background:var(--light)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+
+/* TYPE */
+.sn{font-family:var(--fb);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);font-weight:700;margin-bottom:10px}
+.nn{font-family:var(--fh);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-mid);font-weight:600;margin-bottom:6px}
+.sec.dark .nn{color:rgba(255,255,255,.35)}
+h2.st{font-family:var(--fh);font-size:38px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--navy);line-height:1;margin-bottom:36px}
+.sec.dark h2.st,.sec.dark h2{color:#fff}
+.sec.light h2.st{color:var(--navy)}
+p.bd{font-size:14px;color:var(--gray);line-height:1.75;margin-bottom:14px}
+.sec.dark p.bd{color:rgba(255,255,255,.6)}
+.tl{font-family:var(--fb);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gray);font-weight:600;margin-bottom:16px}
+
+/* COVER */
+.cover{background:var(--navy);padding:90px 60px 72px;position:relative;overflow:hidden}
+.cover::before{content:'';position:absolute;right:-60px;top:-60px;width:380px;height:380px;border-radius:50%;border:72px solid rgba(255,255,255,.04)}
+.cover::after{content:'';position:absolute;right:80px;bottom:-100px;width:220px;height:220px;border-radius:50%;border:40px solid rgba(255,255,255,.03)}
+.cover-bot{display:flex;justify-content:space-between;align-items:flex-end;margin-top:56px;border-top:1px solid rgba(255,255,255,.1);padding-top:24px}
+
+/* MARK */
+.mark{display:inline-flex;align-items:center}
+.mark .vp{font-family:var(--fh);font-weight:700;line-height:1;letter-spacing:.02em}
+
+/* LOGO BOXES */
+.lb{border-radius:10px;padding:36px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:20px}
+.lb.w{background:#fff;border:1px solid var(--border)}
+.lb.n{background:var(--navy)}
+.lb.l{background:var(--light);border:1px solid var(--border)}
+
+/* SWATCHES */
+.sw{border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+.sc{height:110px}
+.si{padding:14px;background:#fff}
+.sname{font-family:var(--fh);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--navy);margin-bottom:4px}
+.shex{font-family:monospace;font-size:12px;color:var(--gray)}
+.svals{font-size:10px;color:var(--gray);margin-top:4px;line-height:1.9}
+.svals strong{color:var(--navy);font-size:11px}
+
+/* TYPE SPECIMEN */
+.ts{border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.tmeta{background:var(--light);padding:11px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.tmname{font-family:var(--fh);font-size:13px;font-weight:700;color:var(--navy);letter-spacing:.04em;text-transform:uppercase}
+.tmrole{font-size:10px;color:var(--gray);letter-spacing:.08em;text-transform:uppercase}
+.tprev{padding:24px 22px}
+
+/* VOICE */
+.vcard{border-radius:8px;padding:22px}
+.vdo{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+.vdont{background:rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.06)}
+.vex{font-size:13px;color:rgba(255,255,255,.78);line-height:1.65;margin-bottom:8px;padding:8px 12px;border-left:2px solid rgba(255,255,255,.1);border-radius:0 4px 4px 0}
+.vdo .vex{border-left-color:var(--amber)}
+.vdont .vex{opacity:.55}
+
+/* BCARD */
+.bcard{width:340px;height:194px;border-radius:8px;position:relative;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.14)}
+.bfront{background:var(--navy);padding:26px;display:flex;flex-direction:column;justify-content:space-between}
+.bback{background:#fff;border:1px solid var(--border);padding:26px;display:flex;flex-direction:column;justify-content:space-between}
+
+/* OFFER LETTER */
+.lhead{background:#fff;border:1px solid var(--border);border-radius:8px;overflow:hidden}
+.lhtop{background:var(--navy);padding:22px 32px;display:flex;justify-content:space-between;align-items:center}
+.lhbody{padding:24px 32px;border-bottom:3px solid var(--navy)}
+
+/* POSTCARD */
+.pc{border-radius:8px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.1);max-width:580px}
+.pcf{background:var(--navy);padding:36px}
+.pcb{background:#fff;padding:28px;display:grid;grid-template-columns:1fr 110px;gap:20px}
+
+/* SOCIAL */
+.sbanner{width:100%;aspect-ratio:820/312;background:var(--navy);border-radius:8px;overflow:hidden;position:relative;padding:36px 44px;display:flex;align-items:center;gap:24px}
+
+/* FOOTER */
+.docfooter{background:var(--dark);padding:36px 60px;display:flex;justify-content:space-between;align-items:center}
+.docfooter p{font-size:11px;color:rgba(255,255,255,.28)}
+
+@media print{
+  .sec{page-break-inside:avoid}
+  .sec.dark,.cover{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- ═══ COVER ═══════════════════════════════════ -->
+<div class="cover">
+  <div class="sn">Brand Guidelines · 2025</div>
+  <div style="display:flex;align-items:center;gap:12px;margin:18px 0 12px">
+    <span style="font-family:var(--fh);font-size:72px;font-weight:800;color:#fff;letter-spacing:.02em;line-height:1">VP</span>
+    <svg width="64" height="64" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/><rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/></svg>
+  </div>
+  <div style="font-family:var(--fh);font-size:40px;font-weight:700;color:rgba(255,255,255,.22);letter-spacing:.12em;text-transform:uppercase;line-height:1">EQUITIES</div>
+  <div class="cover-bot">
+    <div>
+      <div style="font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px">Primary Brand Color</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:14px;height:14px;background:var(--amber);border-radius:50%"></div>
+        <span style="font-family:monospace;font-size:13px;color:rgba(255,255,255,.6)">#1B365D True Navy · #F2A65A Warm Amber</span>
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div style="font-size:12px;color:rgba(255,255,255,.3)">vpbuyshomes.com</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.2);margin-top:3px">Southeast Georgia</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 01 · LOGO SYSTEM ═══════════════════════ -->
+<div class="sec">
+  <div class="nn">01</div>
+  <h2 class="st">Logo System</h2>
+  <p class="bd" style="max-width:560px;margin-bottom:36px">The VP Equities mark pairs the company's initials with a clean geometric house icon. The "VP" and house always appear together as a unit — never the house alone, never VP text without it.</p>
+
+  <div class="g2" style="margin-bottom:28px">
+    <!-- On white -->
+    <div>
+      <div class="tl">Primary — on white</div>
+      <div class="lb w">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font-family:var(--fh);font-size:54px;font-weight:700;color:var(--navy);letter-spacing:.02em;line-height:1">VP</span>
+          <svg width="50" height="50" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/><rect x="11" y="18" width="10" height="12" rx="1" fill="white"/></svg>
+        </div>
+        <div style="width:100%;max-width:260px;border-top:1px solid var(--border);padding-top:18px;display:flex;align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;gap:5px">
+            <span style="font-family:var(--fh);font-size:32px;font-weight:700;color:var(--navy);letter-spacing:.02em;line-height:1">VP</span>
+            <svg width="28" height="28" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/><rect x="11" y="18" width="10" height="12" rx="1" fill="white"/></svg>
+          </div>
+          <div style="border-left:2px solid rgba(27,54,93,.15);padding-left:12px">
+            <div style="font-family:var(--fh);font-size:14px;font-weight:700;letter-spacing:.1em;color:var(--navy);text-transform:uppercase">VP EQUITIES</div>
+            <div style="font-family:var(--fb);font-size:8.5px;letter-spacing:.18em;color:#bbb;text-transform:uppercase;margin-top:2px">VPBUYSHOMES.COM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- On navy -->
+    <div>
+      <div class="tl">Reversed — on navy</div>
+      <div class="lb n">
+        <div style="display:flex;align-items:center;gap:9px">
+          <span style="font-family:var(--fh);font-size:54px;font-weight:700;color:#fff;letter-spacing:.02em;line-height:1">VP</span>
+          <svg width="50" height="50" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/><rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/></svg>
+        </div>
+        <div style="width:100%;max-width:260px;border-top:1px solid rgba(255,255,255,.12);padding-top:18px;display:flex;align-items:center;gap:12px">
+          <div style="display:flex;align-items:center;gap:5px">
+            <span style="font-family:var(--fh);font-size:32px;font-weight:700;color:#fff;letter-spacing:.02em;line-height:1">VP</span>
+            <svg width="28" height="28" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/><rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/></svg>
+          </div>
+          <div style="border-left:2px solid rgba(255,255,255,.18);padding-left:12px">
+            <div style="font-family:var(--fh);font-size:14px;font-weight:700;letter-spacing:.1em;color:#fff;text-transform:uppercase">VP EQUITIES</div>
+            <div style="font-family:var(--fb);font-size:8.5px;letter-spacing:.18em;color:rgba(255,255,255,.4);text-transform:uppercase;margin-top:2px">VPBUYSHOMES.COM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sizes -->
+  <div class="tl">Minimum sizes — mark scales</div>
+  <div class="lb l" style="flex-direction:row;justify-content:flex-start;gap:40px;padding:24px 32px;margin-bottom:28px">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+      <div style="display:flex;align-items:center;gap:6px">
+        <span style="font-family:var(--fh);font-size:48px;font-weight:700;color:var(--navy);line-height:1">VP</span>
+        <svg width="44" height="44" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/><rect x="11" y="18" width="10" height="12" rx="1" fill="white"/></svg>
+      </div>
+      <span style="font-size:10px;color:var(--gray);letter-spacing:.06em">Large</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+      <div style="display:flex;align-items:center;gap:4px">
+        <span style="font-family:var(--fh);font-size:30px;font-weight:700;color:var(--navy);line-height:1">VP</span>
+        <svg width="28" height="28" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/><rect x="11" y="18" width="10" height="12" rx="1" fill="white"/></svg>
+      </div>
+      <span style="font-size:10px;color:var(--gray);letter-spacing:.06em">Medium</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+      <div style="display:flex;align-items:center;gap:3px">
+        <span style="font-family:var(--fh);font-size:20px;font-weight:700;color:var(--navy);line-height:1">VP</span>
+        <svg width="18" height="18" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/><rect x="11" y="18" width="10" height="12" rx="1" fill="white"/></svg>
+      </div>
+      <span style="font-size:10px;color:var(--amber);font-weight:700;letter-spacing:.06em">24px — min</span>
+    </div>
+  </div>
+
+  <!-- Misuse -->
+  <div class="tl">Do not misuse the mark</div>
+  <div class="g3">
+    <div style="border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center">
+      <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:10px;filter:saturate(0);opacity:.35">
+        <span style="font-family:serif;font-size:26px;font-weight:700;color:var(--navy)">VP</span>
+        <svg width="22" height="22" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/></svg>
+      </div>
+      <div style="font-size:11px;color:var(--gray)">Do not change the typeface</div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center">
+      <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:10px">
+        <span style="font-family:var(--fh);font-size:26px;font-weight:700;color:#e33;letter-spacing:.02em">VP</span>
+        <svg width="22" height="22" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#e33"/></svg>
+      </div>
+      <div style="font-size:11px;color:var(--gray)">Do not use off-brand colors</div>
+    </div>
+    <div style="border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center">
+      <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:10px">
+        <svg width="28" height="28" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/><rect x="11" y="18" width="10" height="12" rx="1" fill="white"/></svg>
+      </div>
+      <div style="font-size:11px;color:var(--gray)">Do not use house alone without VP</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 02 · COLOR PALETTE ═══════════════════ -->
+<div class="sec light">
+  <div class="nn">02</div>
+  <h2 class="st">Color Palette</h2>
+  <p class="bd" style="max-width:560px;margin-bottom:36px">True Navy anchors all brand touchpoints. Warm Amber is the action color — reserve it exclusively for CTAs, badges, and key callouts. Never dilute it by overusing it.</p>
+
+  <div class="g5" style="margin-bottom:24px">
+    <div class="sw">
+      <div class="sc" style="background:#1B365D"></div>
+      <div class="si"><div class="sname">True Navy</div><div class="shex">#1B365D</div><div class="svals">RGB 27 / 54 / 93<br>CMYK 71 / 42 / 0 / 64<br><strong>Primary</strong></div></div>
+    </div>
+    <div class="sw">
+      <div class="sc" style="background:#FFFFFF;border-bottom:1px solid var(--border)"></div>
+      <div class="si"><div class="sname">White</div><div class="shex">#FFFFFF</div><div class="svals">RGB 255 / 255 / 255<br>CMYK 0 / 0 / 0 / 0<br><strong>Background</strong></div></div>
+    </div>
+    <div class="sw">
+      <div class="sc" style="background:#F2A65A"></div>
+      <div class="si"><div class="sname">Warm Amber</div><div class="shex">#F2A65A</div><div class="svals">RGB 242 / 166 / 90<br>CMYK 0 / 31 / 63 / 5<br><strong>CTA / Accent</strong></div></div>
+    </div>
+    <div class="sw">
+      <div class="sc" style="background:#EEF2F7"></div>
+      <div class="si"><div class="sname">Light Tint</div><div class="shex">#EEF2F7</div><div class="svals">RGB 238 / 242 / 247<br>CMYK 4 / 2 / 0 / 3<br><strong>Page BG</strong></div></div>
+    </div>
+    <div class="sw">
+      <div class="sc" style="background:#0D1B2A"></div>
+      <div class="si"><div class="sname">Near Black</div><div class="shex">#0D1B2A</div><div class="svals">RGB 13 / 27 / 42<br>CMYK 69 / 36 / 0 / 84<br><strong>Body Text</strong></div></div>
+    </div>
+  </div>
+
+  <div class="g3">
+    <div style="background:#fff;border-radius:8px;padding:16px;border:1px solid var(--border)">
+      <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Preferred ratio</div>
+      <div style="display:flex;border-radius:4px;overflow:hidden;height:30px">
+        <div style="flex:4;background:#1B365D"></div>
+        <div style="flex:1;background:#F2A65A"></div>
+      </div>
+      <div style="font-size:11px;color:var(--gray);margin-top:8px">80% navy, 20% amber (CTAs only)</div>
+    </div>
+    <div style="background:#fff;border-radius:8px;padding:16px;border:1px solid var(--border)">
+      <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Digital pages</div>
+      <div style="display:flex;border-radius:4px;overflow:hidden;height:30px">
+        <div style="flex:2;background:#EEF2F7"></div>
+        <div style="flex:2;background:#1B365D"></div>
+        <div style="flex:1;background:#fff;border:1px solid #D1DCE8"></div>
+      </div>
+      <div style="font-size:11px;color:var(--gray);margin-top:8px">Tint pages, navy sections, white cards</div>
+    </div>
+    <div style="background:#fff;border-radius:8px;padding:16px;border:1px solid var(--border)">
+      <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Print / direct mail</div>
+      <div style="display:flex;border-radius:4px;overflow:hidden;height:30px">
+        <div style="flex:1;background:#1B365D"></div>
+        <div style="flex:1;background:#fff;border:1px solid #D1DCE8"></div>
+      </div>
+      <div style="font-size:11px;color:var(--gray);margin-top:8px">Two-color print: navy + white only</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 03 · TYPOGRAPHY ══════════════════════ -->
+<div class="sec">
+  <div class="nn">03</div>
+  <h2 class="st">Typography</h2>
+  <p class="bd" style="max-width:560px;margin-bottom:36px">Two typefaces only. Barlow Semi Condensed for all headlines and display text — it commands attention. Nunito Sans for all body copy, captions, and UI labels.</p>
+
+  <div class="g2" style="margin-bottom:28px">
+    <div class="ts">
+      <div class="tmeta"><span class="tmname">Barlow Semi Condensed</span><span class="tmrole">Headlines / Display</span></div>
+      <div class="tprev">
+        <div style="font-family:var(--fh);font-size:52px;font-weight:700;color:var(--navy);line-height:1;margin-bottom:10px">Aa Bb Cc</div>
+        <div style="font-family:var(--fh);font-size:16px;font-weight:600;color:var(--navy);letter-spacing:.06em;margin-bottom:8px">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+        <div style="font-family:var(--fh);font-size:14px;color:var(--gray)">We Buy Houses for Cash. No Repairs. No Fees. Close in 7 Days.</div>
+      </div>
+    </div>
+    <div class="ts">
+      <div class="tmeta"><span class="tmname">Nunito Sans</span><span class="tmrole">Body / UI</span></div>
+      <div class="tprev">
+        <div style="font-family:var(--fb);font-size:52px;font-weight:400;color:var(--navy);line-height:1;margin-bottom:10px">Aa Bb Cc</div>
+        <div style="font-family:var(--fb);font-size:13px;font-weight:600;color:var(--navy);letter-spacing:.06em;margin-bottom:8px">ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+        <div style="font-family:var(--fb);font-size:13px;color:var(--gray);line-height:1.75">We know Southeast Georgia. We close fast, pay fairly, and make the process simple for homeowners in any situation.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tl">Type scale</div>
+  <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden">
+    <div style="display:grid;grid-template-columns:110px 1fr 130px;background:var(--light);padding:9px 20px;border-bottom:1px solid var(--border)">
+      <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)">Role</span>
+      <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)">Specimen</span>
+      <span style="font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)">Spec</span>
+    </div>
+    <div style="display:grid;grid-template-columns:110px 1fr 130px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center">
+      <span style="font-size:11px;color:var(--gray)">Hero / H1</span>
+      <span style="font-family:var(--fh);font-size:42px;font-weight:700;color:var(--navy);letter-spacing:.02em;line-height:1">Sell Fast, Close Fast</span>
+      <span style="font-size:10px;color:var(--gray)">Barlow SC 700<br>42–60px · lh 1.0</span>
+    </div>
+    <div style="display:grid;grid-template-columns:110px 1fr 130px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center">
+      <span style="font-size:11px;color:var(--gray)">Section H2</span>
+      <span style="font-family:var(--fh);font-size:28px;font-weight:700;color:var(--navy);letter-spacing:.02em">How It Works</span>
+      <span style="font-size:10px;color:var(--gray)">Barlow SC 700<br>26–32px · lh 1.1</span>
+    </div>
+    <div style="display:grid;grid-template-columns:110px 1fr 130px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center">
+      <span style="font-size:11px;color:var(--gray)">Card H3</span>
+      <span style="font-family:var(--fh);font-size:20px;font-weight:600;color:var(--navy);letter-spacing:.04em">No Repairs Needed</span>
+      <span style="font-size:10px;color:var(--gray)">Barlow SC 600<br>18–22px · lh 1.2</span>
+    </div>
+    <div style="display:grid;grid-template-columns:110px 1fr 130px;padding:14px 20px;border-bottom:1px solid var(--border);align-items:center">
+      <span style="font-size:11px;color:var(--gray)">Body</span>
+      <span style="font-family:var(--fb);font-size:15px;color:#374151;line-height:1.7">We buy houses in any condition, in any situation.</span>
+      <span style="font-size:10px;color:var(--gray)">Nunito Sans 400<br>14–16px · lh 1.7</span>
+    </div>
+    <div style="display:grid;grid-template-columns:110px 1fr 130px;padding:14px 20px;align-items:center">
+      <span style="font-size:11px;color:var(--gray)">Label / Cap</span>
+      <span style="font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--gray)">Cash Offer Process</span>
+      <span style="font-size:10px;color:var(--gray)">Nunito Sans 700<br>10–12px · allcaps</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 04 · VOICE & TONE ═════════════════════ -->
+<div class="sec dark">
+  <div class="nn">04</div>
+  <h2 class="st">Voice &amp; Tone</h2>
+  <p class="bd" style="max-width:580px;margin-bottom:28px">Our audience is under real stress — foreclosure deadlines, divorce proceedings, inherited homes they can't manage, properties that need more repair than they can afford. They don't need jargon or corporate warmth. They need a clear path forward, fast.</p>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px">
+    <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:9px 16px">
+      <div style="font-family:var(--fh);font-size:14px;font-weight:700;color:#fff;letter-spacing:.06em">DIRECT</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">No jargon, no hedging</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:9px 16px">
+      <div style="font-family:var(--fh);font-size:14px;font-weight:700;color:#fff;letter-spacing:.06em">FAST</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">Speed is the value proposition</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:9px 16px">
+      <div style="font-family:var(--fh);font-size:14px;font-weight:700;color:#fff;letter-spacing:.06em">LOCAL</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">Name the cities, know the market</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:9px 16px">
+      <div style="font-family:var(--fh);font-size:14px;font-weight:700;color:#fff;letter-spacing:.06em">CREDIBLE</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">No fake urgency or inflated claims</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);border-radius:6px;padding:9px 16px">
+      <div style="font-family:var(--fh);font-size:14px;font-weight:700;color:#fff;letter-spacing:.06em">EMPATHETIC</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.4);margin-top:2px">Acknowledge the situation, then solve it</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:36px">
+    <div class="vcard vdo">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:14px">Write like this</div>
+      <div class="vex">"We buy houses in Statesboro for cash. Close in 7 days."</div>
+      <div class="vex">"Facing foreclosure? We can make an offer this week."</div>
+      <div class="vex">"No repairs. No fees. You pick the closing date."</div>
+      <div class="vex">"Inherited a house you don't want? We'll take it as-is."</div>
+      <div class="vex">"Get your cash offer today — no obligation."</div>
+    </div>
+    <div class="vcard vdont">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:14px">Not like this</div>
+      <div class="vex">"Your trusted real estate partner in Southeast Georgia!"</div>
+      <div class="vex">"We're passionate about helping homeowners explore options."</div>
+      <div class="vex">"Schedule a consultation to discuss your unique situation."</div>
+      <div class="vex">"We provide comprehensive property acquisition solutions."</div>
+      <div class="vex">"Limited time offer — act now before it's too late!!!"</div>
+    </div>
+  </div>
+
+  <div style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:14px">Core headlines — use these</div>
+  <div class="g3">
+    <div style="border-top:2px solid var(--amber);padding-top:12px">
+      <div style="font-family:var(--fh);font-size:17px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:5px">WE BUY HOUSES FOR CASH IN SOUTHEAST GEORGIA</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.35)">Primary headline</div>
+    </div>
+    <div style="border-top:2px solid rgba(255,255,255,.12);padding-top:12px">
+      <div style="font-family:var(--fh);font-size:17px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:5px">NO REPAIRS. NO FEES. CLOSE IN DAYS.</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.35)">Benefits statement</div>
+    </div>
+    <div style="border-top:2px solid rgba(255,255,255,.12);padding-top:12px">
+      <div style="font-family:var(--fh);font-size:17px;font-weight:700;color:#fff;line-height:1.2;margin-bottom:5px">GET YOUR CASH OFFER IN 24 HOURS</div>
+      <div style="font-size:10px;color:rgba(255,255,255,.35)">CTA headline</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 05 · BUSINESS CARD ════════════════════ -->
+<div class="sec">
+  <div class="nn">05</div>
+  <h2 class="st">Business Card</h2>
+  <p class="bd" style="max-width:560px;margin-bottom:28px">Standard 3.5" × 2", full-bleed print. Front: navy with reversed mark and rep name. Back: white with full lockup and contact info. Replace all bracketed fields.</p>
+  <div style="display:flex;gap:24px;flex-wrap:wrap">
+    <div>
+      <div class="tl">Front</div>
+      <div class="bcard bfront">
+        <div style="display:flex;align-items:center;gap:5px">
+          <span style="font-family:var(--fh);font-size:24px;font-weight:700;color:#fff;letter-spacing:.02em;line-height:1">VP</span>
+          <svg width="21" height="21" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/><rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/></svg>
+        </div>
+        <div>
+          <div style="font-family:var(--fh);font-size:15px;font-weight:700;color:#fff;letter-spacing:.04em;text-transform:uppercase">[FIRST LAST]</div>
+          <div style="font-family:var(--fb);font-size:9.5px;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-top:3px">Acquisitions Specialist</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="tl">Back</div>
+      <div class="bcard bback">
+        <div style="display:flex;align-items:center;gap:5px">
+          <span style="font-family:var(--fh);font-size:17px;font-weight:700;color:var(--navy);letter-spacing:.02em;line-height:1">VP</span>
+          <svg width="15" height="15" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/><rect x="11" y="18" width="10" height="12" rx="1" fill="white"/></svg>
+          <div style="border-left:1px solid rgba(27,54,93,.2);padding-left:8px;margin-left:2px">
+            <div style="font-family:var(--fh);font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--navy);text-transform:uppercase">EQUITIES</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px">
+          <div style="font-size:11px;color:var(--dark)"><span style="color:var(--amber);font-weight:700">P</span> [555] 000-0000</div>
+          <div style="font-size:11px;color:var(--dark)"><span style="color:var(--amber);font-weight:700">W</span> vpbuyshomes.com</div>
+          <div style="font-size:10px;color:var(--gray);margin-top:2px">Statesboro · Rincon · Savannah<br>Metter · Springfield, GA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 06 · EMAIL SIGNATURE ════════════════ -->
+<div class="sec light">
+  <div class="nn">06</div>
+  <h2 class="st">Email Signature</h2>
+  <p class="bd" style="max-width:560px;margin-bottom:28px">Table-based HTML compatible with Gmail, Outlook, and Apple Mail. Paste into your email client's signature editor. Replace all bracketed fields.</p>
+  <div class="tl">Preview</div>
+  <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:24px 28px;max-width:520px">
+    <table cellpadding="0" cellspacing="0" style="border-collapse:collapse;font-family:Arial,sans-serif">
+      <tr>
+        <td style="padding-right:16px;border-right:3px solid #1B365D;vertical-align:middle">
+          <div style="display:flex;align-items:center;gap:4px">
+            <span style="font-size:22px;font-weight:700;color:#1B365D;line-height:1">VP</span>
+            <svg width="19" height="19" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/><rect x="11" y="18" width="10" height="12" rx="1" fill="white"/></svg>
+          </div>
+        </td>
+        <td style="padding-left:16px;vertical-align:top">
+          <div style="font-size:14px;font-weight:700;color:#0D1B2A">[First Last]</div>
+          <div style="font-size:10px;color:#6B7280;text-transform:uppercase;letter-spacing:.06em;margin-bottom:9px">Acquisitions Specialist · VP Equities</div>
+          <div style="border-top:1px solid #D1DCE8;padding-top:9px;font-size:12px;color:#374151;line-height:1.8">
+            <div><span style="color:#F2A65A;font-weight:700">P</span> [555] 000-0000 &nbsp;|&nbsp; <span style="color:#F2A65A;font-weight:700">W</span> vpbuyshomes.com</div>
+            <div style="font-size:11px;color:#9CA3AF;margin-top:2px">Statesboro · Rincon · Savannah · Metter · Springfield, GA</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ═══ 07 · OFFER LETTER HEADER ════════════ -->
+<div class="sec">
+  <div class="nn">07</div>
+  <h2 class="st">Offer Letter Header</h2>
+  <p class="bd" style="max-width:560px;margin-bottom:28px">Use on all formal cash offer letters. The navy bar signals professionalism immediately. The amber badge reinforces the "all cash, as-is" value at a glance.</p>
+  <div class="tl">Preview — letter header</div>
+  <div class="lhead">
+    <div class="lhtop">
+      <div style="display:flex;align-items:center;gap:7px">
+        <span style="font-family:var(--fh);font-size:26px;font-weight:700;color:#fff;letter-spacing:.02em;line-height:1">VP</span>
+        <svg width="22" height="22" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/><rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/></svg>
+        <div style="border-left:1px solid rgba(255,255,255,.2);padding-left:10px">
+          <div style="font-family:var(--fh);font-size:12px;font-weight:700;letter-spacing:.1em;color:#fff;text-transform:uppercase">VP EQUITIES</div>
+          <div style="font-family:var(--fb);font-size:8px;letter-spacing:.14em;color:rgba(255,255,255,.4);text-transform:uppercase">VPBUYSHOMES.COM</div>
+        </div>
+      </div>
+      <div style="font-family:var(--fb);font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.04em">Date: ________________</div>
+    </div>
+    <div class="lhbody">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+        <div>
+          <div style="font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Cash Offer For Property At</div>
+          <div style="font-family:var(--fh);font-size:18px;font-weight:700;color:var(--navy)">[PROPERTY ADDRESS]</div>
+          <div style="font-size:12px;color:var(--gray);margin-top:2px">[City], Georgia [ZIP]</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:4px">Offer Amount</div>
+          <div style="font-family:var(--fh);font-size:30px;font-weight:700;color:var(--navy);letter-spacing:.02em">$[000,000]</div>
+          <div style="display:inline-flex;align-items:center;background:var(--amber);padding:3px 12px;border-radius:20px;margin-top:4px">
+            <span style="font-size:9px;font-weight:700;letter-spacing:.08em;color:#fff;text-transform:uppercase">All Cash · As-Is</span>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid var(--border)">
+        <p style="font-size:12px;color:var(--gray);line-height:1.75">Dear [Seller Name], VP Equities is pleased to present this non-contingent cash offer for your property. This offer is not subject to financing, inspection contingencies, or agent commissions. Closing can occur within <strong style="color:var(--navy)">7–21 days</strong> at your preference.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 08 · DIRECT MAIL POSTCARD ═══════════ -->
+<div class="sec light">
+  <div class="nn">08</div>
+  <h2 class="st">Direct Mail Postcard</h2>
+  <p class="bd" style="max-width:560px;margin-bottom:28px">6" × 4" standard postcard, full-bleed. Personalize [CITY] and [FIRST NAME] by mailing list. Target neighborhoods with high foreclosure or absentee-owner rates for best response.</p>
+  <div class="tl">Front</div>
+  <div class="pc" style="margin-bottom:20px">
+    <div class="pcf">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px">
+        <div style="display:flex;align-items:center;gap:4px">
+          <span style="font-family:var(--fh);font-size:17px;font-weight:700;color:#fff;letter-spacing:.02em;line-height:1">VP</span>
+          <svg width="15" height="15" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/><rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/></svg>
+        </div>
+        <div style="background:var(--amber);border-radius:20px;padding:4px 12px">
+          <span style="font-size:9.5px;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase">Cash Offer in 24 Hours</span>
+        </div>
+      </div>
+      <div style="font-family:var(--fh);font-size:30px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:10px;text-transform:uppercase">We Buy Houses<br>in [City], GA for Cash.</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.65);margin-bottom:18px;line-height:1.6">No repairs. No agent fees. Close in as little as 7 days.<br>Any condition, any situation.</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="background:var(--amber);padding:9px 20px;border-radius:4px">
+          <span style="font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;letter-spacing:.04em">CALL / TEXT: [555-000-0000]</span>
+        </div>
+        <span style="font-size:10px;color:rgba(255,255,255,.4)">vpbuyshomes.com</span>
+      </div>
+    </div>
+    <div class="pcb">
+      <div>
+        <div style="font-family:var(--fh);font-size:14px;font-weight:700;color:var(--navy);letter-spacing:.04em;margin-bottom:8px">IS YOUR HOME CAUSING YOU STRESS?</div>
+        <p style="font-size:11px;color:var(--gray);line-height:1.7;margin-bottom:10px">Whether you're facing foreclosure, divorce, an inherited property, or a home that needs major repairs — VP Equities can help. We buy houses in any condition for cash, with zero fees or agent commissions.</p>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <div style="font-size:11px;color:var(--dark)">✓ &nbsp;Cash offer within 24 hours</div>
+          <div style="font-size:11px;color:var(--dark)">✓ &nbsp;Close in 7–21 days</div>
+          <div style="font-size:11px;color:var(--dark)">✓ &nbsp;No repairs, no showings, no fees</div>
+          <div style="font-size:11px;color:var(--dark)">✓ &nbsp;Local — SE Georgia specialists</div>
+        </div>
+      </div>
+      <div style="border-left:1px dashed var(--border);padding-left:14px;display:flex;flex-direction:column;justify-content:space-between">
+        <div style="border:1px solid var(--border);border-radius:4px;padding:8px;height:46px;display:flex;align-items:center;justify-content:center">
+          <span style="font-size:8px;color:#ccc;text-align:center;letter-spacing:.04em">POSTAGE</span>
+        </div>
+        <div>
+          <div style="font-size:9px;color:var(--gray);text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px">Mailing to:</div>
+          <div style="font-size:10px;color:var(--dark);line-height:1.6">[Recipient Name]<br>[Street Address]<br>[City], GA [ZIP]</div>
+        </div>
+        <div style="font-size:9px;color:var(--gray)">VP Equities<br>vpbuyshomes.com</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ 09 · SOCIAL BANNER ════════════════════ -->
+<div class="sec">
+  <div class="nn">09</div>
+  <h2 class="st">Social Media Banner</h2>
+  <p class="bd" style="max-width:560px;margin-bottom:28px">Facebook Cover 820×312px · LinkedIn Banner 1584×396px. Same layout, different export crops. Export at 2× scale for retina sharpness. Replace phone number before publishing.</p>
+  <div class="tl">Facebook Cover — 820 × 312px</div>
+  <div class="sbanner">
+    <div style="position:absolute;right:200px;top:0;bottom:0;width:1px;background:rgba(255,255,255,.08)"></div>
+    <div style="flex:1;position:relative;z-index:1">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:14px">
+        <span style="font-family:var(--fh);font-size:24px;font-weight:700;color:#fff;letter-spacing:.02em;line-height:1">VP</span>
+        <svg width="21" height="21" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/><rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/></svg>
+        <div style="border-left:1px solid rgba(255,255,255,.2);padding-left:8px">
+          <div style="font-family:var(--fh);font-size:11px;font-weight:700;letter-spacing:.1em;color:#fff;text-transform:uppercase">EQUITIES</div>
+        </div>
+      </div>
+      <div style="font-family:var(--fh);font-size:26px;font-weight:700;color:#fff;line-height:1.1;text-transform:uppercase;margin-bottom:8px">We Buy Houses<br>for Cash in SE Georgia</div>
+      <div style="font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.04em">No Repairs &nbsp;·&nbsp; No Fees &nbsp;·&nbsp; Close in 7 Days</div>
+    </div>
+    <div style="background:var(--amber);padding:18px 22px;border-radius:6px;text-align:center;min-width:170px;position:relative;z-index:1">
+      <div style="font-family:var(--fh);font-size:11px;font-weight:700;color:#fff;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px">Get Your Cash Offer</div>
+      <div style="font-family:var(--fh);font-size:17px;font-weight:700;color:#fff;margin-bottom:4px">[555-000-0000]</div>
+      <div style="font-size:9px;color:rgba(255,255,255,.75);letter-spacing:.1em">VPBUYSHOMES.COM</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ════════════════════════════════ -->
+<div class="docfooter">
+  <div style="display:flex;align-items:center;gap:5px">
+    <span style="font-family:var(--fh);font-size:14px;font-weight:700;color:rgba(255,255,255,.4)">VP</span>
+    <svg width="11" height="11" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="rgba(255,255,255,0.3)"/></svg>
+  </div>
+  <p>VP Equities Brand Guidelines &nbsp;·&nbsp; True Navy #1B365D &nbsp;·&nbsp; vpbuyshomes.com &nbsp;·&nbsp; Southeast Georgia</p>
+  <p>2025 — Internal use only</p>
+</div>
+
+</div>
+</body>
+</html>

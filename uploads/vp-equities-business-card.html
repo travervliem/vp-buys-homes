@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>VP Equities — Business Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Nunito Sans',sans-serif;background:#EEF2F7;padding:48px;display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start}
+.fh{font-family:'Barlow Semi Condensed','Arial Narrow',sans-serif}
+.stack{display:flex;flex-direction:column;gap:10px}
+.lbl{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#9CA3AF;font-weight:600}
+
+/* Card: 3.5" x 2" = 336px x 192px at 96dpi */
+.card{
+  width:336px;height:192px;
+  border-radius:6px;
+  overflow:hidden;
+  box-shadow:0 6px 28px rgba(0,0,0,.15);
+  position:relative
+}
+
+/* FRONT: navy */
+.front{
+  background:#1B365D;
+  padding:24px 28px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  height:100%
+}
+.front::after{
+  content:'';position:absolute;right:-24px;top:-24px;
+  width:130px;height:130px;border-radius:50%;
+  border:28px solid rgba(255,255,255,.05)
+}
+
+/* BACK: white */
+.back{
+  background:#fff;
+  border:1px solid #D1DCE8;
+  padding:22px 26px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  height:100%
+}
+
+.note{
+  margin-top:32px;width:100%;
+  font-size:11px;color:#9CA3AF;
+  background:#fff;padding:14px 18px;border-radius:8px;line-height:1.7
+}
+
+@media print{
+  body{background:#fff;padding:0;gap:0;flex-direction:column}
+  .stack{page-break-after:always}
+  .lbl{display:none}
+  .card{box-shadow:none;border-radius:0}
+  .note{display:none}
+  @page{size:3.5in 2in;margin:0}
+}
+</style>
+</head>
+<body>
+
+<!-- FRONT -->
+<div class="stack">
+  <div class="lbl">Front</div>
+  <div class="card">
+    <div class="front">
+      <!-- Logo mark -->
+      <div style="display:flex;align-items:center;gap:5px;position:relative;z-index:1">
+        <span class="fh" style="font-size:23px;font-weight:700;color:#fff;letter-spacing:.02em;line-height:1">VP</span>
+        <svg width="20" height="20" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/>
+          <rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/>
+        </svg>
+      </div>
+      <!-- Name/role -->
+      <div style="position:relative;z-index:1">
+        <div class="fh" style="font-size:15px;font-weight:700;color:#fff;letter-spacing:.04em;text-transform:uppercase;line-height:1;margin-bottom:5px">
+          <!-- NAME -->[First Last]
+        </div>
+        <div style="font-size:9.5px;color:rgba(255,255,255,.45);letter-spacing:.1em;text-transform:uppercase">
+          Acquisitions Specialist
+        </div>
+        <div style="width:28px;height:2px;background:#F2A65A;margin-top:8px;border-radius:1px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BACK -->
+<div class="stack">
+  <div class="lbl">Back</div>
+  <div class="card">
+    <div class="back">
+      <!-- Logo lockup -->
+      <div style="display:flex;align-items:center;gap:5px">
+        <span class="fh" style="font-size:16px;font-weight:700;color:#1B365D;letter-spacing:.02em;line-height:1">VP</span>
+        <svg width="14" height="14" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="16,2 30,12 30,30 2,30 2,12" fill="#1B365D"/>
+          <rect x="11" y="18" width="10" height="12" rx="1" fill="white"/>
+        </svg>
+        <div style="border-left:1px solid rgba(27,54,93,.2);padding-left:7px;margin-left:2px">
+          <span class="fh" style="font-size:9px;font-weight:700;letter-spacing:.1em;color:#1B365D;text-transform:uppercase">EQUITIES</span>
+        </div>
+      </div>
+
+      <!-- Contact details -->
+      <div style="display:flex;flex-direction:column;gap:5px">
+        <div style="display:flex;gap:6px;align-items:center">
+          <span style="color:#F2A65A;font-weight:700;font-size:11px;width:12px">P</span>
+          <span style="font-size:11px;color:#0D1B2A;letter-spacing:.01em"><!-- PHONE -->[555] 000-0000</span>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center">
+          <span style="color:#F2A65A;font-weight:700;font-size:11px;width:12px">W</span>
+          <span style="font-size:11px;color:#1B365D;font-weight:600">vpbuyshomes.com</span>
+        </div>
+        <div style="font-size:9.5px;color:#9CA3AF;margin-top:2px;padding-top:4px;border-top:1px solid #E5E7EB;line-height:1.6">
+          Statesboro &nbsp;·&nbsp; Rincon &nbsp;·&nbsp; Savannah<br>
+          Metter &nbsp;·&nbsp; Springfield, GA
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="note" style="margin-top:32px;max-width:750px">
+  <strong>Print notes:</strong> Trim size 3.5" × 2". Add 0.125" bleed on all sides. Front: full-bleed navy, spot amber accent rule. Back: white stock, navy text. Minimum 16pt cardstock, gloss or soft-touch laminate recommended. CMYK values — Navy: 71/42/0/64 &nbsp;·&nbsp; Amber: 0/31/63/5. Replace <code>[brackets]</code> with rep information before sending to printer. For Canva: set page size to 3.5" × 2" and import colors by HEX.
+</div>
+
+</body>
+</html>
