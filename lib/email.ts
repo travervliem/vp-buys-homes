@@ -1,4 +1,6 @@
-import nodemailer from 'nodemailer'
+import { Resend } from 'resend'
+
+const LEAD_EMAIL = 'traver97@gmail.com'
 
 export async function sendLeadEmail(payload: any) {
   const html = `
@@ -25,24 +27,26 @@ export async function sendLeadEmail(payload: any) {
     </div>
   `
 
-  if (process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS) {
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT ?? 587),
-      secure: false,
-      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
-    })
-    await transporter.sendMail({
-      from: process.env.EMAIL_FROM || 'leads@vpbuyshomes.com',
-      to: process.env.EMAIL_TO || 'leads@vpbuyshomes.com',
-      subject: `New Lead — ${payload.name}${payload.city ? ` (${payload.city})` : ''}`,
-      html,
-    })
-    return { ok: true, provider: 'smtp' }
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) {
+    console.warn('[email] RESEND_API_KEY not set — lead not emailed.')
+    return { ok: false, provider: 'none' }
   }
 
-  console.warn('[email] No SMTP provider configured. Lead not emailed.')
-  return { ok: false, provider: 'none' }
+  const resend = new Resend(apiKey)
+  const { error } = await resend.emails.send({
+    from: 'VP Buys Homes <leads@vpbuyshomes.com>',
+    to: LEAD_EMAIL,
+    subject: `New Lead — ${payload.name}${payload.city ? ` (${payload.city})` : ''}`,
+    html,
+  })
+
+  if (error) {
+    console.error('[email] Resend error:', error)
+    return { ok: false, provider: 'resend', error }
+  }
+
+  return { ok: true, provider: 'resend' }
 }
 
 function row(label: string, value: string) {
