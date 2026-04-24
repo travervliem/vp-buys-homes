@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server'
 import { leadSchema, partialLeadSchema } from '@/lib/validation'
 import { sendLeadEmail } from '@/lib/email'
-import { logLead } from '@/lib/logger'
+import { logToGoogleSheets } from '@/lib/loggers/googleSheets'
 import { logLocal } from '@/lib/loggers/local'
-
-const CITIES = ['Statesboro','Rincon','Savannah','Metter','Springfield','Swainsboro','Claxton','Vidalia','Millen','Waynesboro','Jesup','Dublin']
+import { RECOGNIZED_CITIES } from '@/lib/areas'
 
 function detectCity(address: string): string | null {
-  const hit = CITIES.find(c => address.toLowerCase().includes(c.toLowerCase()))
-  return hit ?? null
+  const lower = address.toLowerCase()
+  return RECOGNIZED_CITIES.find(c => lower.includes(c.toLowerCase())) ?? null
 }
 
 export async function POST(req: Request) {
@@ -66,8 +65,8 @@ export async function POST(req: Request) {
 
   // Partial leads go to sheets + local only — no email to avoid duplicate notifications
   // when the user completes step 2. Full leads also trigger an email.
-  const tasks: Array<Promise<any>> = [logLead({ ...enriched })]
-  if (!isPartial) tasks.push(sendLeadEmail({ ...enriched }))
+  const tasks: Array<Promise<any>> = [logToGoogleSheets(enriched)]
+  if (!isPartial) tasks.push(sendLeadEmail(enriched))
 
   const results = await Promise.allSettled(tasks)
 

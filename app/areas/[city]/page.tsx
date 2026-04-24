@@ -2,9 +2,9 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { LeadForm } from '@/components/LeadForm'
-import { localBusinessAreaJsonLd } from '@/lib/seo'
+import { breadcrumbJsonLd, localBusinessAreaJsonLd } from '@/lib/seo'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vpbuyshomes.com'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
 type AreaData = {
   city: string
@@ -250,10 +250,19 @@ export default function AreaPage({ params }: { params: { city: string } }) {
   if (!area) return notFound()
 
   const schema = localBusinessAreaJsonLd(area.city, area.county, siteUrl, area.slug)
+  const breadcrumbs = breadcrumbJsonLd(
+    [
+      { name: 'Home', href: '/' },
+      { name: 'Areas', href: '/areas' },
+      { name: `${area.city}, GA`, href: `/areas/${area.slug}` },
+    ],
+    siteUrl
+  )
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
 
       {/* Hero */}
       <section style={{ background: '#1B365D', padding: '80px 0 72px' }} className="circle-motif">

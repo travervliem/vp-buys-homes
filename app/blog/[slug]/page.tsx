@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { POSTS } from '../posts'
+import { breadcrumbJsonLd } from '@/lib/seo'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vpbuyshomes.com'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
 export async function generateStaticParams() {
   return POSTS.map(p => ({ slug: p.slug }))
@@ -25,9 +26,19 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   if (!post) return notFound()
 
   const paragraphs = post.body.split('\n\n')
+  const breadcrumbs = breadcrumbJsonLd(
+    [
+      { name: 'Home', href: '/' },
+      { name: 'Resources', href: '/blog' },
+      { name: post.title, href: `/blog/${post.slug}` },
+    ],
+    siteUrl
+  )
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+
       {/* Hero */}
       <section style={{ background: '#1B365D', padding: '72px 0' }} className="circle-motif">
         <div className="wrap" style={{ maxWidth: '760px' }}>

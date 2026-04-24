@@ -4,6 +4,7 @@ node_modules/
 # next.js
 .next/
 out/
+*.tsbuildinfo
 
 # production
 build/
@@ -15,6 +16,9 @@ build/
 
 # vercel
 .vercel
+
+# lead-log fallback (never commit captured leads)
+.data/
 
 # misc
 .DS_Store

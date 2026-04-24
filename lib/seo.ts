@@ -1,4 +1,6 @@
-const PHONE = '(912) 515-6060'
+import { AREAS } from './areas'
+import { FAQS } from './faqs'
+
 const PHONE_RAW = '+19125156060'
 const EMAIL = 'leads@vpbuyshomes.com'
 const ADDRESS = {
@@ -35,16 +37,11 @@ export function orgJsonLd(siteUrl: string) {
       latitude: 32.4488,
       longitude: -81.7832,
     },
-    areaServed: [
-      { '@type': 'City', name: 'Statesboro', containedIn: { '@type': 'AdministrativeArea', name: 'Bulloch County, GA' } },
-      { '@type': 'City', name: 'Rincon', containedIn: { '@type': 'AdministrativeArea', name: 'Effingham County, GA' } },
-      { '@type': 'City', name: 'Savannah', containedIn: { '@type': 'AdministrativeArea', name: 'Chatham County, GA' } },
-      { '@type': 'City', name: 'Metter', containedIn: { '@type': 'AdministrativeArea', name: 'Candler County, GA' } },
-      { '@type': 'City', name: 'Springfield', containedIn: { '@type': 'AdministrativeArea', name: 'Effingham County, GA' } },
-      { '@type': 'City', name: 'Swainsboro', containedIn: { '@type': 'AdministrativeArea', name: 'Emanuel County, GA' } },
-      { '@type': 'City', name: 'Claxton', containedIn: { '@type': 'AdministrativeArea', name: 'Evans County, GA' } },
-      { '@type': 'City', name: 'Vidalia', containedIn: { '@type': 'AdministrativeArea', name: 'Toombs County, GA' } },
-    ],
+    areaServed: AREAS.map(a => ({
+      '@type': 'City',
+      name: a.name,
+      containedIn: { '@type': 'AdministrativeArea', name: `${a.county}, ${a.state}` },
+    })),
     openingHoursSpecification: [
       { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '08:00', closes: '20:00' },
       { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday','Sunday'], opens: '09:00', closes: '17:00' },
@@ -63,20 +60,10 @@ export function orgJsonLd(siteUrl: string) {
 }
 
 export function faqJsonLd() {
-  const faqs = [
-    { q: 'How fast can you make a cash offer on my house?', a: 'We deliver a written cash offer within 24 hours of your submission — often the same day. There is no obligation to accept.' },
-    { q: 'Do I need to make repairs before you buy my house?', a: 'No. We buy houses in any condition — fire damage, foundation issues, outdated systems, full of belongings. You take what you want and leave the rest.' },
-    { q: 'Are there fees or commissions when you buy my house?', a: 'None. We are not real estate agents. We charge no commissions, no listing fees, and we typically cover standard closing costs.' },
-    { q: 'How do I choose my closing date?', a: 'You pick it. We can close in as little as 7 days or give you 30–60 days if you need time to move.' },
-    { q: 'Can you buy my house if I am behind on payments or facing foreclosure?', a: 'Often yes — but timing is critical. Contact us immediately. A quick sale can stop foreclosure before auction.' },
-    { q: 'Do you buy houses outside of Statesboro, GA?', a: 'Yes. We buy across Southeast Georgia — Statesboro, Rincon, Savannah, Metter, Springfield, Swainsboro, Claxton, Vidalia, and surrounding Bulloch, Effingham, Chatham, and Emanuel counties.' },
-    { q: 'How do you calculate your cash offer?', a: 'We look at recent comparable sales in your area, the property condition, and cost of any work needed. We share a clear, written offer with no pressure.' },
-    { q: 'Will you buy an inherited or estate property?', a: 'Yes. We regularly purchase inherited and probate properties as-is, working with your attorney if needed.' },
-  ]
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: faqs.map(f => ({
+    mainEntity: FAQS.map(f => ({
       '@type': 'Question',
       name: f.q,
       acceptedAnswer: { '@type': 'Answer', text: f.a },

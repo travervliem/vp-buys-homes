@@ -1,15 +1,5 @@
 import Link from 'next/link'
-
-const AREAS = [
-  { name: 'Statesboro, GA', href: '/areas/statesboro-ga' },
-  { name: 'Rincon, GA', href: '/areas/rincon-ga' },
-  { name: 'Savannah, GA', href: '/areas/savannah-ga' },
-  { name: 'Metter, GA', href: '/areas/metter-ga' },
-  { name: 'Springfield, GA', href: '/areas/springfield-ga' },
-  { name: 'Swainsboro, GA', href: '/areas/swainsboro-ga' },
-  { name: 'Claxton, GA', href: '/areas/claxton-ga' },
-  { name: 'Vidalia, GA', href: '/areas/vidalia-ga' },
-]
+import { AREAS, areaHref } from '@/lib/areas'
 
 const LINKS = [
   { href: '/how-it-works', label: 'How It Works' },
@@ -87,8 +77,8 @@ export function Footer() {
             <p className="eyebrow eyebrow-white mb-4">Areas We Serve</p>
             <ul className="flex flex-col gap-2">
               {AREAS.map(a => (
-                <li key={a.href}>
-                  <Link href={a.href} className="footer-link">{a.name}</Link>
+                <li key={a.slug}>
+                  <Link href={areaHref(a.slug)} className="footer-link">{a.name}, {a.state}</Link>
                 </li>
               ))}
             </ul>

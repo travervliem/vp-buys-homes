@@ -6,12 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "gsc:auth": "node scripts/gsc-auth.mjs",
+    "gsc:check": "node --env-file=.env.local scripts/gsc-check.mjs"
   },
   "dependencies": {
-    "clsx": "2.1.1",
+    "googleapis": "^171.4.0",
     "next": "14.2.5",
-    "nodemailer": "6.9.13",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "resend": "^6.12.2",
@@ -19,7 +20,6 @@
   },
   "devDependencies": {
     "@types/node": "20.12.12",
-    "@types/nodemailer": "^8.0.0",
     "@types/react": "18.2.79",
     "@types/react-dom": "18.2.25",
     "autoprefixer": "10.4.19",

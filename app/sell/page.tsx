@@ -4,7 +4,7 @@ import { LeadForm } from '@/components/LeadForm'
 export const metadata: Metadata = {
   title: 'Sell Your House Fast for Cash in Southeast Georgia | VP Buys Homes',
   description: 'Get a no-obligation cash offer for your house in Statesboro, Rincon, Savannah, Metter, or Springfield, GA. No repairs, no fees, close in 7 days.',
-  alternates: { canonical: 'https://vpbuyshomes.com/sell' },
+  alternates: { canonical: 'https://www.vpbuyshomes.com/sell' },
 }
 
 const BENEFITS = [

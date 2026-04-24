@@ -5,7 +5,7 @@ import { POSTS } from './posts'
 export const metadata: Metadata = {
   title: 'Resources for Southeast Georgia Homeowners | VP Buys Homes',
   description: 'Guides and resources for homeowners considering selling in Statesboro, Rincon, Savannah, and Southeast Georgia. Learn about cash sales, foreclosure, inherited property, and more.',
-  alternates: { canonical: 'https://vpbuyshomes.com/blog' },
+  alternates: { canonical: 'https://www.vpbuyshomes.com/blog' },
 }
 
 export default function BlogIndex() {

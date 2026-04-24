@@ -1,10 +1,9 @@
 import type { MetadataRoute } from 'next'
 import { POSTS } from './blog/posts'
-
-const AREAS = ['statesboro-ga','rincon-ga','savannah-ga','metter-ga','springfield-ga','swainsboro-ga','claxton-ga','vidalia-ga']
+import { AREAS } from '@/lib/areas'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://vpbuyshomes.com'
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
   const now = new Date()
 
   const coreRoutes: MetadataRoute.Sitemap = [
@@ -15,11 +14,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.7 },
   ]
 
-  const areaRoutes: MetadataRoute.Sitemap = AREAS.map(slug => ({
-    url: `${base}/areas/${slug}`,
+  const areaRoutes: MetadataRoute.Sitemap = AREAS.map(area => ({
+    url: `${base}/areas/${area.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,
-    priority: slug === 'statesboro-ga' ? 0.95 : 0.85,
+    priority: area.primary ? 0.95 : 0.85,
   }))
 
   const blogRoutes: MetadataRoute.Sitemap = POSTS.map(post => ({

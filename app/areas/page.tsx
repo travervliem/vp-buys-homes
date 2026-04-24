@@ -1,22 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { AREAS, areaHref } from '@/lib/areas'
 
 export const metadata: Metadata = {
   title: 'Areas We Serve — Southeast Georgia Cash Home Buyers',
   description: 'VP Buys Homes buys houses for cash across Southeast Georgia — Statesboro, Rincon, Savannah, Metter, Springfield, and more. No repairs, no fees, cash offer in 24 hours.',
-  alternates: { canonical: 'https://vpbuyshomes.com/areas' },
+  alternates: { canonical: 'https://www.vpbuyshomes.com/areas' },
 }
-
-const AREAS = [
-  { city: 'Statesboro', county: 'Bulloch County', slug: 'statesboro-ga', primary: true, copy: 'Our home market. We buy across all of Bulloch County — any condition, any timeline.' },
-  { city: 'Rincon', county: 'Effingham County', slug: 'rincon-ga', copy: 'Fast cash offers for Effingham County sellers. No showings, no repairs.' },
-  { city: 'Savannah', county: 'Chatham County', slug: 'savannah-ga', copy: 'From the Historic District to West Chatham — we buy houses in any condition.' },
-  { city: 'Metter', county: 'Candler County', slug: 'metter-ga', copy: 'Simple, local cash offers for Candler County homeowners.' },
-  { city: 'Springfield', county: 'Effingham County', slug: 'springfield-ga', copy: 'Fast close, no hassle. We know the Effingham market.' },
-  { city: 'Swainsboro', county: 'Emanuel County', slug: 'swainsboro-ga', copy: 'Cash buyers in Emanuel County. Written offer within 24 hours.' },
-  { city: 'Claxton', county: 'Evans County', slug: 'claxton-ga', copy: 'Evans County cash buyer — no fees, no commissions.' },
-  { city: 'Vidalia', county: 'Toombs County', slug: 'vidalia-ga', copy: 'Toombs County cash home buyers. Close fast on your schedule.' },
-]
 
 export default function AreasPage() {
   return (
@@ -45,7 +35,7 @@ export default function AreasPage() {
             {AREAS.map(area => (
               <Link
                 key={area.slug}
-                href={`/areas/${area.slug}`}
+                href={areaHref(area.slug)}
                 style={{ textDecoration: 'none' }}
               >
                 <div className="card" style={{ height: '100%', borderTop: area.primary ? '3px solid #F2A65A' : '3px solid #1B365D' }}>
@@ -55,7 +45,7 @@ export default function AreasPage() {
                       fontSize: '22px', fontWeight: 700, textTransform: 'uppercase',
                       letterSpacing: '0.02em', color: '#1B365D',
                     }}>
-                      {area.city}, GA
+                      {area.name}, {area.state}
                     </h2>
                     {area.primary && <span className="badge-amber">Primary</span>}
                   </div>
@@ -63,7 +53,7 @@ export default function AreasPage() {
                     {area.county}
                   </p>
                   <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '14px', lineHeight: 1.65, color: '#374151' }}>
-                    {area.copy}
+                    {area.shortCopy}
                   </p>
                   <p style={{ marginTop: '16px', fontFamily: "'Nunito Sans',sans-serif", fontSize: '13px', fontWeight: 700, color: '#F2A65A', letterSpacing: '0.04em' }}>
                     Get My Cash Offer →

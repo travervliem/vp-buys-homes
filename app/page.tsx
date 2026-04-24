@@ -3,11 +3,12 @@ import Link from 'next/link'
 import { HeroKinetic } from '@/components/HeroKinetic'
 import { FaqAccordion } from '@/components/FaqAccordion'
 import { LeadForm } from '@/components/LeadForm'
+import { AREAS, areaHref } from '@/lib/areas'
 
 export const metadata: Metadata = {
   title: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
   description: 'We buy houses for cash in Statesboro, GA and surrounding Southeast Georgia. No repairs, no fees, no commissions. Cash offer in 24 hours. Close in as little as 7 days.',
-  alternates: { canonical: 'https://vpbuyshomes.com' },
+  alternates: { canonical: 'https://www.vpbuyshomes.com' },
 }
 
 const STEPS = [
@@ -53,17 +54,6 @@ const SITUATIONS = [
     title: 'Divorce or Estate',
     body: 'A private, fast sale that lets both parties move forward. We keep it simple and confidential.',
   },
-]
-
-const AREAS = [
-  { name: 'Statesboro', county: 'Bulloch County', href: '/areas/statesboro-ga', primary: true },
-  { name: 'Rincon', county: 'Effingham County', href: '/areas/rincon-ga' },
-  { name: 'Savannah', county: 'Chatham County', href: '/areas/savannah-ga' },
-  { name: 'Metter', county: 'Candler County', href: '/areas/metter-ga' },
-  { name: 'Springfield', county: 'Effingham County', href: '/areas/springfield-ga' },
-  { name: 'Swainsboro', county: 'Emanuel County', href: '/areas/swainsboro-ga' },
-  { name: 'Claxton', county: 'Evans County', href: '/areas/claxton-ga' },
-  { name: 'Vidalia', county: 'Toombs County', href: '/areas/vidalia-ga' },
 ]
 
 const TESTIMONIALS = [
@@ -217,8 +207,8 @@ export default function HomePage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', maxWidth: '800px', margin: '0 auto 40px' }}>
             {AREAS.map(area => (
               <Link
-                key={area.href}
-                href={area.href}
+                key={area.slug}
+                href={areaHref(area.slug)}
                 className="area-card-link"
                 style={{
                   display: 'block',

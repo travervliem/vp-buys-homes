@@ -4,7 +4,7 @@ import { NavBar } from '@/components/NavBar'
 import { Footer } from '@/components/Footer'
 import { orgJsonLd, faqJsonLd } from '@/lib/seo'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://vpbuyshomes.com'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
