@@ -22,10 +22,14 @@ export async function sendLeadEmail(payload: any) {
 
   // Attempt preferred from-address first. If domain isn't verified yet, fall
   // back to the Resend sandbox so leads still reach the inbox during setup.
+  // Only pass replyTo when it parses as a plausible email. A malformed one
+  // causes Resend to reject the whole send.
+  const replyTo = isPlausibleEmail(payload.email) ? payload.email : undefined
+
   const firstAttempt = await resend.emails.send({
     from: PREFERRED_FROM,
     to: LEAD_EMAIL,
-    replyTo: payload.email || undefined,
+    replyTo,
     subject,
     html,
   }).catch(err => ({ error: err }))
@@ -35,8 +39,11 @@ export async function sendLeadEmail(payload: any) {
   }
 
   const errMsg = String(firstAttempt.error?.message || firstAttempt.error || '')
-  const looksLikeDomainIssue = /domain|verify|not.?verified|from|identity/i.test(errMsg)
-  console.warn('[email] preferred-from failed:', errMsg, '— trying fallback from-address')
+  const errName = String((firstAttempt.error as any)?.name || '')
+  const looksLikeDomainIssue =
+    /domain|verify|not.?verified|from|identity/i.test(errMsg) ||
+    errName === 'validation_error'
+  console.warn('[email] preferred-from failed:', errName, '|', errMsg, '— trying fallback from-address')
 
   if (!looksLikeDomainIssue) {
     return { ok: false, provider: 'resend', from: PREFERRED_FROM, error: errMsg }
@@ -45,7 +52,7 @@ export async function sendLeadEmail(payload: any) {
   const second = await resend.emails.send({
     from: FALLBACK_FROM,
     to: LEAD_EMAIL,
-    replyTo: payload.email || undefined,
+    replyTo,
     subject: `[UNVERIFIED DOMAIN] ${subject}`,
     html: `
       <div style="background:#FFF8E6;border:1px solid #F2A65A;padding:12px 16px;border-radius:6px;margin-bottom:16px;font-family:sans-serif;font-size:13px;color:#1B365D">
@@ -97,6 +104,10 @@ function buildHtml(payload: any) {
       </div>
     </div>
   `
+}
+
+function isPlausibleEmail(s: unknown): s is string {
+  return typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s)
 }
 
 function row(label: string, value: string) {
