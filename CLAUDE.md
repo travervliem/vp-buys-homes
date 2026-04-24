@@ -12,7 +12,7 @@ Phone: `(912) 515-6060` · Lead email: `traver97@gmail.com` · From address: `le
 - **Tailwind 3.4** with custom theme tokens (see `tailwind.config.ts`)
 - **Zod** for input validation
 - **Resend** for transactional email (lead notifications)
-- **google-spreadsheet v4** for lead logging to Google Sheets
+- **Google Apps Script webhook** for lead logging to Google Sheets (via `SHEETS_WEBHOOK_URL`)
 - **Deployed on Vercel** (`.vercel/project.json` is linked)
 
 Path alias: `@/*` → project root.
@@ -65,10 +65,7 @@ NEXT_PUBLIC_SITE_URL=https://vpbuyshomes.com
 NEXT_PUBLIC_MAPBOX_TOKEN=...          # optional — powers address autocomplete
 LEAD_NOTIFICATION_EMAIL=traver97@gmail.com  # optional, override recipient
 RESEND_API_KEY=...
-GOOGLE_SHEETS_CLIENT_EMAIL=...
-GOOGLE_SHEETS_PRIVATE_KEY=...         # \n-escaped newlines
-GOOGLE_SHEETS_SPREADSHEET_ID=...
-GOOGLE_SHEETS_WORKSHEET_TITLE=Leads   # optional, defaults to "Leads"
+SHEETS_WEBHOOK_URL=...                # Google Apps Script web app /exec URL
 ```
 
 Address autocomplete (`components/AddressAutocomplete.tsx`) uses Mapbox. The component is isolated behind a standard input interface — swapping providers (Google Places, LocationIQ, etc.) only requires replacing its `fetchSuggestions` implementation.
