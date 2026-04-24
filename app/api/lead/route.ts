@@ -94,7 +94,8 @@ export async function POST(req: Request) {
     })
   )
 
-  return NextResponse.json({
+  const debug = new URL(req.url).searchParams.has('debug')
+  const responseBody: Record<string, unknown> = {
     ok: true,
     status,
     sessionId,
@@ -103,5 +104,9 @@ export async function POST(req: Request) {
       email: email?.ok ?? false,
       sheets: logged?.ok ?? false,
     },
-  })
+  }
+  if (debug) {
+    responseBody.debug = { email, logged, localResult }
+  }
+  return NextResponse.json(responseBody)
 }
