@@ -94,19 +94,17 @@ export async function POST(req: Request) {
     })
   )
 
-  const debug = new URL(req.url).searchParams.has('debug')
-  const responseBody: Record<string, unknown> = {
+  // TEMP — always include debug details while diagnosing prod failure.
+  return NextResponse.json({
     ok: true,
     status,
     sessionId,
+    version: 'diagnose-1',
     saved: {
       local: localResult?.ok ?? false,
       email: email?.ok ?? false,
       sheets: logged?.ok ?? false,
     },
-  }
-  if (debug) {
-    responseBody.debug = { email, logged, localResult }
-  }
-  return NextResponse.json(responseBody)
+    debug: { email, logged, localResult, sheetsUrlSet: Boolean(process.env.SHEETS_WEBHOOK_URL), resendSet: Boolean(process.env.RESEND_API_KEY) },
+  })
 }
