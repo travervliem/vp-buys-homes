@@ -1,5 +1,25 @@
 // @ts-nocheck
 import { GoogleSpreadsheet } from 'google-spreadsheet'
+import { JWT } from 'google-auth-library'
+
+const HEADERS = [
+  'timestamp',
+  'status',
+  'sessionId',
+  'name',
+  'phone',
+  'email',
+  'address',
+  'city',
+  'reasonForSelling',
+  'expectedPrice',
+  'roofAge',
+  'hvacAge',
+  'timeline',
+  'notes',
+  'source',
+  'userAgent',
+]
 
 export async function logToGoogleSheets(row: Record<string, any>) {
   const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL
@@ -9,25 +29,54 @@ export async function logToGoogleSheets(row: Record<string, any>) {
 
   if (!clientEmail || !privateKey || !spreadsheetId) return { ok: false, reason: 'missing-env' }
 
-  // google-spreadsheet v4 accepts auth as second arg
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const doc = new (GoogleSpreadsheet as any)(spreadsheetId, {
-    apiKey: undefined,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  } as any)
-  // Fallback for v3 API shape
-  if (typeof doc.useServiceAccountAuth === 'function') {
-    await doc.useServiceAccountAuth({ client_email: clientEmail, private_key: privateKey! })
+  let doc: any
+  try {
+    const jwt = new JWT({
+      email: clientEmail,
+      key: privateKey,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
+    })
+    doc = new GoogleSpreadsheet(spreadsheetId, jwt)
+  } catch (err) {
+    console.error('[sheets] auth init failed', err)
+    return { ok: false, reason: 'auth-failed' }
   }
-  await doc.loadInfo()
-  const sheet = doc.sheetsByTitle[worksheetTitle] || await doc.addSheet({ title: worksheetTitle, headerValues: [
-    'timestamp','name','phone','email','address','situation','timeline','notes','city','source','userAgent'
-  ]})
 
-  await sheet.addRow({
-    timestamp: new Date().toISOString(),
-    ...row,
-  })
+  try {
+    await doc.loadInfo()
+    const sheet =
+      doc.sheetsByTitle[worksheetTitle] ||
+      (await doc.addSheet({ title: worksheetTitle, headerValues: HEADERS }))
 
-  return { ok: true }
+    // Ensure headers exist (first run on an existing blank sheet).
+    try {
+      await sheet.loadHeaderRow()
+    } catch {
+      await sheet.setHeaderRow(HEADERS)
+    }
+
+    await sheet.addRow({
+      timestamp: new Date().toISOString(),
+      status: row.status || 'complete',
+      sessionId: row.sessionId || '',
+      name: row.name || '',
+      phone: row.phone || '',
+      email: row.email || '',
+      address: row.address || '',
+      city: row.city || '',
+      reasonForSelling: row.reasonForSelling || '',
+      expectedPrice: row.expectedPrice || '',
+      roofAge: row.roofAge || '',
+      hvacAge: row.hvacAge || '',
+      timeline: row.timeline || '',
+      notes: row.notes || '',
+      source: row.source || '',
+      userAgent: row.userAgent || '',
+    })
+
+    return { ok: true }
+  } catch (err) {
+    console.error('[sheets] write failed', err)
+    return { ok: false, reason: 'write-failed', error: String(err) }
+  }
 }
