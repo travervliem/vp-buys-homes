@@ -84,19 +84,123 @@ export function breadcrumbJsonLd(items: { name: string; href: string }[], siteUr
   }
 }
 
-export function localBusinessAreaJsonLd(city: string, county: string, siteUrl: string, slug: string) {
+export function localBusinessAreaJsonLd(
+  city: string,
+  county: string,
+  siteUrl: string,
+  slug: string,
+  dates?: { datePublished?: string; dateModified?: string },
+) {
   return {
     '@context': 'https://schema.org',
     '@type': ['LocalBusiness', 'RealEstateAgent'],
+    '@id': `${siteUrl}/areas/${slug}#business`,
     name: `VP Buys Homes — ${city}, GA`,
     url: `${siteUrl}/areas/${slug}`,
     telephone: PHONE_RAW,
+    email: EMAIL,
+    priceRange: '$$',
     areaServed: { '@type': 'City', name: city, containedIn: { '@type': 'AdministrativeArea', name: `${county}, GA` } },
     address: {
       '@type': 'PostalAddress',
       addressLocality: city,
       addressRegion: 'GA',
       addressCountry: 'US',
+    },
+    parentOrganization: { '@id': `${siteUrl}/#organization` },
+    ...(dates?.datePublished ? { datePublished: dates.datePublished } : {}),
+    ...(dates?.dateModified ? { dateModified: dates.dateModified } : {}),
+  }
+}
+
+type ArticleInput = {
+  title: string
+  description: string
+  slug: string
+  category?: string
+  datePublished: string
+  dateModified?: string
+}
+
+export function articleJsonLd(post: ArticleInput, siteUrl: string) {
+  const url = `${siteUrl}/blog/${post.slug}`
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+    headline: post.title,
+    description: post.description,
+    url,
+    datePublished: post.datePublished,
+    dateModified: post.dateModified || post.datePublished,
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+    ...(post.category ? { articleSection: post.category } : {}),
+    author: {
+      '@type': 'Organization',
+      name: 'VP Buys Homes',
+      url: siteUrl,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: 'VP Buys Homes',
+      logo: { '@type': 'ImageObject', url: `${siteUrl}/logo.png` },
+    },
+  }
+}
+
+type HowToStep = { name: string; text: string }
+
+export function howToJsonLd(input: {
+  name: string
+  description: string
+  url: string
+  totalTime?: string
+  steps: HowToStep[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: input.name,
+    description: input.description,
+    ...(input.totalTime ? { totalTime: input.totalTime } : {}),
+    step: input.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+      url: `${input.url}#step-${i + 1}`,
+    })),
+  }
+}
+
+type CollectionItem = { title: string; slug: string; description?: string }
+
+export function collectionPageJsonLd(input: {
+  name: string
+  description: string
+  url: string
+  siteUrl: string
+  items: CollectionItem[]
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: input.name,
+    description: input.description,
+    url: input.url,
+    isPartOf: { '@type': 'WebSite', name: 'VP Buys Homes', url: input.siteUrl },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListOrder: 'https://schema.org/ItemListOrderDescending',
+      numberOfItems: input.items.length,
+      itemListElement: input.items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${input.siteUrl}/blog/${item.slug}`,
+        name: item.title,
+      })),
     },
   }
 }

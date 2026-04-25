@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { POSTS } from '../posts'
-import { breadcrumbJsonLd } from '@/lib/seo'
+import { POSTS, type Post } from '../posts'
+import { articleJsonLd, breadcrumbJsonLd } from '@/lib/seo'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
@@ -13,16 +13,74 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = POSTS.find(p => p.slug === params.slug)
   if (!post) return { title: 'Not Found' }
+  const url = `${siteUrl}/blog/${post.slug}`
   return {
     title: `${post.title} | VP Buys Homes`,
     description: post.metaDescription,
-    alternates: { canonical: `${siteUrl}/blog/${post.slug}` },
-    openGraph: { title: post.title, description: post.metaDescription },
+    alternates: { canonical: url },
+    openGraph: {
+      type: 'article',
+      url,
+      title: post.title,
+      description: post.metaDescription,
+      publishedTime: post.publishedAt,
+      modifiedTime: post.updatedAt,
+      authors: ['VP Buys Homes'],
+      section: post.category,
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.metaDescription,
+    },
   }
 }
 
+const linkStyle = { color: '#1B365D', fontWeight: 700, textDecoration: 'underline' } as const
+
+// Render inline markdown: **bold** and [text](href). Internal hrefs use next/link.
+function renderInline(text: string, keyPrefix: string): React.ReactNode[] {
+  const nodes: React.ReactNode[] = []
+  const re = /\*\*(.+?)\*\*|\[([^\]]+)\]\(([^)]+)\)/g
+  let last = 0
+  let m: RegExpExecArray | null
+  let n = 0
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) nodes.push(text.slice(last, m.index))
+    if (m[1] !== undefined) {
+      nodes.push(<strong key={`${keyPrefix}-${n++}`} style={{ color: '#1B365D' }}>{m[1]}</strong>)
+    } else if (m[2] !== undefined && m[3] !== undefined) {
+      const href = m[3]
+      const label = m[2]
+      if (href.startsWith('/')) {
+        nodes.push(<Link key={`${keyPrefix}-${n++}`} href={href} style={linkStyle}>{label}</Link>)
+      } else {
+        const external = href.startsWith('http')
+        nodes.push(
+          <a
+            key={`${keyPrefix}-${n++}`}
+            href={href}
+            style={linkStyle}
+            {...(external ? { rel: 'noopener', target: '_blank' } : {})}
+          >
+            {label}
+          </a>,
+        )
+      }
+    }
+    last = m.index + m[0].length
+  }
+  if (last < text.length) nodes.push(text.slice(last))
+  return nodes
+}
+
+function formatDate(iso: string): string {
+  const d = new Date(`${iso}T00:00:00Z`)
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' })
+}
+
 export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = POSTS.find(p => p.slug === params.slug)
+  const post: Post | undefined = POSTS.find(p => p.slug === params.slug)
   if (!post) return notFound()
 
   const paragraphs = post.body.split('\n\n')
@@ -32,12 +90,24 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       { name: 'Resources', href: '/blog' },
       { name: post.title, href: `/blog/${post.slug}` },
     ],
-    siteUrl
+    siteUrl,
+  )
+  const article = articleJsonLd(
+    {
+      title: post.title,
+      description: post.metaDescription,
+      slug: post.slug,
+      category: post.category,
+      datePublished: post.publishedAt,
+      dateModified: post.updatedAt,
+    },
+    siteUrl,
   )
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(article) }} />
 
       {/* Hero */}
       <section style={{ background: '#1B365D', padding: '72px 0' }} className="circle-motif">
@@ -59,6 +129,21 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           }}>
             {post.title}
           </h1>
+          <p style={{
+            marginTop: '18px',
+            fontFamily: "'Nunito Sans',sans-serif",
+            fontSize: '13px',
+            color: 'rgba(255,255,255,0.55)',
+            letterSpacing: '0.04em',
+          }}>
+            <time dateTime={post.publishedAt}>Published {formatDate(post.publishedAt)}</time>
+            {post.updatedAt !== post.publishedAt && (
+              <>
+                {' · '}
+                <time dateTime={post.updatedAt}>Updated {formatDate(post.updatedAt)}</time>
+              </>
+            )}
+          </p>
         </div>
       </section>
 
@@ -67,7 +152,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         <div className="wrap" style={{ maxWidth: '760px' }}>
           <article>
             {paragraphs.map((para, i) => {
-              if (para.startsWith('**') && para.endsWith('**')) {
+              if (para.startsWith('**') && para.endsWith('**') && !para.slice(2, -2).includes('**')) {
                 const text = para.slice(2, -2)
                 return (
                   <h2 key={i} style={{
@@ -86,7 +171,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                     {items.map((item, j) => (
                       <li key={j} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', marginBottom: '8px', fontFamily: "'Nunito Sans',sans-serif", fontSize: '15px', lineHeight: 1.7, color: '#374151' }}>
                         <span style={{ color: '#F2A65A', fontWeight: 700, flexShrink: 0 }}>✓</span>
-                        {item}
+                        <span>{renderInline(item, `p${i}-li${j}`)}</span>
                       </li>
                     ))}
                   </ul>
@@ -100,14 +185,11 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                       const match = line.match(/^(\d+)\. (.+)$/)
                       if (!match) return null
                       const [, num, rest] = match
-                      const boldMatch = rest.match(/^\*\*(.+?)\*\*(.*)$/)
                       return (
                         <div key={j} style={{ display: 'flex', gap: '12px', marginBottom: '10px' }}>
                           <span style={{ fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif", fontSize: '16px', fontWeight: 700, color: '#F2A65A', minWidth: '20px' }}>{num}.</span>
                           <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '15px', lineHeight: 1.7, color: '#374151', margin: 0 }}>
-                            {boldMatch ? (
-                              <><strong style={{ color: '#1B365D' }}>{boldMatch[1]}</strong>{boldMatch[2]}</>
-                            ) : rest}
+                            {renderInline(rest, `p${i}-num${j}`)}
                           </p>
                         </div>
                       )
@@ -115,11 +197,13 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                   </div>
                 )
               }
-              const html = para.replace(/\*\*(.+?)\*\*/g, '<strong style="color:#1B365D">$1</strong>')
               return (
-                <p key={i} style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '16px', lineHeight: 1.75, color: '#374151', marginBottom: '20px' }}
-                  dangerouslySetInnerHTML={{ __html: html }}
-                />
+                <p
+                  key={i}
+                  style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '16px', lineHeight: 1.75, color: '#374151', marginBottom: '20px' }}
+                >
+                  {renderInline(para, `p${i}`)}
+                </p>
               )
             })}
           </article>

@@ -1,10 +1,26 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { breadcrumbJsonLd, howToJsonLd } from '@/lib/seo'
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
+const pageUrl = `${siteUrl}/how-it-works`
+const description = 'Three simple steps to sell your house fast for cash in Statesboro, GA and surrounding Southeast Georgia. No repairs, no fees, close in 7–21 days.'
 
 export const metadata: Metadata = {
   title: 'How It Works — Sell Your House Fast for Cash in Southeast Georgia',
-  description: 'Three simple steps to sell your house fast for cash in Statesboro, GA and surrounding Southeast Georgia. No repairs, no fees, close in 7–21 days.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/how-it-works' },
+  description,
+  alternates: { canonical: pageUrl },
+  openGraph: {
+    type: 'website',
+    url: pageUrl,
+    title: 'How It Works — Sell Your House Fast for Cash',
+    description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'How It Works — Sell Your House Fast for Cash',
+    description,
+  },
 }
 
 const STEPS = [
@@ -39,8 +55,26 @@ const COMPARE = [
 ]
 
 export default function HowItWorksPage() {
+  const howTo = howToJsonLd({
+    name: 'How to Sell Your House Fast for Cash in Southeast Georgia',
+    description,
+    url: pageUrl,
+    totalTime: 'P21D',
+    steps: STEPS.map(s => ({ name: s.title, text: s.body })),
+  })
+  const breadcrumbs = breadcrumbJsonLd(
+    [
+      { name: 'Home', href: '/' },
+      { name: 'How It Works', href: '/how-it-works' },
+    ],
+    siteUrl,
+  )
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howTo) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+
       {/* Hero */}
       <section style={{ background: '#1B365D', padding: '80px 0' }} className="circle-motif">
         <div className="wrap">
@@ -62,9 +96,10 @@ export default function HowItWorksPage() {
       <section style={{ background: '#EEF2F7', padding: '80px 0' }}>
         <div className="wrap" style={{ maxWidth: '800px' }}>
           {STEPS.map((step, i) => (
-            <div key={step.n} style={{
+            <div key={step.n} id={`step-${i + 1}`} style={{
               display: 'flex', gap: '32px', alignItems: 'flex-start',
               marginBottom: i < STEPS.length - 1 ? '48px' : 0,
+              scrollMarginTop: '80px',
             }}>
               <div style={{ flexShrink: 0 }}>
                 <div style={{

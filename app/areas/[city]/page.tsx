@@ -5,6 +5,8 @@ import { LeadForm } from '@/components/LeadForm'
 import { breadcrumbJsonLd, localBusinessAreaJsonLd } from '@/lib/seo'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
+const AREAS_PUBLISHED_AT = '2026-04-21'
+const AREAS_UPDATED_AT = '2026-04-25'
 
 type AreaData = {
   city: string
@@ -249,7 +251,10 @@ export default function AreaPage({ params }: { params: { city: string } }) {
   const area = AREAS[params.city]
   if (!area) return notFound()
 
-  const schema = localBusinessAreaJsonLd(area.city, area.county, siteUrl, area.slug)
+  const schema = localBusinessAreaJsonLd(area.city, area.county, siteUrl, area.slug, {
+    datePublished: AREAS_PUBLISHED_AT,
+    dateModified: AREAS_UPDATED_AT,
+  })
   const breadcrumbs = breadcrumbJsonLd(
     [
       { name: 'Home', href: '/' },

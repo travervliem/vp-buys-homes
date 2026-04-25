@@ -1,16 +1,53 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { POSTS } from './posts'
+import { breadcrumbJsonLd, collectionPageJsonLd } from '@/lib/seo'
+
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
+const blogUrl = `${siteUrl}/blog`
+const description = 'Guides and resources for homeowners considering selling in Statesboro, Rincon, Savannah, and Southeast Georgia. Learn about cash sales, foreclosure, inherited property, and more.'
 
 export const metadata: Metadata = {
   title: 'Resources for Southeast Georgia Homeowners | VP Buys Homes',
-  description: 'Guides and resources for homeowners considering selling in Statesboro, Rincon, Savannah, and Southeast Georgia. Learn about cash sales, foreclosure, inherited property, and more.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/blog' },
+  description,
+  alternates: { canonical: blogUrl },
+  openGraph: {
+    type: 'website',
+    url: blogUrl,
+    title: 'Resources for Southeast Georgia Homeowners',
+    description,
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Resources for Southeast Georgia Homeowners',
+    description,
+  },
 }
 
 export default function BlogIndex() {
+  const collection = collectionPageJsonLd({
+    name: 'Resources for Southeast Georgia Homeowners',
+    description,
+    url: blogUrl,
+    siteUrl,
+    items: POSTS
+      .slice()
+      .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+      .map(p => ({ title: p.title, slug: p.slug, description: p.excerpt })),
+  })
+  const breadcrumbs = breadcrumbJsonLd(
+    [
+      { name: 'Home', href: '/' },
+      { name: 'Resources', href: '/blog' },
+    ],
+    siteUrl,
+  )
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collection) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+
       {/* Hero */}
       <section style={{ background: '#1B365D', padding: '72px 0' }} className="circle-motif">
         <div className="wrap">

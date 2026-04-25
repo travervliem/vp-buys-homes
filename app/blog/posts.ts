@@ -5,6 +5,8 @@ export type Post = {
   excerpt: string
   body: string
   metaDescription: string
+  publishedAt: string  // ISO 8601 (YYYY-MM-DD)
+  updatedAt: string    // ISO 8601 (YYYY-MM-DD)
 }
 
 export const POSTS: Post[] = [
@@ -14,7 +16,9 @@ export const POSTS: Post[] = [
     title: 'Sell Your House Fast in Statesboro, GA: A Complete Guide',
     excerpt: 'Everything Bulloch County homeowners need to know about selling quickly — including what cash buyers look for and how to avoid common mistakes.',
     metaDescription: 'Guide to selling your house fast in Statesboro, GA. Learn how cash buyers work, what affects your offer, and how to close in as little as 7 days.',
-    body: `If you need to sell your house in Statesboro fast, you have options — and working with a local cash buyer is often the fastest and simplest path.
+    publishedAt: '2026-04-21',
+    updatedAt: '2026-04-25',
+    body: `If you need to sell your house in [Statesboro](/areas/statesboro-ga) fast, you have options — and working with a local cash buyer is often the fastest and simplest path.
 
 Statesboro is the commercial hub of Bulloch County and home to Georgia Southern University. The local real estate market is active, but selling on the open market through a realtor still takes time: weeks to list, showings, buyer financing contingencies, and a closing process that can stretch to 60–90 days.
 
@@ -41,7 +45,7 @@ Cash sales in Statesboro work best for homeowners who:
 
 With VP Buys Homes, the process is: submit information → written offer within 24 hours → close in 7–21 days. The closing happens with a local attorney. You choose your date.
 
-If you have questions about selling your Statesboro property for cash, call us directly: (912) 515-6060.`,
+If you have questions about selling your [Statesboro property for cash](/areas/statesboro-ga), call us directly: (912) 515-6060.`,
   },
   {
     slug: 'cash-home-buyers-bulloch-county',
@@ -49,12 +53,14 @@ If you have questions about selling your Statesboro property for cash, call us d
     title: 'Cash Home Buyers in Bulloch County, GA — How the Process Works',
     excerpt: 'What to expect when working with a cash buyer in Bulloch County — from offer to closing.',
     metaDescription: 'Understand how cash home buyers work in Bulloch County, GA. From offer to close, here is what sellers in Statesboro and surrounding areas can expect.',
+    publishedAt: '2026-04-21',
+    updatedAt: '2026-04-25',
     body: `Bulloch County has a straightforward market, but selling a home the traditional route still involves months of uncertainty. Cash buyers remove that uncertainty.
 
 **How the offer is calculated**
 
 Cash buyers in Bulloch County look at:
-- Comparable sales in your specific neighborhood (Statesboro, Portal, Register, Brooklet)
+- Comparable sales in your specific neighborhood ([Statesboro](/areas/statesboro-ga), Portal, Register, Brooklet)
 - Property condition — the offer reflects what it would cost to bring the house to market condition
 - Your timeline and any circumstances affecting the sale
 
@@ -72,7 +78,7 @@ Cash purchases close at a local title company or attorney's office. The closing 
 
 *What if the house has code violations or unpermitted work?* We buy as-is. Code violations and unpermitted additions are factored into our offer — not a deal-breaker.
 
-If you own a property in Bulloch County you need to sell, reach out: (912) 515-6060.`,
+If you own a property in Bulloch County you need to sell, reach out: (912) 515-6060. You can also read our full [Statesboro cash buying guide](/areas/statesboro-ga) for more local detail.`,
   },
   {
     slug: 'sell-a-house-as-is-georgia',
@@ -80,6 +86,8 @@ If you own a property in Bulloch County you need to sell, reach out: (912) 515-6
     title: 'Selling a House As-Is in Georgia: What to Expect',
     excerpt: 'An as-is sale means you do not make repairs. Here is what that actually means for your net proceeds, timeline, and options in Southeast Georgia.',
     metaDescription: 'Learn what selling a house as-is in Georgia means for your net proceeds, timeline, and options. Complete guide for Southeast Georgia homeowners.',
+    publishedAt: '2026-04-21',
+    updatedAt: '2026-04-25',
     body: `An as-is sale means you list or sell the property in its current condition — no repairs, no touch-ups, no cleaning required.
 
 In Georgia, as-is sales are common in two scenarios: bank-owned (REO) properties and direct cash purchases. Most traditional buyer financing (FHA, USDA, VA) comes with appraisal requirements that can flag needed repairs — which is why as-is sales often work best with cash buyers who have no lender requirements.
@@ -102,7 +110,7 @@ As-is cash sales work best when:
 - The property is in an estate or inherited situation
 - You are facing foreclosure, divorce, or another deadline
 
-Questions about selling as-is in Southeast Georgia? Call: (912) 515-6060.`,
+We buy as-is across Southeast Georgia, including [Statesboro](/areas/statesboro-ga), [Savannah](/areas/savannah-ga), and [Rincon](/areas/rincon-ga). Questions about selling as-is? Call: (912) 515-6060.`,
   },
   {
     slug: 'stop-foreclosure-options',
@@ -110,6 +118,8 @@ Questions about selling as-is in Southeast Georgia? Call: (912) 515-6060.`,
     title: 'Options to Stop Foreclosure in Southeast Georgia',
     excerpt: 'If you are behind on payments in Statesboro, Rincon, or Savannah, these are your options — and why timing matters more than anything.',
     metaDescription: 'Options to stop or avoid foreclosure in Southeast Georgia. Learn what Statesboro and Bulloch County homeowners can do when behind on mortgage payments.',
+    publishedAt: '2026-04-21',
+    updatedAt: '2026-04-25',
     body: `Foreclosure in Georgia moves faster than most states. Once a lender begins the process, you may have as little as 37 days before a sale date is set. If you are behind on payments in Bulloch County, Effingham County, or anywhere in Southeast Georgia, time is the most critical factor.
 
 **Your options when behind on payments**
@@ -126,7 +136,7 @@ Questions about selling as-is in Southeast Georgia? Call: (912) 515-6060.`,
 
 A foreclosure on your credit report affects you for 7 years. A sale — even at a price below what you hoped — closes out the obligation cleanly. If the sale price exceeds what you owe (after payoff and costs), you keep the difference.
 
-VP Buys Homes has helped homeowners in Statesboro, Rincon, Metter, and Springfield sell before the auction date. We move fast and work directly with your lender's payoff team.
+VP Buys Homes has helped homeowners in [Statesboro](/areas/statesboro-ga), [Rincon](/areas/rincon-ga), [Metter](/areas/metter-ga), and [Springfield](/areas/springfield-ga) sell before the auction date. We move fast and work directly with your lender's payoff team.
 
 If you are facing foreclosure, do not wait. Call: (912) 515-6060.`,
   },
@@ -136,6 +146,8 @@ If you are facing foreclosure, do not wait. Call: (912) 515-6060.`,
     title: 'How to Sell an Inherited Property in Southeast Georgia',
     excerpt: 'Inherited a house in Statesboro or surrounding Southeast Georgia? Here is how to navigate the sale — including what to do if probate is involved.',
     metaDescription: 'Guide to selling an inherited property in Southeast Georgia. What to do in probate, how to sell as-is, and how cash buyers can simplify the process.',
+    publishedAt: '2026-04-21',
+    updatedAt: '2026-04-25',
     body: `Inheriting a property is often more complicated than it sounds. If you have inherited a house in Bulloch County, Effingham County, or elsewhere in Southeast Georgia, here is what you need to know.
 
 **Is the estate in probate?**
@@ -157,7 +169,7 @@ None. Inherited properties often sit for months or years before heirs decide to 
 - *Back taxes owed* — These are typically resolved at closing from proceeds
 - *Tenants in place* — We buy occupied rental properties
 
-If you have inherited a property in Southeast Georgia and need to sell, reach out: (912) 515-6060.`,
+If you have inherited a property in [Statesboro](/areas/statesboro-ga), [Savannah](/areas/savannah-ga), or anywhere in Southeast Georgia and need to sell, reach out: (912) 515-6060.`,
   },
   {
     slug: 'selling-rental-property-georgia',
@@ -165,7 +177,9 @@ If you have inherited a property in Southeast Georgia and need to sell, reach ou
     title: 'Tired Landlord? How to Sell Your Rental Property Fast in Southeast Georgia',
     excerpt: 'If you are done with being a landlord in Statesboro or surrounding Georgia, here are your options — including selling with tenants in place.',
     metaDescription: 'How to sell your rental property fast in Southeast Georgia. Options for landlords in Statesboro, Rincon, and Savannah — including selling occupied properties.',
-    body: `Managing rental property is not passive income. If you are a landlord in Statesboro, Rincon, Savannah, or anywhere in Southeast Georgia who is done dealing with tenants, repairs, and vacancies — you are not alone.
+    publishedAt: '2026-04-21',
+    updatedAt: '2026-04-25',
+    body: `Managing rental property is not passive income. If you are a landlord in [Statesboro](/areas/statesboro-ga), [Rincon](/areas/rincon-ga), [Savannah](/areas/savannah-ga), or anywhere in Southeast Georgia who is done dealing with tenants, repairs, and vacancies — you are not alone.
 
 **Selling a rental: your options**
 
