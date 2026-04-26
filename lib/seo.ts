@@ -100,3 +100,71 @@ export function localBusinessAreaJsonLd(city: string, county: string, siteUrl: s
     },
   }
 }
+
+// Per-pairing FAQPage schema. Use ONLY on pages that visibly render the same
+// FAQ items — Google flags FAQ structured data that doesn't match what the
+// user sees.
+export function pageFaqJsonLd(items: { q: string; a: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map(f => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  }
+}
+
+// Service schema for an intersection page (city × situation). Pairs with
+// LocalBusiness above to give Google a clean topical signal: this page is
+// about a specific service offered to a specific city.
+export function intersectionServiceJsonLd(args: {
+  siteUrl: string
+  city: string
+  county: string
+  citySlug: string
+  situationSlug: string
+  situationLabel: string  // e.g. "Foreclosure"
+  description: string     // the page meta description
+}) {
+  const { siteUrl, city, county, citySlug, situationSlug, situationLabel, description } = args
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: `Cash Home Purchase — ${situationLabel} — ${city}, GA`,
+    serviceType: `Cash home purchase for homeowners facing ${situationLabel.toLowerCase()}`,
+    description,
+    url: `${siteUrl}/areas/${citySlug}/${situationSlug}`,
+    provider: {
+      '@type': ['LocalBusiness', 'RealEstateAgent'],
+      name: 'VP Buys Homes',
+      telephone: PHONE_RAW,
+    },
+    areaServed: {
+      '@type': 'City',
+      name: city,
+      containedIn: { '@type': 'AdministrativeArea', name: `${county}, GA` },
+    },
+  }
+}
+
+// Situation pillar page LocalBusiness — same shape as the area version,
+// but scoped to "GA" rather than a single city.
+export function localBusinessSituationJsonLd(args: { siteUrl: string; situationSlug: string; situationLabel: string }) {
+  const { siteUrl, situationSlug, situationLabel } = args
+  return {
+    '@context': 'https://schema.org',
+    '@type': ['LocalBusiness', 'RealEstateAgent'],
+    name: `VP Buys Homes — ${situationLabel} — Georgia`,
+    url: `${siteUrl}/situations/${situationSlug}`,
+    telephone: PHONE_RAW,
+    areaServed: { '@type': 'AdministrativeArea', name: 'Georgia, US' },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: ADDRESS.city,
+      addressRegion: 'GA',
+      addressCountry: 'US',
+    },
+  }
+}
