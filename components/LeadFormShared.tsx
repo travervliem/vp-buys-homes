@@ -7,8 +7,14 @@ type Step1 = { name: string; phone: string; address: string }
 
 export type LeadVariant = 'full' | 'hero'
 
+export type LeadContext = {
+  city?: string       // city slug or name of the page that hosts this form (e.g. 'statesboro-ga')
+  situation?: string  // situation slug if the form is on an intersection page (e.g. 'foreclosure')
+}
+
 type Props = {
   variant?: LeadVariant
+  context?: LeadContext
 }
 
 const REASONS = [
@@ -38,7 +44,7 @@ function newSessionId(): string {
   return `s_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`
 }
 
-export function LeadFormShared({ variant = 'full' }: Props) {
+export function LeadFormShared({ variant = 'full', context }: Props) {
   const [step, setStep] = useState<1 | 2>(1)
   const [step1, setStep1] = useState<Step1>({ name: '', phone: '', address: '' })
   const [loading, setLoading] = useState(false)
@@ -56,6 +62,8 @@ export function LeadFormShared({ variant = 'full' }: Props) {
           partial: true,
           sessionId: sessionId,
           source: variant === 'hero' ? 'hero-form' : 'full-form',
+          pageCity: context?.city ?? '',
+          pageSituation: context?.situation ?? '',
         }),
       })
     } catch (e) {
@@ -78,6 +86,8 @@ export function LeadFormShared({ variant = 'full' }: Props) {
           partial: false,
           sessionId: sessionId,
           source: variant === 'hero' ? 'hero-form' : 'full-form',
+          pageCity: context?.city ?? '',
+          pageSituation: context?.situation ?? '',
         }),
       })
       const json = await res.json()

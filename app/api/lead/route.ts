@@ -87,6 +87,8 @@ export async function POST(req: Request) {
       sessionId,
       source,
       city,
+      pageCity: payload.pageCity || null,
+      pageSituation: payload.pageSituation || null,
       local: localResult?.ok ?? false,
       email: email?.ok ?? false,
       logged: logged?.ok ?? false,

@@ -13,9 +13,13 @@ build/
 .env
 .env.local
 .env.*.local
+.env*.save
 
 # vercel
 .vercel
+
+# Claude Code session state
+.claude/
 
 # lead-log fallback (never commit captured leads)
 .data/

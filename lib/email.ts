@@ -99,6 +99,8 @@ function buildHtml(payload: any) {
           ${payload.timeline ? row('Ideal Timeline', payload.timeline) : ''}
           ${payload.notes ? row('Notes', payload.notes) : ''}
           ${payload.source ? row('Source', payload.source) : ''}
+          ${payload.pageCity ? row('Landing Page (City)', payload.pageCity) : ''}
+          ${payload.pageSituation ? row('Landing Page (Situation)', payload.pageSituation) : ''}
           ${row('Submitted', new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }))}
         </table>
       </div>

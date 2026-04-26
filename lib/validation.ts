@@ -12,6 +12,10 @@ export const leadSchema = z.object({
   hvacAge: z.string().optional().default(''),
   timeline: z.string().optional().default(''),
   notes: z.string().optional().default(''),
+  // Page-context tagging — captured client-side so we can attribute leads to the
+  // landing page that generated them. Distinct from `city` (parsed from address).
+  pageCity: z.string().optional().default(''),
+  pageSituation: z.string().optional().default(''),
 })
 
 // Partial lead: user submitted step 1 only. Email optional.
@@ -20,6 +24,8 @@ export const partialLeadSchema = z.object({
   phone: z.string().min(7),
   address: z.string().min(5),
   email: z.union([z.string().email(), z.literal('')]).optional().default(''),
+  pageCity: z.string().optional().default(''),
+  pageSituation: z.string().optional().default(''),
 })
 
 export type LeadInput = z.infer<typeof leadSchema>

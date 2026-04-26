@@ -1,7 +1,7 @@
 'use client'
 
-import { LeadFormShared } from './LeadFormShared'
+import { LeadFormShared, type LeadContext } from './LeadFormShared'
 
-export function LeadFormQuick() {
-  return <LeadFormShared variant="hero" />
+export function LeadFormQuick({ context }: { context?: LeadContext } = {}) {
+  return <LeadFormShared variant="hero" context={context} />
 }

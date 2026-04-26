@@ -1,8 +1,8 @@
 'use client'
 
-import { LeadFormShared } from './LeadFormShared'
+import { LeadFormShared, type LeadContext } from './LeadFormShared'
 
-export function LeadForm({ compact = false }: { compact?: boolean }) {
+export function LeadForm({ compact = false, context }: { compact?: boolean; context?: LeadContext }) {
   return (
     <div
       style={{
@@ -13,7 +13,7 @@ export function LeadForm({ compact = false }: { compact?: boolean }) {
         boxShadow: '0 2px 6px rgba(13,27,42,0.06)',
       }}
     >
-      <LeadFormShared variant="full" />
+      <LeadFormShared variant="full" context={context} />
     </div>
   )
 }
