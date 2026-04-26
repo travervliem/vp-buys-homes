@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { LeadForm } from '@/components/LeadForm'
 import { breadcrumbJsonLd, localBusinessAreaJsonLd } from '@/lib/seo'
+import { SITUATIONS } from '@/lib/situations'
+import { getIntersection } from '@/lib/situations/index'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
@@ -338,6 +340,57 @@ export default function AreaPage({ params }: { params: { city: string } }) {
                     <p style={{ fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif", fontSize: '26px', fontWeight: 700, color: '#1B365D', letterSpacing: '0.02em' }}>{item.value}</p>
                   </div>
                 ))}
+              </div>
+
+              {/* Deeper guides — situation intersection pages */}
+              <div style={{ marginTop: '48px' }}>
+                <h2 style={{
+                  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
+                  fontSize: '24px', fontWeight: 700, textTransform: 'uppercase',
+                  letterSpacing: '0.02em', color: '#1B365D', marginBottom: '8px',
+                }}>
+                  Deeper Guides — {area.city} Situations
+                </h2>
+                <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '14px', color: '#6B7280', lineHeight: 1.6, marginBottom: '16px' }}>
+                  How specific situations work in {area.county} — including the local courthouse, legal-organ newspaper, and how we help homeowners through each.
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '12px' }}>
+                  {SITUATIONS.map(s => {
+                    const filled = Boolean(getIntersection(area.slug, s.slug))
+                    const inner = (
+                      <div style={{
+                        background: 'white',
+                        border: filled ? '1px solid #D1DCE8' : '1px dashed #D1DCE8',
+                        borderRadius: '8px',
+                        padding: '14px 16px',
+                        opacity: filled ? 1 : 0.55,
+                        height: '100%',
+                      }}>
+                        <p style={{
+                          fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
+                          fontSize: '17px', fontWeight: 700, color: '#1B365D',
+                          textTransform: 'uppercase', letterSpacing: '0.02em', lineHeight: 1.2,
+                          marginBottom: '4px',
+                        }}>
+                          {s.label}
+                        </p>
+                        <p style={{
+                          fontFamily: "'Nunito Sans',sans-serif", fontSize: '12px', fontWeight: 700,
+                          color: filled ? '#F2A65A' : '#9CA3AF', letterSpacing: '0.04em',
+                        }}>
+                          {filled ? `${s.label} in ${area.city} →` : 'Coming soon'}
+                        </p>
+                      </div>
+                    )
+                    return filled ? (
+                      <Link key={s.slug} href={`/areas/${area.slug}/${s.slug}`} style={{ textDecoration: 'none' }}>
+                        {inner}
+                      </Link>
+                    ) : (
+                      <div key={s.slug}>{inner}</div>
+                    )
+                  })}
+                </div>
               </div>
             </div>
 

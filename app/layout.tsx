@@ -2,7 +2,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { NavBar } from '@/components/NavBar'
 import { Footer } from '@/components/Footer'
-import { orgJsonLd, faqJsonLd } from '@/lib/seo'
+import { orgJsonLd } from '@/lib/seo'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
@@ -45,7 +45,6 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const org = orgJsonLd(siteUrl)
-  const faq = faqJsonLd()
 
   return (
     <html lang="en">
@@ -54,7 +53,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main>{children}</main>
         <Footer />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }} />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }} />
       </body>
     </html>
   )

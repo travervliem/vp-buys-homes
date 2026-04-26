@@ -1,14 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import { FAQS } from '@/lib/faqs'
+import { FAQS, type Faq } from '@/lib/faqs'
 
-export function FaqAccordion() {
+export function FaqAccordion({ items }: { items?: Faq[] } = {}) {
   const [open, setOpen] = useState<number | null>(0)
+  const list = items ?? FAQS
 
   return (
     <div style={{ maxWidth: '780px', margin: '0 auto' }}>
-      {FAQS.map((faq, i) => (
+      {list.map((faq, i) => (
         <div
           key={i}
           style={{

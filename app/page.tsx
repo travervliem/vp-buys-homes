@@ -4,6 +4,7 @@ import { HeroKinetic } from '@/components/HeroKinetic'
 import { FaqAccordion } from '@/components/FaqAccordion'
 import { LeadForm } from '@/components/LeadForm'
 import { AREAS, areaHref } from '@/lib/areas'
+import { faqJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
@@ -89,8 +90,10 @@ function SectionHeader({ eyebrow, title, subtitle, white = false }: { eyebrow: s
 }
 
 export default function HomePage() {
+  const faq = faqJsonLd()
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }} />
       {/* Hero */}
       <HeroKinetic />
 
