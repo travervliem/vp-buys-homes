@@ -11,7 +11,7 @@ import { Section } from '@/components/ui/Section'
 import { POSTS } from './posts'
 
 export const metadata: Metadata = {
-  title: 'Resources for Southeast Georgia Homeowners | VP Buys Homes',
+  title: 'Resources for Southeast Georgia Homeowners',
   description: 'Guides and resources for homeowners considering selling in Statesboro, Savannah, and Southeast Georgia. Learn about cash sales, foreclosure, inherited property, and more.',
   alternates: { canonical: 'https://www.vpbuyshomes.com/blog' },
 }

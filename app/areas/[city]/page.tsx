@@ -224,7 +224,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
   const area = AREAS[params.city]
   if (!area) return { title: 'Area Not Found' }
 
-  const title = `Sell My House Fast ${area.city}, GA — Cash Home Buyers | VP Buys Homes`
+  const title = `Sell My House Fast ${area.city}, GA — Cash Home Buyers`
   const description = `We buy houses for cash in ${area.city}, GA (${area.county}). No repairs, no fees, no commissions. Cash offer within 24 hours. Close in as little as 7 days.`
 
   return {
@@ -248,7 +248,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
     ],
     alternates: { canonical: `${siteUrl}/areas/${area.slug}` },
     openGraph: {
-      title,
+      title: `${title} | VP Buys Homes`,
       description,
       url: `${siteUrl}/areas/${area.slug}`,
     },

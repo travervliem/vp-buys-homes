@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const post = POSTS.find(p => p.slug === params.slug)
   if (!post) return { title: 'Not Found' }
   return {
-    title: `${post.title} | VP Buys Homes`,
+    title: post.title,
     description: post.metaDescription,
     alternates: { canonical: `${siteUrl}/blog/${post.slug}` },
     openGraph: { title: post.title, description: post.metaDescription },

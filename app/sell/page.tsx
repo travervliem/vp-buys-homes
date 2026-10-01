@@ -12,7 +12,7 @@ import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 
 export const metadata: Metadata = {
-  title: 'Sell Your House Fast for Cash in Southeast Georgia | VP Buys Homes',
+  title: 'Sell Your House Fast for Cash in Southeast Georgia',
   description: 'Get a no-obligation cash offer for your house in Statesboro, Savannah, Rincon, Metter, or Springfield, GA. No repairs, no fees, close in 7 days.',
   alternates: { canonical: 'https://www.vpbuyshomes.com/sell' },
 }
