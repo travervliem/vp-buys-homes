@@ -3,11 +3,10 @@ import { FAQS } from './faqs'
 
 const PHONE_RAW = '+19125156060'
 const EMAIL = 'leads@vpbuyshomes.com'
+// City-level only: there is no public street address, so none is published.
 const ADDRESS = {
-  street: '123 Main Street',
   city: 'Statesboro',
   state: 'GA',
-  zip: '30458',
   country: 'US',
 }
 
@@ -26,29 +25,15 @@ export function orgJsonLd(siteUrl: string) {
     priceRange: '$$',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: ADDRESS.street,
       addressLocality: ADDRESS.city,
       addressRegion: ADDRESS.state,
-      postalCode: ADDRESS.zip,
       addressCountry: ADDRESS.country,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 32.4488,
-      longitude: -81.7832,
     },
     areaServed: AREAS.map(a => ({
       '@type': 'City',
       name: a.name,
       containedIn: { '@type': 'AdministrativeArea', name: `${a.county}, ${a.state}` },
     })),
-    openingHoursSpecification: [
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday'], opens: '08:00', closes: '20:00' },
-      { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Saturday','Sunday'], opens: '09:00', closes: '17:00' },
-    ],
-    sameAs: [
-      'https://www.facebook.com/vpbuyshomes',
-    ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: 'Cash Home Buying Services',
