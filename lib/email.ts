@@ -26,12 +26,25 @@ export async function sendLeadEmail(payload: any) {
   // causes Resend to reject the whole send.
   const replyTo = isPlausibleEmail(payload.email) ? payload.email : undefined
 
+  // Photo attachments — payload.photos is [{ name, type, base64 }] from the
+  // browser (client-resized + base64-encoded, no data: prefix).
+  type Photo = { name?: string; type?: string; base64?: string }
+  const rawPhotos: Photo[] = Array.isArray(payload.photos) ? payload.photos : []
+  const attachments = rawPhotos
+    .filter(p => typeof p?.base64 === 'string' && p.base64.length > 0)
+    .slice(0, 6)
+    .map((p, i) => ({
+      filename: (p.name || `photo-${i + 1}.jpg`).replace(/[^a-zA-Z0-9._-]/g, '_'),
+      content: p.base64 as string,
+    }))
+
   const firstAttempt = await resend.emails.send({
     from: PREFERRED_FROM,
     to: LEAD_EMAIL,
     replyTo,
     subject,
     html,
+    attachments: attachments.length > 0 ? attachments : undefined,
   }).catch(err => ({ error: err }))
 
   if (!('error' in firstAttempt) || !firstAttempt.error) {
@@ -60,6 +73,7 @@ export async function sendLeadEmail(payload: any) {
       </div>
       ${html}
     `,
+    attachments: attachments.length > 0 ? attachments : undefined,
   }).catch(err => ({ error: err }))
 
   if (!('error' in second) || !second.error) {

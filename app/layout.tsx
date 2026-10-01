@@ -1,10 +1,13 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { NavBar } from '@/components/NavBar'
-import { Footer } from '@/components/Footer'
+import { AnalyticsScripts } from '@/components/analytics/AnalyticsScripts'
+import { AnalyticsClient } from '@/components/analytics/AnalyticsClient'
+import { fontBody, fontDisplay } from '@/lib/fonts'
 import { orgJsonLd } from '@/lib/seo'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
+const metaDomainVerification = process.env.META_DOMAIN_VERIFICATION || ''
+const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION || ''
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -12,7 +15,7 @@ export const metadata: Metadata = {
     default: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
     template: '%s | VP Buys Homes',
   },
-  description: 'VP Buys Homes pays cash for houses in Statesboro, Rincon, Savannah, Metter, and Springfield, GA. No repairs, no fees, no commissions. Cash offer in 24 hours. Close in 7 days.',
+  description: 'VP Buys Homes pays cash for houses in Statesboro, Savannah, Rincon, Metter, and Springfield, GA. No repairs, no fees, no commissions. Cash offer in 24 hours. Close in 7 days.',
   keywords: [
     'sell my house fast Statesboro GA',
     'cash home buyers Statesboro GA',
@@ -41,17 +44,23 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, 'max-snippet': -1 },
   },
+  verification: {
+    google: googleSiteVerification || undefined,
+    other: metaDomainVerification
+      ? { 'facebook-domain-verification': metaDomainVerification }
+      : undefined,
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const org = orgJsonLd(siteUrl)
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${fontDisplay.variable} ${fontBody.variable}`}>
       <body>
-        <NavBar />
+        <AnalyticsScripts />
+        <AnalyticsClient />
         <main>{children}</main>
-        <Footer />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }} />
       </body>
     </html>

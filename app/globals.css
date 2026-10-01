@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 :root {
+  /* Brand */
   --navy:       #1B365D;
   --navy-deep:  #0F2040;
   --navy-mid:   #264D80;
@@ -15,21 +16,65 @@
   --light:      #EEF2F7;
   --border:     #D1DCE8;
   --dark:       #0D1B2A;
+  --gray-900:   #111827;
   --gray-700:   #374151;
   --gray-500:   #6B7280;
+  --gray-400:   #9CA3AF;
+  --gray-300:   #CBD5E1;
   --gray-100:   #F3F4F6;
+  --paper:      #F5F2ED;
+  --hairline:   #E5E0D8;
+  --ink-100:    #F0EDE6;
+  --ink-400:    #8A8275;
+  --ink-500:    #6B6558;
+  --ink-700:    #3F3B33;
+  --ink-900:    #0D1B2A;
+
+  /* Semantic */
+  --success:    #3FCF8E;
+  --success-dark: #15803D;
+  --success-bg: #DCFCE7;
+  --warning:    #B45309;
+  --warning-bg: #FEF3E2;
+  --danger:     #B42318;
+  --danger-bg:  #FEE4E2;
+
+  /* Legacy fonts (existing pages reference these inline) */
   --fh: 'Barlow Semi Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
   --fb: 'Nunito Sans', 'Helvetica Neue', system-ui, sans-serif;
+
+  /* New design fonts (set by next/font on <html>) */
+  /* --font-display and --font-body are injected by Next.js */
+
+  /* Type scale (BRAND.md §3) */
+  --fs-mega:    72px;
+  --fs-h1:      56px;
+  --fs-h2:      38px;
+  --fs-h3:      28px;
+  --fs-h4:      22px;
+  --fs-h5:      18px;
+  --fs-lead:    18px;
+  --fs-body:    15px;
+  --fs-body-sm: 13px;
+  --fs-cap:     11px;
+  --fs-micro:   10px;
+
   --lh-tight:   1.0;
   --lh-snug:    1.15;
   --lh-base:    1.7;
+  --lh-ui:      1.5;
   --tr-display: 0.02em;
   --tr-cap:     0.14em;
+  --tr-eyebrow: 0.18em;
   --tr-upper:   0.06em;
   --ease-std:   cubic-bezier(0.2, 0, 0, 1);
   --ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
   --dur-fast:   120ms;
   --dur-med:    200ms;
+  --dur-slow:   360ms;
+
+  /* Shadows */
+  --shadow-xs:  0 1px 2px rgba(13,27,42,0.06);
   --shadow-amber: 0 6px 20px rgba(242,166,90,0.35);
   --shadow-sm:  0 2px 6px rgba(13,27,42,0.06), 0 1px 2px rgba(13,27,42,0.04);
   --shadow-md:  0 4px 14px rgba(13,27,42,0.10), 0 2px 4px rgba(13,27,42,0.04);
@@ -37,6 +82,10 @@
   --shadow-xl:  0 24px 48px rgba(13,27,42,0.18), 0 10px 20px rgba(13,27,42,0.08);
   --ring-navy:  0 0 0 3px rgba(27,54,93,0.20);
   --ring-amber: 0 0 0 3px rgba(242,166,90,0.45);
+
+  /* Layout */
+  --container-max:   1200px;
+  --container-tight: 960px;
 }
 
 @layer base {
@@ -54,7 +103,10 @@
   ::selection { background: var(--amber); color: var(--white); }
   :focus-visible { outline: none; box-shadow: var(--ring-amber); border-radius: 4px; }
   a { color: var(--navy); text-decoration-thickness: 1px; text-underline-offset: 3px; transition: color var(--dur-fast) var(--ease-std); }
-  a:hover { color: var(--amber-dark); }
+  /* :where() keeps specificity at (0,0,0) so any explicit text-* utility wins
+     on hover. This prevents amber CTA buttons from losing their white text
+     when the global hover color collides with bg-amber-dark hover state. */
+  :where(a):hover { color: var(--amber-dark); }
 }
 
 @layer components {
@@ -275,4 +327,141 @@
   }
   .ticker-track { animation: ticker-scroll 34s linear infinite; }
   .ticker-track:hover { animation-play-state: paused; }
+
+  /* ============================================================
+     New design system primitives (Phase 0)
+     Used by components/ui/* and components/marketing/*. These do
+     NOT replace the legacy classes above — both coexist until
+     Phase 1+ migrates each existing page.
+     ============================================================ */
+
+  .ds-container {
+    max-width: var(--container-max);
+    margin-inline: auto;
+    padding-inline: 28px;
+  }
+  @media (max-width: 640px) {
+    .ds-container { padding-inline: 18px; }
+  }
+
+  /* Hero gradient recipe (BRAND.md §6) */
+  .ds-hero-bg {
+    background:
+      radial-gradient(circle at 18% 20%, rgba(38,77,128,.55), transparent 50%),
+      radial-gradient(circle at 82% 30%, rgba(38,77,128,.40), transparent 55%),
+      radial-gradient(circle at 50% 90%, rgba(242,166,90,.18), transparent 60%),
+      linear-gradient(180deg, #1B365D 0%, #0F2040 100%);
+    position: relative;
+    color: white;
+  }
+  .ds-hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, transparent 40%, rgba(15,32,64,.55) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .ds-hero-bg > * { position: relative; z-index: 1; }
+
+  /* Display headings — use these on new pages so existing inline-Barlow
+     headings keep rendering identically. */
+  .ds-h1 {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(40px, 6.5vw, var(--fs-h1));
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: 0.005em;
+    color: var(--navy);
+    text-wrap: balance;
+    margin: 0;
+  }
+  .ds-h1 em { font-style: italic; font-weight: 600; color: var(--amber); }
+  .ds-h2 {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(28px, 4.2vw, var(--fs-h2));
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: 0.005em;
+    color: var(--navy);
+    text-wrap: balance;
+    margin: 0;
+  }
+  .ds-h2 em { font-style: italic; font-weight: 600; color: var(--amber); }
+  .ds-h3 {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(22px, 2.6vw, var(--fs-h3));
+    font-weight: 700;
+    line-height: var(--lh-snug);
+    color: var(--navy);
+    margin: 0;
+  }
+  .ds-h4 {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: var(--fs-h4);
+    font-weight: 600;
+    line-height: var(--lh-snug);
+    color: var(--navy);
+    margin: 0;
+  }
+  .ds-h5 {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: var(--fs-h5);
+    font-weight: 600;
+    color: var(--navy);
+    margin: 0;
+  }
+  .ds-mega {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(48px, 8vw, var(--fs-mega));
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: 0;
+    color: var(--navy);
+    text-wrap: balance;
+    margin: 0;
+  }
+  .ds-mega em { font-style: italic; font-weight: 600; color: var(--amber); }
+
+  .ds-body {
+    font-family: var(--font-body), 'Helvetica Neue', system-ui, sans-serif;
+    font-size: var(--fs-body);
+    line-height: var(--lh-base);
+    color: var(--gray-700);
+  }
+  .ds-lead {
+    font-family: var(--font-body), 'Helvetica Neue', system-ui, sans-serif;
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+    color: var(--gray-700);
+    text-wrap: pretty;
+  }
+  .ds-caption {
+    font-family: var(--font-body), 'Helvetica Neue', system-ui, sans-serif;
+    font-size: var(--fs-body-sm);
+    color: var(--gray-500);
+    line-height: var(--lh-base);
+  }
+
+  .ds-eyebrow {
+    font-family: var(--font-body), 'Helvetica Neue', system-ui, sans-serif;
+    font-size: var(--fs-cap);
+    font-weight: 700;
+    letter-spacing: var(--tr-cap);
+    text-transform: uppercase;
+    color: var(--amber);
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .ds-eyebrow--navy { color: var(--navy-mid); }
+  .ds-eyebrow--white { color: rgba(255,255,255,0.7); }
+  .ds-eyebrow .line {
+    display: inline-block;
+    width: 24px;
+    height: 2px;
+    background: currentColor;
+    flex-shrink: 0;
+  }
 }

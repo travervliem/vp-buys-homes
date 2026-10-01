@@ -1,7 +1,15 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { LeadForm } from '@/components/LeadForm'
+import { Hero } from '@/components/marketing/Hero'
+import { LeadForm } from '@/components/marketing/LeadForm'
+import { UrgencyStrip } from '@/components/marketing/UrgencyStrip'
+import { FinalCTA } from '@/components/marketing/FinalCTA'
+import { SiteHeader } from '@/components/marketing/SiteHeader'
+import { SiteFooter } from '@/components/marketing/SiteFooter'
+import { MobileCTABar } from '@/components/marketing/MobileCTABar'
+import { Section } from '@/components/ui/Section'
+import { Eyebrow } from '@/components/ui/Eyebrow'
 import { breadcrumbJsonLd, localBusinessAreaJsonLd } from '@/lib/seo'
 import { SITUATIONS } from '@/lib/situations'
 import { getIntersection } from '@/lib/situations/index'
@@ -192,7 +200,7 @@ const AREAS: Record<string, AreaData> = {
     subheadline: 'Toombs County cash home buyers. Simple process, fast close.',
     body: [
       'VP Buys Homes buys houses in Vidalia and Toombs County. We are cash buyers who close fast — in as little as 7 days — with no repairs required, no real estate agent fees, and no lengthy closing timelines.',
-      'Vidalia is famous for its sweet onions and sits in the heart of Southeast Georgia\'s agricultural corridor. We buy all residential property types throughout Toombs County, including homes in Lyons, Uvalda, and the surrounding area. If you are searching "we buy houses Vidalia GA" or "sell my house fast Toombs County," we are the local buyer who can help.',
+      "Vidalia is famous for its sweet onions and sits in the heart of Southeast Georgia's agricultural corridor. We buy all residential property types throughout Toombs County, including homes in Lyons, Uvalda, and the surrounding area. If you are searching \"we buy houses Vidalia GA\" or \"sell my house fast Toombs County,\" we are the local buyer who can help.",
       'Our process is simple: you tell us about your property, we make a cash offer within 24 hours, and you pick the closing date. No contingencies, no commissions, no surprises. We buy properties in any condition — move-in ready or completely distressed.',
     ],
     situations: [
@@ -266,148 +274,115 @@ export default function AreaPage({ params }: { params: { city: string } }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
 
-      {/* Hero */}
-      <section style={{ background: '#1B365D', padding: '80px 0 72px' }} className="circle-motif">
-        <div className="wrap">
-          <nav style={{ marginBottom: '20px' }} aria-label="Breadcrumb">
-            <ol style={{ display: 'flex', gap: '8px', listStyle: 'none', padding: 0, margin: 0 }}>
-              <li><Link href="/" style={{ color: 'rgba(255,255,255,0.50)', fontSize: '13px', fontFamily: "'Nunito Sans',sans-serif", textDecoration: 'none' }}>Home</Link></li>
-              <li style={{ color: 'rgba(255,255,255,0.30)', fontSize: '13px' }}>/</li>
-              <li><Link href="/areas" style={{ color: 'rgba(255,255,255,0.50)', fontSize: '13px', fontFamily: "'Nunito Sans',sans-serif", textDecoration: 'none' }}>Areas</Link></li>
-              <li style={{ color: 'rgba(255,255,255,0.30)', fontSize: '13px' }}>/</li>
-              <li style={{ color: 'rgba(255,255,255,0.70)', fontSize: '13px', fontFamily: "'Nunito Sans',sans-serif" }}>{area.city}, GA</li>
-            </ol>
-          </nav>
-          <p className="eyebrow" style={{ color: '#F2A65A', marginBottom: '16px' }}>{area.county} · Southeast Georgia</p>
-          <h1 style={{
-            fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-            fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 700, textTransform: 'uppercase',
-            letterSpacing: '0.02em', color: 'white', lineHeight: 1.05, marginBottom: '16px', maxWidth: '720px',
-          }}>
-            {area.headline}
-          </h1>
-          <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '18px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.65, maxWidth: '600px' }}>
-            {area.subheadline}
-          </p>
-          <div className="flex flex-wrap gap-3 mt-8">
-            <a href="#get-offer" className="btn-amber">Get My Cash Offer</a>
-            <a href="tel:+19125156060" className="btn-outline">(912) 515-6060</a>
-          </div>
-        </div>
-      </section>
+      <SiteHeader />
 
-      {/* Body content + form */}
-      <section style={{ background: '#EEF2F7', padding: '80px 0' }}>
-        <div className="wrap">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '48px' }} className="lg:grid-cols-[1fr_420px]">
-            <div>
-              {/* Body */}
-              {area.body.map((para, i) => (
-                <p key={i} style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '16px', lineHeight: 1.75, color: '#374151', marginBottom: '20px' }}>
-                  {para}
-                </p>
+      <Hero
+        eyebrow={`${area.county} · Southeast Georgia`}
+        headline={
+          <>
+            We Buy Houses for <em>Cash</em> in {area.city}, GA
+          </>
+        }
+        sub={area.subheadline}
+        bullets={[
+          'Cash offer in 24 hours — no obligation',
+          'Close in 7 days or on your schedule',
+          'Any condition. Any situation.',
+        ]}
+      >
+        <LeadForm source={`area-${area.slug}`} context={{ city: area.slug }} />
+      </Hero>
+
+      <UrgencyStrip />
+
+      <Section tone="paper" padding="lg">
+        <nav className="mb-6 font-body text-[13px] text-ink-500" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-2 list-none p-0 m-0">
+            <li><Link href="/" className="text-ink-500 hover:text-amber-dark no-underline">Home</Link></li>
+            <li className="text-ink-300">/</li>
+            <li><Link href="/areas" className="text-ink-500 hover:text-amber-dark no-underline">Areas</Link></li>
+            <li className="text-ink-300">/</li>
+            <li className="text-ink-700">{area.city}, GA</li>
+          </ol>
+        </nav>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 items-start">
+          <div>
+            {area.body.map((para, i) => (
+              <p key={i} className="ds-body mb-5">
+                {para}
+              </p>
+            ))}
+
+            <h2 className="ds-h3 mt-10 mb-5">Common situations we help with in {area.city}</h2>
+            <ul className="flex flex-col gap-3 list-none p-0 m-0">
+              {area.situations.map(s => (
+                <li key={s} className="flex items-start gap-3 font-body text-[15px] text-ink-700">
+                  <span aria-hidden className="text-amber-dark font-bold shrink-0 mt-[2px]">✓</span>
+                  {s}
+                </li>
               ))}
+            </ul>
 
-              {/* Situations */}
-              <div style={{ marginTop: '40px' }}>
-                <h2 style={{
-                  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                  fontSize: '24px', fontWeight: 700, textTransform: 'uppercase',
-                  letterSpacing: '0.02em', color: '#1B365D', marginBottom: '16px',
-                }}>
-                  Common Situations We Help With
-                </h2>
-                <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  {area.situations.map(s => (
-                    <li key={s} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontFamily: "'Nunito Sans',sans-serif", fontSize: '15px', lineHeight: 1.6, color: '#374151' }}>
-                      <span style={{ color: '#F2A65A', fontWeight: 700, flexShrink: 0, marginTop: '1px' }}>✓</span>
-                      {s}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Trust items */}
-              <div style={{ marginTop: '40px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(180px,1fr))', gap: '16px' }}>
-                {[
-                  { label: 'Offer in', value: '24 Hours' },
-                  { label: 'Close in as fast as', value: '7 Days' },
-                  { label: 'Fees', value: 'None' },
-                  { label: 'Repairs required', value: 'None' },
-                ].map(item => (
-                  <div key={item.label} style={{ background: 'white', borderRadius: '8px', padding: '20px', border: '1px solid #D1DCE8', textAlign: 'center' }}>
-                    <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '12px', color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '6px' }}>{item.label}</p>
-                    <p style={{ fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif", fontSize: '26px', fontWeight: 700, color: '#1B365D', letterSpacing: '0.02em' }}>{item.value}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Deeper guides — situation intersection pages */}
-              <div style={{ marginTop: '48px' }}>
-                <h2 style={{
-                  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                  fontSize: '24px', fontWeight: 700, textTransform: 'uppercase',
-                  letterSpacing: '0.02em', color: '#1B365D', marginBottom: '8px',
-                }}>
-                  Deeper Guides — {area.city} Situations
-                </h2>
-                <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '14px', color: '#6B7280', lineHeight: 1.6, marginBottom: '16px' }}>
-                  How specific situations work in {area.county} — including the local courthouse, legal-organ newspaper, and how we help homeowners through each.
-                </p>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '12px' }}>
-                  {SITUATIONS.map(s => {
-                    const filled = Boolean(getIntersection(area.slug, s.slug))
-                    const inner = (
-                      <div style={{
-                        background: 'white',
-                        border: filled ? '1px solid #D1DCE8' : '1px dashed #D1DCE8',
-                        borderRadius: '8px',
-                        padding: '14px 16px',
-                        opacity: filled ? 1 : 0.55,
-                        height: '100%',
-                      }}>
-                        <p style={{
-                          fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                          fontSize: '17px', fontWeight: 700, color: '#1B365D',
-                          textTransform: 'uppercase', letterSpacing: '0.02em', lineHeight: 1.2,
-                          marginBottom: '4px',
-                        }}>
-                          {s.label}
-                        </p>
-                        <p style={{
-                          fontFamily: "'Nunito Sans',sans-serif", fontSize: '12px', fontWeight: 700,
-                          color: filled ? '#F2A65A' : '#9CA3AF', letterSpacing: '0.04em',
-                        }}>
-                          {filled ? `${s.label} in ${area.city} →` : 'Coming soon'}
-                        </p>
-                      </div>
-                    )
-                    return filled ? (
-                      <Link key={s.slug} href={`/areas/${area.slug}/${s.slug}`} style={{ textDecoration: 'none' }}>
-                        {inner}
-                      </Link>
-                    ) : (
-                      <div key={s.slug}>{inner}</div>
-                    )
-                  })}
+            <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                { label: 'Offer in', value: '24 hours' },
+                { label: 'Close in as fast as', value: '7 days' },
+                { label: 'Fees', value: 'None' },
+                { label: 'Repairs required', value: 'None' },
+              ].map(item => (
+                <div key={item.label} className="bg-white border border-hairline rounded-lg p-5 text-center">
+                  <p className="font-body text-[11px] uppercase tracking-[0.12em] text-ink-400 mb-1">{item.label}</p>
+                  <p className="font-display text-[24px] font-bold text-navy">{item.value}</p>
                 </div>
-              </div>
+              ))}
             </div>
 
-            {/* Form */}
-            <div id="get-offer">
-              <h2 style={{
-                fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                fontSize: '20px', fontWeight: 700, textTransform: 'uppercase',
-                letterSpacing: '0.02em', color: '#1B365D', marginBottom: '16px',
-              }}>
-                Get Your Cash Offer — {area.city}
-              </h2>
-              <LeadForm />
+            <h2 className="ds-h3 mt-12 mb-2">Deeper guides — {area.city} situations</h2>
+            <p className="font-body text-[14px] text-ink-500 leading-[1.6] mb-5">
+              How specific situations work in {area.county} — including the local courthouse, legal-organ newspaper, and how we help homeowners through each.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {SITUATIONS.map(s => {
+                const filled = Boolean(getIntersection(area.slug, s.slug))
+                const inner = (
+                  <div
+                    className={`bg-white rounded-lg p-4 h-full ${filled ? 'border border-hairline' : 'border border-dashed border-hairline'}`}
+                    style={{ opacity: filled ? 1 : 0.55 }}
+                  >
+                    <p className="font-display text-[18px] font-bold text-navy leading-[1.2] mb-1">
+                      {s.label}
+                    </p>
+                    <p className={`font-body text-[12px] font-bold tracking-[0.04em] ${filled ? 'text-amber-dark' : 'text-ink-400'}`}>
+                      {filled ? `${s.label} in ${area.city} →` : 'Coming soon'}
+                    </p>
+                  </div>
+                )
+                return filled ? (
+                  <Link key={s.slug} href={`/areas/${area.slug}/${s.slug}`} className="no-underline">
+                    {inner}
+                  </Link>
+                ) : (
+                  <div key={s.slug}>{inner}</div>
+                )
+              })}
             </div>
           </div>
+
+          <aside id="get-offer" className="lg:sticky lg:top-24">
+            <h2 className="ds-h4 mb-3">Get your cash offer — {area.city}</h2>
+            <LeadForm source={`area-aside-${area.slug}`} context={{ city: area.slug }} />
+          </aside>
         </div>
-      </section>
+      </Section>
+
+      <FinalCTA
+        title={<>Get a real cash offer in <em>{area.city}</em></>}
+        sub={`We close at a local closing attorney in ${area.county}. No fees, no repairs, no surprises.`}
+      />
+
+      <SiteFooter />
+      <MobileCTABar />
     </>
   )
 }

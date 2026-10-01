@@ -1,9 +1,19 @@
 import type { Metadata } from 'next'
-import { LeadForm } from '@/components/LeadForm'
+import { Hero } from '@/components/marketing/Hero'
+import { LeadForm } from '@/components/marketing/LeadForm'
+import { UrgencyStrip } from '@/components/marketing/UrgencyStrip'
+import { FinalCTA } from '@/components/marketing/FinalCTA'
+import { SiteHeader } from '@/components/marketing/SiteHeader'
+import { SiteFooter } from '@/components/marketing/SiteFooter'
+import { MobileCTABar } from '@/components/marketing/MobileCTABar'
+import { Section } from '@/components/ui/Section'
+import { Eyebrow } from '@/components/ui/Eyebrow'
+import { Card } from '@/components/ui/Card'
+import { Button } from '@/components/ui/Button'
 
 export const metadata: Metadata = {
   title: 'Sell Your House Fast for Cash in Southeast Georgia | VP Buys Homes',
-  description: 'Get a no-obligation cash offer for your house in Statesboro, Rincon, Savannah, Metter, or Springfield, GA. No repairs, no fees, close in 7 days.',
+  description: 'Get a no-obligation cash offer for your house in Statesboro, Savannah, Rincon, Metter, or Springfield, GA. No repairs, no fees, close in 7 days.',
   alternates: { canonical: 'https://www.vpbuyshomes.com/sell' },
 }
 
@@ -17,89 +27,63 @@ const BENEFITS = [
 export default function SellPage() {
   return (
     <>
-      {/* Hero */}
-      <section style={{ background: '#1B365D', padding: '80px 0' }} className="circle-motif">
-        <div className="wrap">
-          <p className="eyebrow" style={{ color: '#F2A65A', marginBottom: '16px' }}>No Obligation · Confidential</p>
-          <h1 style={{
-            fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-            fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 700, textTransform: 'uppercase',
-            letterSpacing: '0.02em', color: 'white', lineHeight: 1.05, marginBottom: '16px', maxWidth: '680px',
-          }}>
-            Sell Your House Fast — The Simple Way
-          </h1>
-          <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '18px', color: 'rgba(255,255,255,0.65)', lineHeight: 1.65, maxWidth: '560px' }}>
-            We purchase houses as-is in Statesboro, Rincon, Savannah, Metter, Springfield, and surrounding Southeast Georgia. Pick your closing date.
-          </p>
-        </div>
-      </section>
+      <SiteHeader />
 
-      {/* Form + benefits */}
-      <section style={{ background: '#EEF2F7', padding: '80px 0' }}>
-        <div className="wrap">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '48px' }} className="lg:grid-cols-[1fr_420px]">
+      <Hero
+        eyebrow="No obligation · Confidential"
+        headline={<>Sell Your House Fast — <em>The Simple Way</em></>}
+        sub={<>We purchase houses as-is in Statesboro, Savannah, Rincon, Metter, Springfield, and surrounding Southeast Georgia. Pick your closing date.</>}
+        bullets={[
+          'A real written cash offer within 24 hours',
+          'Close in 7 days, or 70 — your call',
+          'As-is. No showings. No surprises.',
+        ]}
+      >
+        <LeadForm source="sell-page" />
+      </Hero>
 
-            {/* Benefits */}
-            <div>
-              <p className="eyebrow" style={{ marginBottom: '14px' }}>Why VP Buys Homes</p>
-              <h2 style={{
-                fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                fontSize: 'clamp(24px, 3.5vw, 34px)', fontWeight: 700, textTransform: 'uppercase',
-                letterSpacing: '0.02em', color: '#1B365D', marginBottom: '28px', lineHeight: 1.1,
-              }}>
-                No Repairs. No Fees. Close in Days.
-              </h2>
+      <UrgencyStrip />
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(260px,1fr))', gap: '16px', marginBottom: '32px' }}>
-                {BENEFITS.map(b => (
-                  <div key={b.title} style={{
-                    background: 'white', borderRadius: '8px', padding: '20px',
-                    border: '1px solid #D1DCE8', borderLeft: '3px solid #F2A65A',
-                    boxShadow: '0 2px 6px rgba(13,27,42,0.05)',
-                  }}>
-                    <h3 style={{
-                      fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                      fontSize: '16px', fontWeight: 700, textTransform: 'uppercase',
-                      letterSpacing: '0.02em', color: '#1B365D', marginBottom: '8px',
-                    }}>
-                      {b.title}
-                    </h3>
-                    <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '14px', lineHeight: 1.65, color: '#374151' }}>
-                      {b.body}
-                    </p>
-                  </div>
-                ))}
-              </div>
+      <Section tone="paper" padding="lg">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_420px] gap-12 items-start">
+          <div>
+            <Eyebrow>Why VP Buys Homes</Eyebrow>
+            <h2 className="ds-h2 mt-3 mb-7">No repairs. No fees. <em>Close in days.</em></h2>
 
-              <div style={{ background: '#1B365D', borderRadius: '8px', padding: '24px' }}>
-                <p style={{
-                  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                  fontSize: '18px', fontWeight: 700, textTransform: 'uppercase',
-                  letterSpacing: '0.02em', color: 'white', marginBottom: '6px',
-                }}>
-                  Questions? Call or Text Us.
-                </p>
-                <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '15px', color: 'rgba(255,255,255,0.65)', marginBottom: '16px' }}>
-                  We answer promptly and speak plainly. No sales pressure.
-                </p>
-                <a href="tel:+19125156060" className="btn-amber">(912) 515-6060</a>
-              </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+              {BENEFITS.map(b => (
+                <Card key={b.title} className="border-l-[3px] border-l-amber">
+                  <h3 className="ds-h4 mb-2">{b.title}</h3>
+                  <p className="ds-body m-0">{b.body}</p>
+                </Card>
+              ))}
             </div>
 
-            {/* Form */}
-            <div>
-              <h2 style={{
-                fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                fontSize: '20px', fontWeight: 700, textTransform: 'uppercase',
-                letterSpacing: '0.02em', color: '#1B365D', marginBottom: '16px',
-              }}>
-                Get Your Cash Offer
-              </h2>
-              <LeadForm />
+            <div className="bg-navy text-white rounded-lg p-7">
+              <h3 className="font-display text-[20px] font-bold mb-1.5" style={{ color: 'white' }}>Questions? Call or text.</h3>
+              <p className="font-body text-[15px] mb-4" style={{ color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }}>
+                We answer promptly and speak plainly. No sales pressure.
+              </p>
+              <Button href="tel:+19125156060" variant="amber" size="lg">
+                (912) 515-6060
+              </Button>
             </div>
           </div>
+
+          <aside>
+            <h2 className="ds-h3 mb-4">Get Your Cash Offer</h2>
+            <LeadForm source="sell-page-aside" variant="card" />
+          </aside>
         </div>
-      </section>
+      </Section>
+
+      <FinalCTA
+        title={<>Ready when you are</>}
+        sub="Send us the address. We'll send back a written cash offer within 24 hours."
+      />
+
+      <SiteFooter />
+      <MobileCTABar />
     </>
   )
 }

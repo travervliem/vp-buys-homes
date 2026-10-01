@@ -1,14 +1,19 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { LeadForm } from '@/components/LeadForm'
+import { Hero } from '@/components/marketing/Hero'
+import { LeadForm } from '@/components/marketing/LeadForm'
+import { UrgencyStrip } from '@/components/marketing/UrgencyStrip'
+import { FinalCTA } from '@/components/marketing/FinalCTA'
+import { SiteHeader } from '@/components/marketing/SiteHeader'
+import { SiteFooter } from '@/components/marketing/SiteFooter'
+import { MobileCTABar } from '@/components/marketing/MobileCTABar'
+import { Section } from '@/components/ui/Section'
+import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS } from '@/lib/areas'
 import { SITUATIONS, type SituationSlug, SITUATION_SLUGS } from '@/lib/situations'
 import { listFilledIntersections } from '@/lib/situations/index'
-import {
-  breadcrumbJsonLd,
-  localBusinessSituationJsonLd,
-} from '@/lib/seo'
+import { breadcrumbJsonLd, localBusinessSituationJsonLd } from '@/lib/seo'
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
@@ -22,8 +27,6 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const situation = SITUATIONS.find(s => s.slug === params.situation)
   if (!situation) return { title: 'Not Found' }
 
-  // Page title — layout.tsx appends " | VP Buys Homes" via the metadata template.
-  // Use shortLabel to keep the rendered title <= 60 chars.
   const title = `${situation.shortLabel} in Georgia — Cash Home Buyers`
   const description = `${situation.pillarLead} VP Buys Homes pays cash for houses across Southeast Georgia in any condition.`.slice(0, 155)
 
@@ -43,7 +46,6 @@ export default function SituationPillarPage({ params }: { params: Params }) {
   const situation = SITUATIONS.find(s => s.slug === params.situation)
   if (!situation) return notFound()
 
-  // Cities for which we already have a filled intersection page for this situation.
   const filledForThisSituation = new Set(
     listFilledIntersections()
       .filter(i => i.situationSlug === situation.slug)
@@ -69,237 +71,157 @@ export default function SituationPillarPage({ params }: { params: Params }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(business) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
 
-      {/* Hero */}
-      <section style={{ background: '#1B365D', padding: '80px 0 72px' }} className="circle-motif">
-        <div className="wrap">
-          <nav style={{ marginBottom: '20px' }} aria-label="Breadcrumb">
-            <ol style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', listStyle: 'none', padding: 0, margin: 0 }}>
-              <li><Link href="/" style={breadcrumbLinkStyle}>Home</Link></li>
-              <li style={breadcrumbSepStyle}>/</li>
-              <li><Link href="/situations" style={breadcrumbLinkStyle}>Situations</Link></li>
-              <li style={breadcrumbSepStyle}>/</li>
-              <li style={breadcrumbCurrentStyle}>{situation.label}</li>
-            </ol>
-          </nav>
-          <p className="eyebrow" style={{ color: '#F2A65A', marginBottom: '16px' }}>
-            Southeast Georgia · {situation.label}
-          </p>
-          <h1 style={{
-            fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-            fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 700, textTransform: 'uppercase',
-            letterSpacing: '0.02em', color: 'white', lineHeight: 1.05, marginBottom: '16px', maxWidth: '760px',
-          }}>
-            {situation.searchVerb} {situation.label} — Sell Your House for Cash
-          </h1>
-          <p style={{
-            fontFamily: "'Nunito Sans',sans-serif", fontSize: '18px',
-            color: 'rgba(255,255,255,0.70)', lineHeight: 1.65, maxWidth: '640px',
-          }}>
-            {situation.pillarLead}
-          </p>
-          <div className="flex flex-wrap gap-3 mt-8">
-            <a href="#get-offer" className="btn-amber">Get My Cash Offer</a>
-            <a href="tel:+19125156060" className="btn-outline">(912) 515-6060</a>
-          </div>
-        </div>
-      </section>
+      <SiteHeader />
 
-      {/* Body content + sidebar form */}
-      <section style={{ background: '#EEF2F7', padding: '80px 0' }}>
-        <div className="wrap">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '48px' }} className="lg:grid-cols-[1fr_420px]">
-            <article>
-              {/* Pillar long-form body */}
-              {situation.pillarBody.map((p, i) => (
-                <p key={i} style={pillarParagraphStyle}>{p}</p>
+      <Hero
+        eyebrow={`Southeast Georgia · ${situation.label}`}
+        headline={<>{situation.searchVerb} <em>{situation.label}</em> — Sell Your House for Cash</>}
+        sub={situation.pillarLead}
+        bullets={[
+          'Cash offer in 24 hours — no obligation',
+          'Statute-aware closings (OCGA citations below)',
+          'Local closing attorney in your county',
+        ]}
+      >
+        <LeadForm source={`situation-${situation.slug}`} context={{ situation: situation.slug }} />
+      </Hero>
+
+      <UrgencyStrip />
+
+      <Section tone="paper" padding="lg">
+        <nav className="mb-6 font-body text-[13px] text-ink-500" aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-2 list-none p-0 m-0">
+            <li><Link href="/" className="text-ink-500 hover:text-amber-dark no-underline">Home</Link></li>
+            <li className="text-ink-300">/</li>
+            <li><Link href="/situations" className="text-ink-500 hover:text-amber-dark no-underline">Situations</Link></li>
+            <li className="text-ink-300">/</li>
+            <li className="text-ink-700">{situation.label}</li>
+          </ol>
+        </nav>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-12 items-start">
+          <article>
+            {situation.pillarBody.map((p, i) => (
+              <p key={i} className="ds-body mb-5" style={{ fontSize: 16.5 }}>
+                {p}
+              </p>
+            ))}
+
+            <h2 className="ds-h3 mt-10 mb-4">The Georgia Statutes That Govern This Situation</h2>
+            <p className="ds-body mb-4">
+              Below are the Georgia code sections most often relevant when a homeowner sells under {situation.label.toLowerCase()} circumstances. This is educational only — talk to a Georgia attorney for advice on your specific case.
+            </p>
+            <div className="bg-white border border-hairline rounded-lg p-6 mb-5">
+              <ul className="flex flex-col gap-3 list-none p-0 m-0">
+                {situation.ocgaRefs.map(ref => (
+                  <li key={ref.code} className="font-body text-[14px] text-ink-700 leading-[1.6]">
+                    <span className="font-bold text-navy">{ref.code}</span> — {ref.summary}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <h2 className="ds-h3 mt-10 mb-4">What Sellers in This Situation Are Often Feeling</h2>
+            <ul className="flex flex-col gap-3 list-none p-0 mb-5">
+              {situation.triggers.map(t => (
+                <li key={t} className="flex items-start gap-3 font-body text-[15px] text-ink-700">
+                  <span aria-hidden className="text-amber-dark font-bold shrink-0 mt-[2px]">✓</span>
+                  {t}
+                </li>
               ))}
+            </ul>
 
-              {/* Statutes */}
-              <h2 style={sectionHeadingStyle}>The Georgia Statutes That Govern This Situation</h2>
-              <p style={paragraphStyle}>
-                Below are the Georgia code sections most often relevant when a homeowner sells under {situation.label.toLowerCase()} circumstances. This is educational only — talk to a Georgia attorney for advice on your specific case.
+            <h2 className="ds-h3 mt-10 mb-4">Red Flags to Watch For With Cash Buyers</h2>
+            <ul className="flex flex-col gap-3 list-none p-0 mb-5">
+              {situation.objections.map(o => (
+                <li key={o} className="flex items-start gap-3 font-body text-[15px] text-ink-700">
+                  <span aria-hidden className="text-danger font-bold shrink-0 mt-[2px]">!</span>
+                  {o}
+                </li>
+              ))}
+            </ul>
+
+            <h2 className="ds-h3 mt-10 mb-4">What VP Buys Homes Does in This Situation</h2>
+            <ul className="flex flex-col gap-3 list-none p-0 mb-5">
+              {situation.whatWeDo.map(item => (
+                <li key={item} className="flex items-start gap-3 font-body text-[15px] text-ink-700">
+                  <span aria-hidden className="text-amber-dark font-bold shrink-0 mt-[2px]">✓</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+
+            <h2 className="ds-h3 mt-10 mb-4">Cities Where We Help With {situation.label}</h2>
+            {filledForThisSituation.size === 0 ? (
+              <p className="ds-body">
+                Detailed city-by-city information for this situation is being added — meanwhile, call (912) 515-6060 or use the form to get a cash offer for your property anywhere in Southeast Georgia.
               </p>
-              <div style={{ background: 'white', border: '1px solid #D1DCE8', borderRadius: '8px', padding: '20px 24px', marginBottom: '20px' }}>
-                <ul style={{ display: 'flex', flexDirection: 'column', gap: '10px', listStyle: 'none', padding: 0, margin: 0 }}>
-                  {situation.ocgaRefs.map(ref => (
-                    <li key={ref.code} style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '14px', lineHeight: 1.6, color: '#374151' }}>
-                      <span style={{ fontWeight: 700, color: '#1B365D' }}>{ref.code}</span> — {ref.summary}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Triggers */}
-              <h2 style={sectionHeadingStyle}>What Sellers in This Situation Are Often Feeling</h2>
-              <ul style={bulletListStyle}>
-                {situation.triggers.map(t => (
-                  <li key={t} style={bulletItemStyle}>
-                    <span style={amberCheck}>✓</span>
-                    {t}
-                  </li>
-                ))}
-              </ul>
-
-              {/* Objections */}
-              <h2 style={sectionHeadingStyle}>Red Flags to Watch For With Cash Buyers</h2>
-              <ul style={bulletListStyle}>
-                {situation.objections.map(o => (
-                  <li key={o} style={bulletItemStyle}>
-                    <span style={amberCheck}>!</span>
-                    {o}
-                  </li>
-                ))}
-              </ul>
-
-              {/* What we do */}
-              <h2 style={sectionHeadingStyle}>What VP Buys Homes Does in This Situation</h2>
-              <ul style={bulletListStyle}>
-                {situation.whatWeDo.map(item => (
-                  <li key={item} style={bulletItemStyle}>
-                    <span style={amberCheck}>✓</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-
-              {/* City links */}
-              <h2 style={sectionHeadingStyle}>Cities Where We Help With {situation.label}</h2>
-              {filledForThisSituation.size === 0 ? (
-                <p style={paragraphStyle}>
-                  Detailed city-by-city information for this situation is being added — meanwhile, call (912) 515-6060 or use the form to get a cash offer for your property anywhere in Southeast Georgia.
-                </p>
-              ) : (
-                <p style={paragraphStyle}>
-                  Click any city to see how {situation.label.toLowerCase()} works in that specific county — including the local courthouse, legal-organ newspaper, and how we help homeowners there.
-                </p>
-              )}
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '12px', marginTop: '12px', marginBottom: '20px' }}>
-                {AREAS.map(area => {
-                  const isFilled = filledForThisSituation.has(area.slug)
-                  const inner = (
-                    <div style={{
-                      background: 'white',
-                      border: isFilled ? '1px solid #D1DCE8' : '1px dashed #D1DCE8',
-                      borderRadius: '8px',
-                      padding: '14px 18px',
-                      opacity: isFilled ? 1 : 0.55,
-                      height: '100%',
-                    }}>
-                      <p style={{
-                        fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                        fontSize: '17px', fontWeight: 700, color: '#1B365D',
-                        textTransform: 'uppercase', letterSpacing: '0.02em', lineHeight: 1.2,
-                      }}>
-                        {area.name}, GA
-                      </p>
-                      <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '12px', color: '#6B7280', marginTop: '2px' }}>
-                        {area.county}
-                      </p>
-                      <p style={{
-                        fontFamily: "'Nunito Sans',sans-serif", fontSize: '12px', fontWeight: 700,
-                        color: isFilled ? '#F2A65A' : '#9CA3AF', marginTop: '8px', letterSpacing: '0.04em',
-                      }}>
-                        {isFilled ? `${situation.label} in ${area.name} →` : 'Coming soon'}
-                      </p>
-                    </div>
-                  )
-                  return isFilled ? (
-                    <Link
-                      key={area.slug}
-                      href={`/areas/${area.slug}/${situation.slug}`}
-                      style={{ textDecoration: 'none' }}
-                    >
-                      {inner}
-                    </Link>
-                  ) : (
-                    <div key={area.slug}>{inner}</div>
-                  )
-                })}
-              </div>
-
-              {/* Other situations */}
-              <div style={{ marginTop: '32px', paddingTop: '24px', borderTop: '1px solid #D1DCE8', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {SITUATIONS.filter(s => s.slug !== situation.slug).map(other => (
-                  <Link key={other.slug} href={`/situations/${other.slug}`} style={lateralLinkStyle}>
-                    {other.label} →
+            ) : (
+              <p className="ds-body">
+                Click any city to see how {situation.label.toLowerCase()} works in that specific county — including the local courthouse, legal-organ newspaper, and how we help homeowners there.
+              </p>
+            )}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-3 mb-5">
+              {AREAS.map(area => {
+                const isFilled = filledForThisSituation.has(area.slug)
+                const inner = (
+                  <div
+                    className={`bg-white rounded-lg p-5 h-full ${isFilled ? 'border border-hairline' : 'border border-dashed border-hairline'}`}
+                    style={{ opacity: isFilled ? 1 : 0.55 }}
+                  >
+                    <p className="font-display text-[18px] font-bold text-navy leading-[1.2]">
+                      {area.name}, GA
+                    </p>
+                    <p className="font-body text-[12px] text-ink-500 mt-1">{area.county}</p>
+                    <p className={`font-body text-[12px] font-bold mt-2 tracking-[0.04em] ${isFilled ? 'text-amber-dark' : 'text-ink-400'}`}>
+                      {isFilled ? `${situation.label} in ${area.name} →` : 'Coming soon'}
+                    </p>
+                  </div>
+                )
+                return isFilled ? (
+                  <Link
+                    key={area.slug}
+                    href={`/areas/${area.slug}/${situation.slug}`}
+                    className="no-underline"
+                  >
+                    {inner}
                   </Link>
-                ))}
-              </div>
-            </article>
+                ) : (
+                  <div key={area.slug}>{inner}</div>
+                )
+              })}
+            </div>
 
-            {/* Sidebar form */}
-            <aside id="get-offer">
-              <h2 style={{
-                fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                fontSize: '20px', fontWeight: 700, textTransform: 'uppercase',
-                letterSpacing: '0.02em', color: '#1B365D', marginBottom: '16px',
-              }}>
-                Get Your Cash Offer
-              </h2>
-              <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '14px', color: '#6B7280', lineHeight: 1.6, marginBottom: '16px' }}>
-                Tell us about the property. Written cash offer within 24 hours. No obligation.
-              </p>
-              <LeadForm context={{ situation: situation.slug }} />
-            </aside>
-          </div>
+            <div className="mt-8 pt-6 border-t border-hairline flex flex-wrap gap-2">
+              {SITUATIONS.filter(s => s.slug !== situation.slug).map(other => (
+                <Link
+                  key={other.slug}
+                  href={`/situations/${other.slug}`}
+                  className="inline-block bg-white border border-hairline rounded-pill px-3.5 py-2 font-body text-[13px] font-semibold text-navy no-underline hover:border-amber transition-colors"
+                >
+                  {other.label} →
+                </Link>
+              ))}
+            </div>
+          </article>
+
+          <aside id="get-offer" className="lg:sticky lg:top-24">
+            <h2 className="ds-h4 mb-2">Get your cash offer</h2>
+            <p className="font-body text-[14px] text-ink-500 leading-[1.6] mb-3">
+              Tell us about the property. Written cash offer within 24 hours. No obligation.
+            </p>
+            <LeadForm source={`situation-aside-${situation.slug}`} context={{ situation: situation.slug }} />
+          </aside>
         </div>
-      </section>
+      </Section>
+
+      <FinalCTA
+        title={<><em>{situation.searchVerb}</em> {situation.label.toLowerCase()} the smart way</>}
+        sub="One call. One real number. No pressure, no hidden fees."
+      />
+
+      <SiteFooter />
+      <MobileCTABar />
     </>
   )
-}
-
-const sectionHeadingStyle: React.CSSProperties = {
-  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-  fontSize: '24px', fontWeight: 700, textTransform: 'uppercase',
-  letterSpacing: '0.02em', color: '#1B365D', marginTop: '32px', marginBottom: '14px', lineHeight: 1.2,
-}
-
-const paragraphStyle: React.CSSProperties = {
-  fontFamily: "'Nunito Sans',sans-serif",
-  fontSize: '16px',
-  lineHeight: 1.75,
-  color: '#374151',
-  marginBottom: '20px',
-}
-
-const pillarParagraphStyle: React.CSSProperties = {
-  fontFamily: "'Nunito Sans',sans-serif",
-  fontSize: '17px',
-  lineHeight: 1.78,
-  color: '#1F2937',
-  marginBottom: '20px',
-}
-
-const bulletListStyle: React.CSSProperties = {
-  display: 'flex', flexDirection: 'column', gap: '10px',
-  marginBottom: '20px', listStyle: 'none', padding: 0,
-}
-
-const bulletItemStyle: React.CSSProperties = {
-  display: 'flex', alignItems: 'flex-start', gap: '10px',
-  fontFamily: "'Nunito Sans',sans-serif", fontSize: '15px', lineHeight: 1.65, color: '#374151',
-}
-
-const amberCheck: React.CSSProperties = {
-  color: '#F2A65A', fontWeight: 700, flexShrink: 0, marginTop: '1px',
-}
-
-const breadcrumbLinkStyle: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.50)', fontSize: '13px',
-  fontFamily: "'Nunito Sans',sans-serif", textDecoration: 'none',
-}
-
-const breadcrumbSepStyle: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.30)', fontSize: '13px',
-}
-
-const breadcrumbCurrentStyle: React.CSSProperties = {
-  color: 'rgba(255,255,255,0.70)', fontSize: '13px', fontFamily: "'Nunito Sans',sans-serif",
-}
-
-const lateralLinkStyle: React.CSSProperties = {
-  display: 'inline-block', background: 'white', border: '1px solid #D1DCE8',
-  borderRadius: '999px', padding: '8px 14px',
-  fontFamily: "'Nunito Sans',sans-serif", fontSize: '13px', fontWeight: 600,
-  color: '#1B365D', textDecoration: 'none',
 }

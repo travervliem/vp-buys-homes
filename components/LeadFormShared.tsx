@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { AddressAutocomplete } from './AddressAutocomplete'
+import { readAttribution, trackEvent } from '@/lib/analytics/client'
+import { EVENTS } from '@/lib/analytics/events'
 
 type Step1 = { name: string; phone: string; address: string }
 
@@ -52,7 +54,10 @@ export function LeadFormShared({ variant = 'full', context }: Props) {
   const [error, setError] = useState('')
   const [sessionId] = useState<string>(() => newSessionId())
 
+  const source = variant === 'hero' ? 'hero-form' : 'full-form'
+
   async function savePartial(data: Step1) {
+    const eventId = `${sessionId}_partial`
     try {
       await fetch('/api/lead', {
         method: 'POST',
@@ -60,11 +65,19 @@ export function LeadFormShared({ variant = 'full', context }: Props) {
         body: JSON.stringify({
           ...data,
           partial: true,
-          sessionId: sessionId,
-          source: variant === 'hero' ? 'hero-form' : 'full-form',
+          sessionId,
+          eventId,
+          source,
           pageCity: context?.city ?? '',
           pageSituation: context?.situation ?? '',
+          attribution: readAttribution(),
         }),
+      })
+      trackEvent(EVENTS.LEAD_PARTIAL, {
+        source,
+        pageCity: context?.city,
+        pageSituation: context?.situation,
+        eventId,
       })
     } catch (e) {
       console.warn('[LeadForm] partial save failed (non-fatal)', e)
@@ -76,6 +89,7 @@ export function LeadFormShared({ variant = 'full', context }: Props) {
     setLoading(true)
     setError('')
     const data = Object.fromEntries(new FormData(e.currentTarget))
+    const eventId = `${sessionId}_complete`
     try {
       const res = await fetch('/api/lead', {
         method: 'POST',
@@ -84,15 +98,24 @@ export function LeadFormShared({ variant = 'full', context }: Props) {
           ...step1,
           ...data,
           partial: false,
-          sessionId: sessionId,
-          source: variant === 'hero' ? 'hero-form' : 'full-form',
+          sessionId,
+          eventId,
+          source,
           pageCity: context?.city ?? '',
           pageSituation: context?.situation ?? '',
+          attribution: readAttribution(),
         }),
       })
       const json = await res.json()
       if (json.ok) {
         setDone(true)
+        trackEvent(EVENTS.LEAD_COMPLETE, {
+          source,
+          pageCity: context?.city,
+          pageSituation: context?.situation,
+          status: 'complete',
+          eventId,
+        })
       } else {
         setError('Something went wrong. Please try again or call us directly.')
       }

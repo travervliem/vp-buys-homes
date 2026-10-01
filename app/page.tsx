@@ -1,57 +1,76 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { HeroKinetic } from '@/components/HeroKinetic'
-import { FaqAccordion } from '@/components/FaqAccordion'
-import { LeadForm } from '@/components/LeadForm'
+import { HomeHero } from '@/components/marketing/HomeHero'
+import { LeadForm } from '@/components/marketing/LeadForm'
+import { UrgencyStrip } from '@/components/marketing/UrgencyStrip'
+import { ProcessSteps } from '@/components/marketing/ProcessSteps'
+import { SituationGrid } from '@/components/marketing/SituationGrid'
+import { FAQ } from '@/components/marketing/FAQ'
+import { FinalCTA } from '@/components/marketing/FinalCTA'
+import { SiteHeader } from '@/components/marketing/SiteHeader'
+import { SiteFooter } from '@/components/marketing/SiteFooter'
+import { MobileCTABar } from '@/components/marketing/MobileCTABar'
+import { Section } from '@/components/ui/Section'
+import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS, areaHref } from '@/lib/areas'
+import { SITUATIONS, intersectionHref, situationHref } from '@/lib/situations'
 import { faqJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
   description: 'We buy houses for cash in Statesboro, GA and surrounding Southeast Georgia. No repairs, no fees, no commissions. Cash offer in 24 hours. Close in as little as 7 days.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com' },
+  alternates: { canonical: 'https://www.vpbuyshomes.com/' },
 }
 
 const STEPS = [
   {
-    n: '01',
     title: 'Tell Us About the Property',
     body: 'Share the address, condition, and your timing. No inspection required to get started.',
   },
   {
-    n: '02',
     title: 'Receive Your Cash Offer',
     body: 'We review comparable sales and property condition, then deliver a written cash offer within 24 hours.',
   },
   {
-    n: '03',
     title: 'Pick Your Closing Date',
     body: 'Accept and choose a date that works for you — as fast as 7 days or up to 60. We handle the paperwork.',
   },
 ]
 
-const SITUATIONS = [
+const SITUATIONS_DEMO = [
   {
+    href: situationHref('foreclosure'),
+    tag: 'Foreclosure',
     title: 'Facing Foreclosure',
     body: 'A quick sale can stop the process before auction. Contact us immediately — timing is everything.',
   },
   {
+    href: situationHref('probate'),
+    tag: 'Probate',
     title: 'Inherited Property',
     body: 'We purchase estate and probate properties as-is, working directly with your attorney if needed.',
   },
   {
+    href: situationHref('tired-landlord'),
+    tag: 'Landlord',
     title: 'Tired Landlord',
     body: 'Problem tenants, deferred maintenance, or just done with landlording. We buy occupied properties.',
   },
   {
+    href: situationHref('tax-liens'),
+    tag: 'Tax Liens',
     title: 'Major Repairs Needed',
     body: 'Foundation issues, fire damage, outdated systems — we buy it as-is. You do not lift a finger.',
   },
   {
+    href: '/sell',
+    tag: 'Relocating',
     title: 'Relocating Fast',
     body: 'Job transfer or life change requiring a quick move. Close on your schedule without showings or open houses.',
   },
   {
+    href: situationHref('divorce'),
+    tag: 'Divorce',
     title: 'Divorce or Estate',
     body: 'A private, fast sale that lets both parties move forward. We keep it simple and confidential.',
   },
@@ -59,12 +78,12 @@ const SITUATIONS = [
 
 const TESTIMONIALS = [
   {
-    quote: 'I needed to sell my mom\'s house after she passed. VP called the same day, made a fair offer, and closed in 11 days. I didn\'t have to fix a thing.',
+    quote: "I needed to sell my mom's house after she passed. VP called the same day, made a fair offer, and closed in 11 days. I didn't have to fix a thing.",
     name: 'Donna R.',
     city: 'Statesboro, GA',
   },
   {
-    quote: 'Was two months behind on payments and didn\'t know what to do. They got me out of the house before foreclosure hit my credit. Saved me.',
+    quote: "Was two months behind on payments and didn't know what to do. They got me out of the house before foreclosure hit my credit. Saved me.",
     name: 'Marcus T.',
     city: 'Rincon, GA',
   },
@@ -75,236 +94,222 @@ const TESTIMONIALS = [
   },
 ]
 
-function SectionHeader({ eyebrow, title, subtitle, white = false }: { eyebrow: string; title: string; subtitle?: string; white?: boolean }) {
-  return (
-    <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 48px' }}>
-      <p className="eyebrow" style={{ marginBottom: '12px', color: white ? 'rgba(255,255,255,0.50)' : '#F2A65A' }}>{eyebrow}</p>
-      <h2 className="sec-h" style={{ color: white ? 'white' : '#1B365D', marginBottom: subtitle ? '16px' : 0 }}>{title}</h2>
-      {subtitle && (
-        <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '16px', lineHeight: 1.65, color: white ? 'rgba(255,255,255,0.60)' : '#374151', marginTop: '12px' }}>
-          {subtitle}
-        </p>
-      )}
-    </div>
-  )
-}
+const FAQ_ITEMS = [
+  {
+    q: 'Are you really cash buyers, or do you wholesale to someone else?',
+    a: 'We close with our own funds through a local closing attorney. No bank, no appraisal, no financing contingency. We are a Georgia LLC; you can verify our registration with the Georgia Secretary of State.',
+  },
+  {
+    q: 'How fast can you actually close?',
+    a: 'As fast as 7 days when title is clean. Most closings happen in 2–4 weeks. We move on your timeline — fast or patient, your call.',
+  },
+  {
+    q: 'Do I need to make any repairs or clean the property?',
+    a: 'No. We buy as-is. Don\'t fix anything. Don\'t clean. Leave whatever you don\'t want — we handle it.',
+  },
+  {
+    q: 'What if I owe more on the mortgage than the house is worth?',
+    a: 'It is worth a conversation. We may still be able to negotiate a short payoff with your lender, or work out a creative structure that pays off the mortgage at closing.',
+  },
+  {
+    q: 'Will my offer be lower than the market value?',
+    a: 'Yes. Cash offers are below retail because we take on the cost of repairs, holding time, and certainty of close. The tradeoff is no repairs, no fees, no waiting, no failed financing.',
+  },
+  {
+    q: 'How is your offer determined?',
+    a: 'Comparable recent sales in your specific market, your property\'s current condition, and our estimated cost to bring it to retail-sellable condition. We show our math if you ask.',
+  },
+]
 
 export default function HomePage() {
   const faq = faqJsonLd()
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }} />
-      {/* Hero */}
-      <HeroKinetic />
 
-      {/* Trust bar */}
-      <div style={{ background: '#1B365D', padding: '0' }}>
-        <div className="wrap">
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            gap: '0',
-            borderTop: '1px solid rgba(255,255,255,0.08)',
-          }}>
-            {['50+ Closings Completed', 'Cash Offer in 24 Hours', 'Close in 7 Days', 'No Repairs Required', 'No Fees or Commissions'].map((item, i) => (
-              <div
-                key={item}
-                style={{
-                  padding: '20px 32px',
-                  borderRight: i < 4 ? '1px solid rgba(255,255,255,0.08)' : 'none',
-                  display: 'flex', alignItems: 'center', gap: '8px',
-                }}
-              >
-                <span style={{ color: '#F2A65A', fontWeight: 700, fontSize: '16px' }}>✓</span>
-                <span style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '13px', fontWeight: 600, color: 'rgba(255,255,255,0.70)', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
-                  {item}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <SiteHeader />
+
+      <HomeHero>
+        <LeadForm source="hero-form" />
+      </HomeHero>
+
+      <UrgencyStrip
+        items={[
+          '50+ closings completed',
+          'Cash offer in 24 hours',
+          'Close in 7 days',
+          'No repairs required',
+          'No fees or commissions',
+        ]}
+      />
 
       {/* How It Works */}
-      <section style={{ background: '#EEF2F7', padding: '96px 0' }}>
-        <div className="wrap">
-          <SectionHeader
-            eyebrow="Simple Process"
-            title="How It Works"
-            subtitle="Three steps from first contact to cash in hand. No showings, no negotiations, no surprises."
-          />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-            {STEPS.map(step => (
-              <div key={step.n} style={{
-                background: 'white',
-                borderRadius: '8px',
-                padding: '32px',
-                boxShadow: '0 2px 6px rgba(13,27,42,0.06)',
-                borderTop: '3px solid #1B365D',
-                position: 'relative',
-              }}>
-                <span style={{
-                  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                  fontSize: '56px', fontWeight: 800, lineHeight: 1,
-                  color: '#EEF2F7', position: 'absolute', top: '16px', right: '20px',
-                  letterSpacing: '-0.02em',
-                }}>
-                  {step.n}
-                </span>
-                <h3 style={{
-                  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                  fontSize: '20px', fontWeight: 700, textTransform: 'uppercase',
-                  letterSpacing: '0.02em', color: '#1B365D', marginBottom: '12px', lineHeight: 1.2,
-                }}>
-                  {step.title}
-                </h3>
-                <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '15px', lineHeight: 1.7, color: '#374151' }}>
-                  {step.body}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div style={{ textAlign: 'center', marginTop: '40px' }}>
-            <Link href="/how-it-works" className="btn-navy">See the Full Process</Link>
-          </div>
+      <Section tone="paper" padding="lg" id="how">
+        <div className="text-center max-w-[920px] mx-auto mb-14">
+          <span className="font-body text-[13px] font-bold uppercase tracking-[0.22em] text-amber">
+            Simple Process
+          </span>
+          <h2
+            className="font-display font-bold text-navy m-0 mt-4 mb-5"
+            style={{
+              fontSize: 'clamp(36px, 5.2vw, 56px)',
+              lineHeight: 1.05,
+              letterSpacing: '0.005em',
+              textWrap: 'balance' as any,
+            }}
+          >
+            How It Works
+          </h2>
+          <p className="font-body text-ink-700 mx-auto" style={{ fontSize: 'clamp(16px, 1.5vw, 18px)', lineHeight: 1.6, textWrap: 'balance' as any }}>
+            Three steps from first contact to cash in hand. No showings, no negotiations, no surprises.
+          </p>
         </div>
-      </section>
+        <ProcessSteps steps={STEPS} />
+        <div className="text-center mt-10">
+          <Link
+            href="/how-it-works"
+            className="inline-flex items-center gap-2 px-7 py-3 bg-navy text-white font-body text-[12px] font-bold tracking-[0.16em] uppercase rounded-sm no-underline hover:bg-navy-deep transition-colors"
+          >
+            See the Full Process
+          </Link>
+        </div>
+      </Section>
 
       {/* Common Situations */}
-      <section style={{ background: 'white', padding: '96px 0' }}>
-        <div className="wrap">
-          <SectionHeader
-            eyebrow="We Can Help"
-            title="Common Situations We Handle"
-            subtitle="Life moves fast. We buy houses from homeowners facing all kinds of circumstances — quickly and without judgment."
-          />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
-            {SITUATIONS.map(s => (
-              <div key={s.title} className="card" style={{ borderTop: '2px solid #F2A65A' }}>
-                <h3 style={{
-                  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                  fontSize: '18px', fontWeight: 700, textTransform: 'uppercase',
-                  letterSpacing: '0.02em', color: '#1B365D', marginBottom: '10px',
-                }}>
-                  {s.title}
-                </h3>
-                <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '14px', lineHeight: 1.7, color: '#374151' }}>
-                  {s.body}
-                </p>
-              </div>
-            ))}
-          </div>
+      <Section tone="white" padding="lg" id="situations">
+        <div className="text-center max-w-[640px] mx-auto mb-12">
+          <Eyebrow>We Can Help</Eyebrow>
+          <h2 className="ds-h2 mt-3 mb-4">Common Situations We Handle</h2>
+          <p className="ds-body">
+            Life moves fast. We buy houses from homeowners facing all kinds of circumstances — quickly and without judgment.
+          </p>
         </div>
-      </section>
+        <SituationGrid items={SITUATIONS_DEMO} />
+      </Section>
 
       {/* Areas We Serve — navy */}
-      <section style={{ background: '#1B365D', padding: '96px 0' }} className="circle-motif">
-        <div className="wrap">
-          <SectionHeader
-            eyebrow="Southeast Georgia"
-            title="Areas We Serve"
-            subtitle="We know the local market. We buy houses across Southeast Georgia — in any condition, on any timeline."
-            white
-          />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px', maxWidth: '800px', margin: '0 auto 40px' }}>
-            {AREAS.map(area => (
-              <Link
-                key={area.slug}
-                href={areaHref(area.slug)}
-                className="area-card-link"
-                style={{
-                  display: 'block',
-                  background: area.primary ? 'rgba(242,166,90,0.12)' : 'rgba(255,255,255,0.06)',
-                  border: area.primary ? '1px solid rgba(242,166,90,0.30)' : '1px solid rgba(255,255,255,0.10)',
-                  borderRadius: '8px',
-                  padding: '16px 20px',
-                  textDecoration: 'none',
-                }}
-              >
-                <p style={{
-                  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                  fontSize: '17px', fontWeight: 700, textTransform: 'uppercase',
-                  letterSpacing: '0.03em', color: area.primary ? '#F2A65A' : 'white', marginBottom: '3px',
-                }}>
-                  {area.name}
-                </p>
-                <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '12px', color: 'rgba(255,255,255,0.45)' }}>
-                  {area.county}
-                </p>
-              </Link>
-            ))}
-          </div>
-          <div style={{ textAlign: 'center' }}>
-            <Link href="/areas" className="btn-outline">View All Service Areas</Link>
-          </div>
+      <Section tone="navy" padding="lg" id="areas" className="relative overflow-hidden">
+        <span aria-hidden className="absolute pointer-events-none" style={{ width: 600, height: 600, borderRadius: '50%', border: '72px solid rgba(255,255,255,0.03)', top: -180, right: -150 }} />
+        <span aria-hidden className="absolute pointer-events-none" style={{ width: 400, height: 400, borderRadius: '50%', border: '56px solid rgba(255,255,255,0.025)', top: -60, right: -40 }} />
+        <div className="text-center max-w-[640px] mx-auto mb-12 relative z-[1]">
+          <Eyebrow tone="white">Southeast Georgia</Eyebrow>
+          <h2 className="ds-h2 text-white mt-3 mb-4" style={{ color: 'white' }}>Areas We Serve</h2>
+          <p className="font-body text-[15px]" style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>
+            We know the local market. We buy houses across Southeast Georgia — in any condition, on any timeline.
+          </p>
         </div>
-      </section>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 max-w-[800px] mx-auto mb-10 relative z-[1]">
+          {AREAS.map(area => (
+            <Link
+              key={area.slug}
+              href={areaHref(area.slug)}
+              className="group block rounded-lg p-4 no-underline transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white/[0.10] hover:border-amber/40"
+              style={{
+                background: 'rgba(255,255,255,0.06)',
+                border: '1px solid rgba(255,255,255,0.10)',
+              }}
+            >
+              <p
+                className="font-display font-bold mb-1 text-white transition-colors duration-200 group-hover:text-amber"
+                style={{ fontSize: 17, letterSpacing: '0.005em' }}
+              >
+                {area.name}
+              </p>
+              <p className="font-body" style={{ fontSize: 12, color: 'rgba(255,255,255,0.45)' }}>
+                {area.county}
+              </p>
+            </Link>
+          ))}
+        </div>
+        <div className="text-center relative z-[1]">
+          <Link
+            href="/areas"
+            className="inline-flex items-center gap-2 px-7 py-3 border-[1.5px] border-white/30 text-white font-body text-[12px] font-bold tracking-[0.16em] uppercase rounded-sm no-underline hover:bg-white/[0.06] hover:border-white transition-colors"
+          >
+            View All Service Areas
+          </Link>
+        </div>
+      </Section>
 
       {/* Testimonials */}
-      <section style={{ background: '#EEF2F7', padding: '96px 0' }}>
-        <div className="wrap">
-          <SectionHeader
-            eyebrow="From Sellers Like You"
-            title="What Homeowners Say"
-          />
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', maxWidth: '960px', margin: '0 auto' }}>
-            {TESTIMONIALS.map(t => (
-              <div key={t.name} style={{
-                background: 'white',
-                borderRadius: '8px',
-                padding: '28px',
-                boxShadow: '0 2px 6px rgba(13,27,42,0.06)',
-                position: 'relative',
-              }}>
-                <span style={{ fontSize: '40px', lineHeight: 1, color: '#F2A65A', fontFamily: 'Georgia, serif', display: 'block', marginBottom: '12px' }}>&ldquo;</span>
-                <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '15px', lineHeight: 1.7, color: '#374151', marginBottom: '20px', fontStyle: 'italic' }}>
-                  {t.quote}
-                </p>
-                <div style={{ borderTop: '1px solid #D1DCE8', paddingTop: '16px' }}>
-                  <p style={{ fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif", fontSize: '15px', fontWeight: 700, color: '#1B365D', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
-                    {t.name}
-                  </p>
-                  <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '12px', color: '#9CA3AF' }}>{t.city}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <Section tone="paper" padding="lg" id="testimonials">
+        <div className="text-center max-w-[640px] mx-auto mb-12">
+          <Eyebrow>From Sellers Like You</Eyebrow>
+          <h2 className="ds-h2 mt-3">What Homeowners Say</h2>
         </div>
-      </section>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-[960px] mx-auto">
+          {TESTIMONIALS.map(t => (
+            <article key={t.name} className="bg-white rounded-lg p-7 border border-hairline shadow-sm relative">
+              <span className="block font-display text-amber" style={{ fontSize: 48, lineHeight: 1, marginBottom: 12 }}>&ldquo;</span>
+              <p className="font-body text-[15px] text-ink-700 italic mb-5" style={{ lineHeight: 1.7 }}>
+                {t.quote}
+              </p>
+              <div className="border-t border-hairline pt-4">
+                <p className="font-display text-[16px] font-bold text-navy">
+                  {t.name}
+                </p>
+                <p className="font-body text-[12px] text-ink-400 mt-0.5">{t.city}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </Section>
 
       {/* FAQ */}
-      <section style={{ background: 'white', padding: '96px 0' }}>
-        <div className="wrap">
-          <SectionHeader
-            eyebrow="Common Questions"
-            title="Frequently Asked"
-          />
-          <FaqAccordion />
+      <Section tone="white" padding="lg" id="faq">
+        <div className="text-center max-w-[640px] mx-auto mb-12">
+          <Eyebrow>Common Questions</Eyebrow>
+          <h2 className="ds-h2 mt-3">Frequently Asked</h2>
         </div>
-      </section>
+        <FAQ items={FAQ_ITEMS} />
+      </Section>
 
-      {/* Final CTA — full lead form */}
-      <section style={{ background: '#0F2040', padding: '96px 0' }} id="get-offer">
-        <div className="wrap">
-          <div style={{ maxWidth: '640px', margin: '0 auto' }}>
-            <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-              <p className="eyebrow" style={{ color: 'rgba(255,255,255,0.45)', marginBottom: '12px' }}>No Obligation · Confidential</p>
-              <h2 style={{
-                fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, textTransform: 'uppercase',
-                letterSpacing: '0.02em', color: 'white', marginBottom: '12px', lineHeight: 1.05,
-              }}>
-                Get Your Cash Offer Today
-              </h2>
-              <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '16px', lineHeight: 1.65, color: 'rgba(255,255,255,0.60)' }}>
-                Fill out the form below. We review the property and respond within 24 hours — often the same day.
-              </p>
+      {/* Bottom-of-page lead capture — second-chance conversion for visitors who scroll */}
+      <Section tone="navy" padding="lg" id="get-offer" className="relative overflow-hidden">
+        <span aria-hidden className="absolute pointer-events-none" style={{ width: 600, height: 600, borderRadius: '50%', border: '72px solid rgba(255,255,255,0.03)', top: -180, right: -150 }} />
+        <span aria-hidden className="absolute pointer-events-none" style={{ width: 400, height: 400, borderRadius: '50%', border: '56px solid rgba(255,255,255,0.025)', top: -60, right: -40 }} />
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_460px] gap-12 items-start relative z-[1]">
+          <div>
+            <Eyebrow tone="white">No obligation · Confidential</Eyebrow>
+            <h2 className="ds-h2 mt-3 mb-5 text-white" style={{ color: 'white' }}>
+              Get your <em className="text-amber not-italic" style={{ fontStyle: 'italic', fontWeight: 600 }}>cash offer</em> today
+            </h2>
+            <p className="font-body text-[16px] mb-7" style={{ color: 'rgba(255,255,255,0.72)', lineHeight: 1.65, maxWidth: 520 }}>
+              Send us the address and a few details. Written cash offer within 24 hours — often the same day. Add a few photos for a sharper, faster number.
+            </p>
+            <ul className="list-none p-0 m-0 flex flex-col gap-3 mb-7">
+              {[
+                'Cash offer in 24 hours — no obligation',
+                'Close in 7 days, or on your timeline',
+                'Optional photo upload — auto-resized, no app needed',
+              ].map((b, i) => (
+                <li key={i} className="flex items-start gap-3 font-body text-[14.5px]" style={{ color: 'rgba(255,255,255,0.86)' }}>
+                  <span aria-hidden className="inline-flex items-center justify-center shrink-0 mt-0.5" style={{ width: 18, height: 18, borderRadius: '50%', background: '#F2A65A', color: '#fff', fontSize: 11, fontWeight: 900, lineHeight: 1 }}>
+                    ✓
+                  </span>
+                  {b}
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center gap-2 font-body text-[13px]" style={{ color: 'rgba(255,255,255,0.6)' }}>
+              <span className="text-amber font-display font-bold">P</span>
+              Or call <a href="tel:+19125156060" className="text-white font-semibold no-underline hover:text-amber">(912) 515-6060</a>
             </div>
-            <LeadForm />
+          </div>
+          <div>
+            <LeadForm source="bottom-of-page" />
           </div>
         </div>
-      </section>
+      </Section>
+
+      <FinalCTA
+        eyebrow="No obligation · Confidential"
+        title={<>Whatever the situation — <em>we listen first</em></>}
+        sub="Three minutes to fill out. 24 hours to respond. No pressure, no hidden fees."
+      />
+
+      <SiteFooter />
+      <MobileCTABar />
     </>
   )
 }

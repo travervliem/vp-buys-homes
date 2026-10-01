@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VP Buys Homes — Marketing Site</title>
+<style id="tokens">
+/* ==========================================================================
+   VP Equities / VP Buys Homes — Core Foundations
+   Colors, typography, spacing, radii, shadows, motion
+   Source of truth: vp-equities-brand-guidelines.html (2025)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&display=swap');
+
+:root {
+  /* --------------------------------------------------------------------
+     COLOR — canonical brand palette (from brand guidelines, section 02)
+     80% navy · 20% amber · white/tint for breathing room
+     -------------------------------------------------------------------- */
+
+  /* Primary */
+  --navy:       #1B365D;   /* True Navy — primary brand */
+  --navy-deep:  #0F2040;   /* deeper navy (for gradients, over-navy cards) */
+  --navy-mid:   #264D80;   /* mid tone for eyebrows on light */
+  --navy-900:   #0D1B2A;   /* Near Black — body text */
+
+  /* Accent */
+  --amber:      #F2A65A;   /* Warm Amber — CTA / accent ONLY */
+  --amber-dark: #D4862E;   /* hover / pressed amber */
+
+  /* Surfaces */
+  --white:      #FFFFFF;
+  --light:      #EEF2F7;   /* page tint — digital backgrounds */
+  --border:     #D1DCE8;   /* hairline on light */
+
+  /* Neutrals */
+  --dark:       #0D1B2A;   /* body text */
+  --gray-900:   #111827;
+  --gray-700:   #374151;
+  --gray-500:   #6B7280;   /* caption / meta */
+  --gray-400:   #9CA3AF;
+  --gray-300:   #CBD5E1;
+  --gray-100:   #F3F4F6;
+
+  /* Semantic */
+  --success:    #15803D;
+  --success-bg: #DCFCE7;
+  --warning:    #B45309;
+  --warning-bg: #FEF3E2;
+  --danger:     #B42318;
+  --danger-bg:  #FEE4E2;
+
+  /* Semantic aliases */
+  --bg:        var(--white);
+  --bg-tint:   var(--light);
+  --bg-navy:   var(--navy);
+  --bg-deep:   var(--navy-deep);
+
+  --fg:        var(--dark);
+  --fg-muted:  var(--gray-500);
+  --fg-subtle: var(--gray-400);
+  --fg-invert: var(--white);
+  --fg-brand:  var(--navy);
+  --fg-accent: var(--amber);
+
+  --border-ink:   var(--navy);
+  --border-hair:  var(--border);
+
+  /* --------------------------------------------------------------------
+     TYPE — Two families only (section 03)
+     Barlow Semi Condensed = all headlines / display
+     Nunito Sans           = all body / UI
+     -------------------------------------------------------------------- */
+
+  --fh: 'Barlow Semi Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --fb: 'Nunito Sans', 'Helvetica Neue', system-ui, sans-serif;
+  --fm: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Legacy aliases for convenience */
+  --font-head: var(--fh);
+  --font-body: var(--fb);
+
+  /* Type scale — tuned to brand specimen */
+  --fs-mega:    72px;   /* hero display */
+  --fs-h1:      56px;
+  --fs-h2:      38px;   /* section title from spec */
+  --fs-h3:      28px;
+  --fs-h4:      22px;
+  --fs-h5:      18px;
+  --fs-lead:    18px;
+  --fs-body:    15px;
+  --fs-body-sm: 13px;
+  --fs-cap:     11px;   /* eyebrow / meta — UPPERCASE tracked */
+  --fs-micro:   10px;
+
+  --lh-tight: 1.0;
+  --lh-snug:  1.15;
+  --lh-base:  1.7;      /* body is noticeably open (spec: 1.7) */
+  --lh-ui:    1.5;
+
+  --tr-display: 0.02em; /* Barlow display tracking */
+  --tr-cap:     0.14em; /* small label */
+  --tr-eyebrow: 0.18em; /* tiny eyebrow */
+  --tr-upper:   0.06em; /* button uppercase */
+
+  /* --------------------------------------------------------------------
+     SPACING — 4px base
+     -------------------------------------------------------------------- */
+  --s-0:  0;
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-14: 56px;
+  --s-16: 64px;
+  --s-18: 72px;   /* section vertical padding from spec */
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* --------------------------------------------------------------------
+     RADII — modest, professional (matches brand docs: 4–10px)
+     -------------------------------------------------------------------- */
+  --r-xs:  3px;
+  --r-sm:  4px;
+  --r-md:  6px;
+  --r-lg:  8px;    /* canonical card radius */
+  --r-xl:  10px;
+  --r-2xl: 14px;
+  --r-pill: 999px;
+
+  /* --------------------------------------------------------------------
+     SHADOWS — cool/neutral, subtle. Cards are quiet, CTAs are confident.
+     -------------------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(13, 27, 42, 0.06);
+  --shadow-sm: 0 2px 6px rgba(13, 27, 42, 0.06), 0 1px 2px rgba(13, 27, 42, 0.04);
+  --shadow-md: 0 4px 14px rgba(13, 27, 42, 0.10), 0 2px 4px rgba(13, 27, 42, 0.04);
+  --shadow-lg: 0 10px 30px rgba(13, 27, 42, 0.12), 0 4px 10px rgba(13, 27, 42, 0.06);
+  --shadow-xl: 0 24px 48px rgba(13, 27, 42, 0.18), 0 10px 20px rgba(13, 27, 42, 0.08);
+  --shadow-amber: 0 6px 20px rgba(242, 166, 90, 0.35);
+
+  /* Rings */
+  --ring-amber: 0 0 0 3px rgba(242, 166, 90, 0.45);
+  --ring-navy:  0 0 0 3px rgba(27, 54, 93, 0.25);
+
+  /* --------------------------------------------------------------------
+     MOTION — fast, direct (no bounce, no dawdling)
+     -------------------------------------------------------------------- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:  120ms;
+  --dur-med:   200ms;
+  --dur-slow:  360ms;
+
+  /* Layout */
+  --container-max:   1200px;
+  --container-tight: 960px;
+}
+
+/* ==========================================================================
+   SEMANTIC DEFAULTS
+   ========================================================================== */
+
+html, body {
+  font-family: var(--fb);
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Barlow display — ALL CAPS permitted for hero/H1 (brand voice); tracking 0.02em */
+.display, h1, .h1 {
+  font-family: var(--fh);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.hero-display {
+  font-family: var(--fh);
+  font-size: var(--fs-mega);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  color: var(--navy);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+h2, .h2 {
+  font-family: var(--fh);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+h3, .h3 {
+  font-family: var(--fh);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tr-display);
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+
+h4, .h4 {
+  font-family: var(--fh);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+
+h5, .h5 {
+  font-family: var(--fh);
+  font-size: var(--fs-h5);
+  line-height: var(--lh-snug);
+  font-weight: 600;
+  color: var(--navy);
+}
+
+p, .body {
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+  color: var(--gray-700);
+  text-wrap: pretty;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--gray-700);
+  text-wrap: pretty;
+}
+
+.caption {
+  font-size: var(--fs-body-sm);
+  color: var(--gray-500);
+  line-height: var(--lh-base);
+}
+
+.eyebrow {
+  font-family: var(--fb);
+  font-size: var(--fs-cap);
+  font-weight: 700;
+  letter-spacing: var(--tr-cap);
+  text-transform: uppercase;
+  color: var(--amber);
+  line-height: 1;
+}
+
+.eyebrow--navy { color: var(--navy-mid); }
+.eyebrow--white { color: rgba(255, 255, 255, 0.4); }
+
+.micro-label {
+  font-family: var(--fb);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+a {
+  color: var(--navy);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+a:hover { color: var(--amber-dark); }
+
+/* Selection */
+::selection {
+  background: var(--amber);
+  color: var(--white);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-amber);
+  border-radius: var(--r-sm);
+}
+
+</style>
+<style>
+  html,body{margin:0;padding:0;background:#fff;color:var(--dark);scroll-behavior:smooth}
+  *{box-sizing:border-box}
+  .container{max-width:1200px;margin:0 auto;padding:0 28px}
+  /* Header */
+  .site-hdr{position:sticky;top:0;background:rgba(255,255,255,.88);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);border-bottom:1px solid transparent;z-index:50;transition:border-color 200ms}
+  .site-hdr.scr{border-bottom-color:var(--border)}
+  .hdr-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:6px;text-decoration:none}
+  .logo .vp{font-family:var(--fh);font-size:24px;font-weight:700;color:var(--navy);letter-spacing:.02em;line-height:1}
+  .logo .div{width:1px;height:22px;background:rgba(27,54,93,.2);margin:0 3px}
+  .logo .eq{font-family:var(--fh);font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--navy);text-transform:uppercase;line-height:1}
+  .nav{display:flex;gap:32px;align-items:center}
+  .nav a{font-family:var(--fb);font-size:13px;font-weight:600;color:var(--dark);text-decoration:none;letter-spacing:.02em;white-space:nowrap;transition:color 120ms}
+  .nav a:hover{color:var(--amber-dark)}
+  .nav-cta{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;background:var(--amber);color:#fff;font-family:var(--fh);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;text-decoration:none;white-space:nowrap;transition:background 120ms}
+  .nav-cta:hover{background:var(--amber-dark);color:#fff}
+  .phn{font-family:var(--fh);font-size:13px;font-weight:700;letter-spacing:.04em;color:var(--navy);text-transform:uppercase}
+  .phn .p{color:var(--amber);margin-right:4px}
+
+  /* Hero */
+  .hero{background:var(--navy);color:#fff;padding:84px 0 120px;position:relative;overflow:hidden}
+  .hero::before{content:'';position:absolute;right:-80px;top:-100px;width:420px;height:420px;border-radius:50%;border:72px solid rgba(255,255,255,.04)}
+  .hero::after{content:'';position:absolute;right:60px;bottom:-120px;width:240px;height:240px;border-radius:50%;border:40px solid rgba(255,255,255,.03)}
+  .hero-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
+  .hero-eb{display:inline-flex;align-items:center;gap:8px;font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+  .hero-eb::before{content:'';width:24px;height:2px;background:var(--amber)}
+  .hero h1{font-family:var(--fh);font-size:58px;font-weight:700;letter-spacing:.02em;color:#fff;text-transform:uppercase;line-height:1.02;margin:0 0 24px;text-wrap:balance}
+  .hero h1 em{font-style:normal;color:var(--amber);position:relative;display:inline-block}
+  .hero-sub{font-family:var(--fb);font-size:17px;line-height:1.65;color:rgba(255,255,255,.72);max-width:520px;margin:0 0 28px}
+  .hero-bullets{list-style:none;padding:0;margin:0 0 32px;display:flex;flex-direction:column;gap:10px}
+  .hero-bullets li{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.85);font-size:14px}
+  .hero-bullets li::before{content:'';width:16px;height:16px;border-radius:50%;background:var(--amber);flex-shrink:0;position:relative}
+  .hero-bullets li{position:relative}
+  .hero-bullets li .chk{position:absolute;left:3px;color:#fff;font-size:11px;font-weight:900;line-height:16px}
+  .hero-ctas{display:flex;gap:12px;align-items:center}
+  .btn-amber{display:inline-flex;align-items:center;gap:8px;padding:14px 26px;background:var(--amber);color:#fff;font-family:var(--fh);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:4px;text-decoration:none;box-shadow:var(--shadow-amber);cursor:pointer;transition:all 120ms var(--ease-standard)}
+  .btn-amber:hover{background:var(--amber-dark);transform:translateY(-1px);color:#fff}
+  .btn-ghost{display:inline-flex;align-items:center;gap:8px;padding:14px 22px;background:transparent;color:#fff;font-family:var(--fh);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid rgba(255,255,255,.3);border-radius:4px;text-decoration:none;cursor:pointer;transition:all 120ms}
+  .btn-ghost:hover{border-color:#fff;background:rgba(255,255,255,.06);color:#fff}
+
+  /* Offer form card in hero */
+  .offer-card{background:#fff;color:var(--dark);border-radius:10px;padding:26px;box-shadow:var(--shadow-xl);position:relative}
+  .offer-card::before{content:'';position:absolute;top:-1px;left:24px;right:24px;height:3px;background:var(--amber);border-radius:0 0 3px 3px}
+  .offer-eb{font-family:var(--fb);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-dark);margin-bottom:6px}
+  .offer-h{font-family:var(--fh);font-size:24px;font-weight:700;letter-spacing:.02em;color:var(--navy);text-transform:uppercase;line-height:1.1;margin:0 0 6px}
+  .offer-sub{font-size:13px;color:var(--gray-500);margin:0 0 18px;line-height:1.55}
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+  .in{width:100%;padding:12px 14px;font-family:var(--fb);font-size:14px;color:var(--dark);background:#fff;border:1px solid var(--border);border-radius:6px;outline:none;transition:all 120ms}
+  .in:focus{border-color:var(--navy);box-shadow:var(--ring-navy)}
+  .in.full{grid-column:1/-1}
+  .offer-btn{width:100%;margin-top:4px;padding:15px;background:var(--amber);color:#fff;font-family:var(--fh);font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border:none;border-radius:4px;cursor:pointer;box-shadow:var(--shadow-amber);transition:all 120ms}
+  .offer-btn:hover{background:var(--amber-dark)}
+  .offer-foot{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:var(--gray-500);margin-top:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+  .offer-foot .dot{width:5px;height:5px;border-radius:50%;background:#15803D}
+
+  /* ============ KINETIC HERO VARIANTS ============ */
+  .khero{background:var(--navy);color:#fff;position:relative;overflow:hidden;min-height:720px;display:flex;flex-direction:column}
+  .khero-body{flex:1;display:grid;grid-template-columns:1.25fr 1fr;gap:48px;padding:84px 0 56px;align-items:center;position:relative;z-index:2}
+  .khero-body > .container{display:contents}
+  .khero-lhs{padding-left:28px;padding-right:28px}
+  .khero-rhs{padding-right:28px}
+  .khero .offer-card{background:#fff;color:var(--dark);border-radius:10px;padding:26px;box-shadow:var(--shadow-xl);position:relative}
+
+  /* --- Variant 1: TICKER + COUNTER --- */
+  .v-ticker .khero-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:26px}
+  .v-ticker .khero-eyebrow::before{content:'';width:28px;height:2px;background:var(--amber)}
+  .v-ticker .live-dot{width:7px;height:7px;border-radius:50%;background:#5EE89E;box-shadow:0 0 0 3px rgba(94,232,158,.25);animation:pulse 1.6s infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 3px rgba(94,232,158,.25)}50%{box-shadow:0 0 0 7px rgba(94,232,158,.05)}}
+
+  .counter-block{display:flex;align-items:flex-start;gap:24px;margin-bottom:28px}
+  .counter-huge{font-family:var(--fh);font-weight:800;font-size:168px;line-height:.8;letter-spacing:-.04em;color:#fff;display:inline-flex;align-items:baseline}
+  .counter-huge .unit{font-size:56px;color:var(--amber);margin-left:6px;letter-spacing:-.02em}
+  .counter-caption{padding-top:14px;max-width:240px}
+  .counter-caption .t{font-family:var(--fh);font-size:14px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#fff;margin-bottom:4px}
+  .counter-caption .s{font-size:12px;color:rgba(255,255,255,.5);line-height:1.55}
+
+  .kh-headline{font-family:var(--fh);font-weight:800;font-size:72px;line-height:.92;letter-spacing:-.01em;color:#fff;text-transform:uppercase;margin:0 0 18px;text-wrap:balance}
+  .kh-headline .line2{color:var(--amber)}
+  .kh-sub{font-family:var(--fb);font-size:16px;color:rgba(255,255,255,.68);line-height:1.65;max-width:480px;margin:0 0 28px}
+  .kh-ctas{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+  .ticker{position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);background:rgba(0,0,0,.15);overflow:hidden;padding:14px 0}
+  .ticker-track{display:flex;gap:48px;animation:tkr 38s linear infinite;white-space:nowrap;will-change:transform}
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  @keyframes tkr{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+  .ticker-item{display:inline-flex;align-items:center;gap:14px;font-family:var(--fh);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78);flex-shrink:0}
+  .ticker-item .tloc{color:#fff}
+  .ticker-item .tdays{color:var(--amber)}
+  .ticker-item .sep{width:5px;height:5px;border-radius:50%;background:var(--amber);opacity:.6}
+
+  .ambient-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:1;mask-image:radial-gradient(ellipse at 30% 40%,black,transparent 75%)}
+
+  /* --- Variant 2: MARQUEE + PARALLAX --- */
+  .v-marquee{min-height:760px}
+  .v-marquee .khero-body{padding:96px 0 72px}
+  .marquee-bg{position:absolute;inset:0;display:flex;gap:72px;padding:40px 0;z-index:0;pointer-events:none}
+  .mcol{flex:1;overflow:hidden;position:relative;mask-image:linear-gradient(180deg,transparent 0%,black 18%,black 82%,transparent 100%);-webkit-mask-image:linear-gradient(180deg,transparent 0%,black 18%,black 82%,transparent 100%)}
+  .mcol-track{display:flex;flex-direction:column;gap:28px;animation:mup 40s linear infinite;will-change:transform}
+  .mcol:nth-child(even) .mcol-track{animation:mdown 48s linear infinite}
+  .mcol-track span{font-family:var(--fh);font-size:64px;font-weight:800;letter-spacing:-.01em;color:rgba(255,255,255,.07);text-transform:uppercase;line-height:.9;white-space:nowrap}
+  .mcol:nth-child(3n) .mcol-track span{color:rgba(242,166,90,.06)}
+  @keyframes mup{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+  @keyframes mdown{0%{transform:translateY(-50%)}100%{transform:translateY(0)}}
+
+  .v-marquee .khero-content{position:relative;z-index:3}
+  .v-marquee .mark-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(242,166,90,.14);border:1px solid rgba(242,166,90,.35);border-radius:999px;font-family:var(--fb);font-size:10.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:24px}
+  .v-marquee .mark-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--amber);animation:pulse 1.6s infinite}
+
+  .v-marquee .kh-headline{font-size:94px;line-height:.88;letter-spacing:-.025em;font-weight:800}
+  .v-marquee .kh-headline .flash{display:inline-block;position:relative;color:var(--amber);padding:0 4px}
+  .v-marquee .kh-headline .flash::before{content:'';position:absolute;inset:6% -4px;background:rgba(242,166,90,.14);border-radius:3px;z-index:-1;transform:skewX(-8deg)}
+
+  .parallax-house{position:absolute;right:-40px;top:20%;opacity:.08;z-index:1;transform:translateY(var(--py,0px));transition:transform 200ms linear}
+
+  /* --- Variant 3: STAMP / POSTAL --- */
+  .v-stamp{min-height:720px;background:#F4EEE3;color:var(--dark)}
+  .v-stamp.khero{background:#F4EEE3;color:var(--dark)}
+  .paper-texture{position:absolute;inset:0;background:
+    radial-gradient(circle at 20% 30%,rgba(13,27,42,.04) 1px,transparent 1px),
+    radial-gradient(circle at 80% 70%,rgba(13,27,42,.03) 1px,transparent 1px),
+    repeating-linear-gradient(0deg,transparent 0 38px,rgba(13,27,42,.025) 38px 39px);
+  background-size:3px 3px,2px 2px,auto;pointer-events:none;z-index:0}
+  .v-stamp .khero-body{padding:72px 0 60px}
+  .v-stamp .khero-lhs{position:relative;z-index:2}
+  .postal-bar{display:flex;align-items:center;gap:20px;padding-bottom:16px;border-bottom:2px dashed rgba(13,27,42,.25);margin-bottom:32px;font-family:var(--fm,ui-monospace);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray-500);font-weight:600}
+  .postal-bar .dot{width:8px;height:8px;border-radius:50%;background:#C22B2B;box-shadow:0 0 0 3px rgba(194,43,43,.15)}
+  .postal-bar .ts{margin-left:auto;font-family:var(--fm,ui-monospace);color:var(--navy)}
+
+  .v-stamp .kh-headline{color:var(--navy);font-size:86px;line-height:.92;font-weight:800;letter-spacing:-.02em}
+  .v-stamp .kh-headline em{font-style:italic;font-weight:400;color:var(--navy);text-transform:lowercase;letter-spacing:-.02em}
+  .v-stamp .kh-headline .amber{color:var(--amber-dark)}
+  .v-stamp .kh-sub{color:var(--gray-700);max-width:460px}
+
+  .postmark{position:absolute;top:56px;right:-18px;width:210px;height:210px;border:3px solid var(--amber-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;transform:rotate(-12deg);z-index:3;color:var(--amber-dark);opacity:.92;animation:stampBounce 900ms var(--ease-out) .3s both}
+  .postmark::before{content:'';position:absolute;inset:10px;border:1.5px dashed var(--amber-dark);border-radius:50%;opacity:.6}
+  .postmark .pm-inner{text-align:center;font-family:var(--fh);text-transform:uppercase}
+  .postmark .pm-inner .t1{font-size:14px;font-weight:700;letter-spacing:.2em;display:block;margin-bottom:4px}
+  .postmark .pm-inner .t2{font-size:36px;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .postmark .pm-inner .t3{font-size:11px;letter-spacing:.24em;font-weight:600;display:block;margin-top:6px;opacity:.8}
+  @keyframes stampBounce{0%{transform:rotate(-12deg) scale(2.2);opacity:0}60%{transform:rotate(-12deg) scale(.92);opacity:1}100%{transform:rotate(-12deg) scale(1);opacity:.92}}
+
+  .recpt{background:#fff;border:1px solid rgba(13,27,42,.15);border-radius:4px;padding:20px 22px 14px;position:relative;box-shadow:0 6px 24px rgba(13,27,42,.12);margin-top:24px}
+  .recpt::before,.recpt::after{content:'';position:absolute;left:0;right:0;height:10px;background:radial-gradient(circle at 6px 0,#F4EEE3 5px,transparent 6px);background-size:12px 10px;background-repeat:repeat-x}
+  .recpt::before{top:-10px;transform:scaleY(-1)}
+  .recpt::after{bottom:-10px}
+  .recpt .rhd{font-family:var(--fm,ui-monospace);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500);display:flex;justify-content:space-between;margin-bottom:14px;padding-bottom:10px;border-bottom:1px dashed rgba(13,27,42,.2)}
+  .recpt .rrow{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--fm,ui-monospace);font-size:13px;padding:6px 0;color:var(--navy)}
+  .recpt .rrow .lbl{color:var(--gray-500);font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600}
+  .recpt .rrow.total{border-top:2px dashed rgba(13,27,42,.2);padding-top:12px;margin-top:8px;font-family:var(--fh);text-transform:uppercase}
+  .recpt .rrow.total .val{color:var(--amber-dark);font-size:16px;font-weight:800;letter-spacing:.02em}
+  .v-stamp .offer-card{border-radius:2px;border:1.5px solid rgba(13,27,42,.18);box-shadow:0 10px 30px rgba(13,27,42,.15),0 2px 6px rgba(13,27,42,.08)}
+  .v-stamp .offer-card::before{background:var(--navy)}
+  .v-stamp .offer-eb{color:var(--navy);font-family:var(--fm,ui-monospace);letter-spacing:.18em}
+
+  /* ============ Tweaks panel ============ */
+  .tweaks{position:fixed;right:16px;bottom:16px;z-index:9999;background:var(--navy);color:#fff;border-radius:10px;padding:14px 16px;box-shadow:var(--shadow-lg);display:none;flex-direction:column;gap:10px;width:240px;font-family:var(--fb)}
+  .tweaks.open{display:flex;animation:tweaksIn 200ms var(--ease-out)}
+  @keyframes tweaksIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .tweaks h6{margin:0;font-family:var(--fh);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
+  .tweaks .opts{display:flex;flex-direction:column;gap:6px}
+  .tweaks .opt{display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;cursor:pointer;font-size:12.5px;color:rgba(255,255,255,.8);transition:all 120ms;text-align:left;font-family:var(--fb)}
+  .tweaks .opt:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2)}
+  .tweaks .opt.active{background:rgba(242,166,90,.14);border-color:var(--amber);color:#fff}
+  .tweaks .opt .k{font-family:var(--fh);font-size:10px;letter-spacing:.12em;color:var(--amber);font-weight:700;text-transform:uppercase;width:36px;flex-shrink:0}
+
+  @media (max-width:960px){
+    .khero-body{grid-template-columns:1fr;padding:56px 0 40px}
+    .counter-huge{font-size:108px}
+    .counter-huge .unit{font-size:42px}
+    .kh-headline{font-size:48px}
+    .v-marquee .kh-headline{font-size:52px}
+    .v-stamp .kh-headline{font-size:46px}
+    .postmark{display:none}
+  }
+
+  /* Trust band */
+  .trust{background:var(--light);padding:36px 0;border-bottom:1px solid var(--border)}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+  .stat{border-left:2px solid var(--amber);padding-left:18px}
+  .stat .n{font-family:var(--fh);font-size:34px;font-weight:700;color:var(--navy);letter-spacing:.02em;line-height:1;margin-bottom:6px}
+  .stat .l{font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500)}
+
+  /* Section generic */
+  .sec{padding:88px 0;border-bottom:1px solid var(--border)}
+  .sec.alt{background:var(--light)}
+  .sec.dark{background:var(--navy);color:#fff;border:none}
+  .sec-head{max-width:620px;margin-bottom:52px}
+  .eyb{font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:12px}
+  .sec-h{font-family:var(--fh);font-size:38px;font-weight:700;letter-spacing:.02em;color:var(--navy);text-transform:uppercase;line-height:1.12;margin:0 0 18px;text-wrap:balance}
+  .sec.dark .sec-h{color:#fff}
+  .sec-sub{font-family:var(--fb);font-size:17px;color:var(--gray-500);line-height:1.65;margin:0;max-width:560px}
+  .sec.dark .sec-sub{color:rgba(255,255,255,.6)}
+
+  /* How it works */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .step{background:#fff;border:1px solid var(--border);border-radius:10px;padding:28px 24px;position:relative;transition:all 200ms var(--ease-standard)}
+  .step:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+  .step .num{font-family:var(--fh);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+  .step .big{font-family:var(--fh);font-size:74px;font-weight:800;color:var(--light);line-height:.8;position:absolute;top:20px;right:22px;letter-spacing:-.02em;z-index:0}
+  .step .ct{position:relative;z-index:1}
+  .step h3{font-family:var(--fh);font-size:22px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin:0 0 10px;line-height:1.15}
+  .step p{font-size:14px;color:var(--gray-500);line-height:1.7;margin:0}
+
+  /* Benefits (Why us) */
+  .benefits{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center}
+  .benefits .pic{aspect-ratio:4/3;border-radius:10px;background:linear-gradient(135deg,#1B365D 0%,#264D80 100%);position:relative;overflow:hidden;box-shadow:var(--shadow-lg)}
+  .benefits .pic::before{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;border:40px solid rgba(255,255,255,.04)}
+  .benefits .pic-tag{position:absolute;left:22px;bottom:22px;right:22px;color:#fff}
+  .benefits .pic-tag .eb{font-family:var(--fb);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:6px}
+  .benefits .pic-tag .tt{font-family:var(--fh);font-size:24px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;line-height:1.05}
+  .ben-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:18px}
+  .ben-item{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
+  .ben-item:last-child{border-bottom:none}
+  .ben-mk{flex-shrink:0;width:38px;height:38px;border-radius:50%;background:rgba(242,166,90,.14);color:var(--amber-dark);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-weight:800;font-size:16px}
+  .ben-ct h4{font-family:var(--fh);font-size:17px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin:0 0 4px;line-height:1.2}
+  .ben-ct p{font-size:13.5px;color:var(--gray-500);line-height:1.65;margin:0}
+
+  /* Situations */
+  .sit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .sit{background:#fff;border:1px solid var(--border);border-radius:10px;padding:22px;transition:all 200ms var(--ease-standard)}
+  .sit:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--amber)}
+  .sit .tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--fb);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--amber-dark);margin-bottom:10px}
+  .sit .tag::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--amber)}
+  .sit h4{font-family:var(--fh);font-size:18px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;margin:0 0 8px;line-height:1.2}
+  .sit p{font-size:13px;color:var(--gray-500);line-height:1.65;margin:0}
+
+  /* Areas */
+  .areas-wrap{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+  .areas-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .area{background:#fff;border:1px solid var(--border);border-radius:8px;padding:16px 18px;display:flex;justify-content:space-between;align-items:center;transition:all 120ms}
+  .area:hover{border-color:var(--navy);transform:translateX(2px)}
+  .area .c{font-family:var(--fh);font-size:15px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em}
+  .area .co{font-size:11px;color:var(--gray-500);letter-spacing:.04em}
+
+  /* Testimonial */
+  .test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .quote{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:26px;border-top:2px solid var(--amber)}
+  .quote .qt{font-family:var(--fh);font-size:19px;font-weight:500;color:#fff;line-height:1.35;margin:0 0 18px;letter-spacing:.01em;text-wrap:pretty}
+  .quote .qt::before{content:'\201C';color:var(--amber);margin-right:2px;font-size:24px;line-height:0}
+  .quote .who{display:flex;flex-direction:column;gap:2px;border-top:1px solid rgba(255,255,255,.1);padding-top:12px}
+  .quote .who .nm{font-family:var(--fh);font-size:13px;font-weight:700;color:#fff;letter-spacing:.04em;text-transform:uppercase}
+  .quote .who .loc{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.06em;text-transform:uppercase}
+
+  /* FAQ */
+  .faq-list{max-width:820px;margin:0 auto;border-top:1px solid var(--border)}
+  .faq-item{border-bottom:1px solid var(--border)}
+  .faq-q{width:100%;text-align:left;padding:22px 0;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:var(--fh);font-size:17px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.04em;line-height:1.3}
+  .faq-q .ic{flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1.5px solid var(--navy);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--navy);transition:all 160ms}
+  .faq-item.open .faq-q .ic{background:var(--amber);border-color:var(--amber);color:#fff;transform:rotate(45deg)}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height 300ms var(--ease-standard);font-size:14px;color:var(--gray-500);line-height:1.75}
+  .faq-item.open .faq-a{max-height:240px;padding-bottom:22px}
+
+  /* Final CTA */
+  .final{background:var(--navy);padding:72px 0;text-align:center;position:relative;overflow:hidden}
+  .final::before{content:'';position:absolute;left:50%;top:-140px;transform:translateX(-50%);width:520px;height:520px;border-radius:50%;border:72px solid rgba(255,255,255,.03)}
+  .final-eb{font-family:var(--fb);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;position:relative}
+  .final-h{font-family:var(--fh);font-size:48px;font-weight:700;letter-spacing:.02em;color:#fff;text-transform:uppercase;line-height:1.04;margin:0 0 16px;text-wrap:balance;position:relative}
+  .final-sub{font-size:16px;color:rgba(255,255,255,.7);margin:0 0 28px;position:relative}
+  .final-ctas{display:inline-flex;gap:12px;align-items:center;position:relative}
+
+  /* Footer */
+  .ftr{background:#0A1E33;color:rgba(255,255,255,.55);padding:56px 0 28px}
+  .ftr-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:48px;margin-bottom:40px}
+  .ftr h5{font-family:var(--fh);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin:0 0 16px}
+  .ftr a{color:rgba(255,255,255,.72);text-decoration:none;font-size:13px;display:block;margin-bottom:8px;transition:color 120ms}
+  .ftr a:hover{color:var(--amber)}
+  .ftr-sig{display:flex;flex-direction:column;gap:14px}
+  .ftr-logo{display:flex;align-items:center;gap:8px}
+  .ftr-logo .vp{font-family:var(--fh);font-size:24px;font-weight:700;color:#fff;letter-spacing:.02em;line-height:1}
+  .ftr-logo .eq{font-family:var(--fh);font-size:12px;font-weight:700;letter-spacing:.1em;color:#fff;text-transform:uppercase}
+  .ftr-note{font-size:12.5px;color:rgba(255,255,255,.45);line-height:1.65;max-width:320px}
+  .ftr-phone{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(242,166,90,.12);border:1px solid rgba(242,166,90,.3);border-radius:6px;font-family:var(--fh);font-size:14px;font-weight:700;letter-spacing:.04em;color:#fff;text-decoration:none;align-self:flex-start}
+  .ftr-phone .p{color:var(--amber)}
+  .ftr-bot{display:flex;justify-content:space-between;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;color:rgba(255,255,255,.35);letter-spacing:.04em}
+
+  @media (max-width:960px){
+    .hero-grid,.benefits,.areas-wrap,.ftr-grid{grid-template-columns:1fr;gap:40px}
+    .steps,.sit-grid,.test-grid,.trust-grid{grid-template-columns:1fr 1fr}
+    .hero h1{font-size:44px}
+    .sec-h,.final-h{font-size:32px}
+    .sec{padding:56px 0}
+  }
+</style>
+</head>
+<body>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+
+// ===== Logo.jsx =====
+// Logo.jsx — canonical VP Equities lockup
+const Logo = ({ size = 'md', reversed = false, showWordmark = true }) => {
+  const scale = { sm: 0.72, md: 1, lg: 1.3 }[size] || 1;
+  const textColor = reversed ? '#fff' : '#1B365D';
+  const subColor = reversed ? 'rgba(255,255,255,.4)' : '#9CA3AF';
+  const divColor = reversed ? 'rgba(255,255,255,.2)' : 'rgba(27,54,93,.2)';
+  const houseBg = reversed ? '#fff' : '#1B365D';
+  const houseFg = reversed ? '#1B365D' : '#fff';
+  const vpSize = 24 * scale, houseSize = 22 * scale;
+  return (
+    <span className="logo" style={{display:'inline-flex',alignItems:'center',gap:`${6*scale}px`}}>
+      <span style={{fontFamily:'var(--fh)',fontSize:vpSize,fontWeight:700,color:textColor,letterSpacing:'.02em',lineHeight:1}}>VP</span>
+      <svg width={houseSize} height={houseSize} viewBox="0 0 32 32">
+        <polygon points="16,2 30,12 30,30 2,30 2,12" fill={houseBg}/>
+        <rect x="11" y="18" width="10" height="12" rx="1" fill={houseFg}/>
+      </svg>
+      {showWordmark && <>
+        <span style={{width:1,height:22*scale,background:divColor,margin:`0 ${3*scale}px`}} />
+        <span style={{display:'flex',flexDirection:'column',gap:2}}>
+          <span style={{fontFamily:'var(--fh)',fontSize:12*scale,fontWeight:700,letterSpacing:'.1em',color:textColor,textTransform:'uppercase',lineHeight:1}}>VP EQUITIES</span>
+          <span style={{fontFamily:'var(--fb)',fontSize:8.5*scale,letterSpacing:'.18em',color:subColor,textTransform:'uppercase'}}>VPBUYSHOMES.COM</span>
+        </span>
+      </>}
+    </span>
+  );
+};
+window.Logo = Logo;
+
+
+// ===== Header.jsx =====
+// Header.jsx
+const Header = () => {
+  const [scrolled, setScrolled] = React.useState(false);
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  return (
+    <header className={`site-hdr ${scrolled ? 'scr' : ''}`}>
+      <div className="container hdr-inner">
+        <a href="#" className="logo"><Logo /></a>
+        <nav className="nav">
+          <a href="#how">How it works</a>
+          <a href="#situations">Situations</a>
+          <a href="#areas">Areas</a>
+          <a href="#faq">FAQ</a>
+          <span className="phn"><span className="p">P</span>(912) 555-0120</span>
+          <a href="#offer" className="nav-cta">Get Offer</a>
+        </nav>
+      </div>
+    </header>
+  );
+};
+window.Header = Header;
+
+
+// ===== Hero.jsx =====
+// KINETIC HERO — 3 variants switchable via Tweaks panel
+const HERO_VARIANTS = /*EDITMODE-BEGIN*/{
+  "variant": "ticker"
+}/*EDITMODE-END*/;
+
+// Recent closings data for ticker
+const CLOSINGS = [
+  { loc: 'Rincon', days: 9, cond: 'Inherited' },
+  { loc: 'Statesboro', days: 11, cond: 'As-is' },
+  { loc: 'Savannah', days: 7, cond: 'Pre-foreclosure' },
+  { loc: 'Metter', days: 14, cond: 'Tenant-occupied' },
+  { loc: 'Pooler', days: 8, cond: 'Estate' },
+  { loc: 'Springfield', days: 10, cond: 'Relocation' },
+  { loc: 'Brooklet', days: 12, cond: 'Divorce' },
+  { loc: 'Guyton', days: 9, cond: 'Foundation' },
+];
+
+// Animated counter hook
+const useCountUp = (target, duration = 1800) => {
+  const [n, setN] = React.useState(0);
+  React.useEffect(() => {
+    let raf; const start = performance.now();
+    const tick = (t) => {
+      const p = Math.min(1, (t - start) / duration);
+      const eased = 1 - Math.pow(1 - p, 3);
+      setN(Math.round(target * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [target, duration]);
+  return n;
+};
+
+// Shared offer card
+const OfferCard = ({ compact = false }) => {
+  const [submitted, setSubmitted] = React.useState(false);
+  return (
+    <form className="offer-card" onSubmit={e => { e.preventDefault(); setSubmitted(true); }}>
+      <div className="offer-eb">Cash offer · 24 hours</div>
+      <h3 className="offer-h">Tell us about your house</h3>
+      <p className="offer-sub">Takes under two minutes. No obligation.</p>
+      {submitted ? (
+        <div style={{padding:'24px 16px',textAlign:'center',background:'#DCFCE7',borderRadius:6,border:'1px solid #86EFAC'}}>
+          <div style={{fontFamily:'var(--fh)',fontSize:16,fontWeight:700,color:'#15803D',textTransform:'uppercase',letterSpacing:'.04em',marginBottom:6}}>Thank you</div>
+          <div style={{fontSize:13,color:'#15803D'}}>We'll reach out within 24 hours with your written offer.</div>
+        </div>
+      ) : (
+        <>
+          <div className="form-grid">
+            <input className="in" placeholder="Full name" required />
+            <input className="in" placeholder="Phone" required />
+            <input className="in full" placeholder="Property address" required />
+            {!compact && (
+              <select className="in full" defaultValue="">
+                <option value="" disabled>Ideal timeline</option>
+                <option>ASAP (7–14 days)</option>
+                <option>Within 30 days</option>
+                <option>1–2 months</option>
+                <option>Just exploring</option>
+              </select>
+            )}
+          </div>
+          <button type="submit" className="offer-btn">Get My Cash Offer</button>
+          <div className="offer-foot"><span className="dot"></span>No obligation · Your info stays private</div>
+        </>
+      )}
+    </form>
+  );
+};
+
+// Variant 1: TICKER + COUNTER
+const HeroTicker = () => {
+  const hours = useCountUp(24);
+  const days = useCountUp(7);
+  const ticker = [...CLOSINGS, ...CLOSINGS]; // duplicate for seamless loop
+  return (
+    <section className="khero v-ticker" id="offer">
+      <div className="ambient-grid" />
+      <div className="khero-body">
+        <div className="container" style={{display:'contents'}}>
+          <div className="khero-lhs">
+            <div className="khero-eyebrow"><span className="live-dot"/>Live · Southeast Georgia</div>
+            <div className="counter-block">
+              <div className="counter-huge">{hours}<span className="unit">HR</span></div>
+              <div className="counter-caption">
+                <div className="t">Offer turnaround</div>
+                <div className="s">Median time from inquiry to a written cash offer in your inbox.</div>
+              </div>
+            </div>
+            <h1 className="kh-headline">Cash in your hand<br/><span className="line2">in {days} days.</span></h1>
+            <p className="kh-sub">No repairs. No agent fees. Pick the close date. We buy houses across Southeast Georgia — Statesboro, Rincon, Savannah, Metter, Springfield.</p>
+            <div className="kh-ctas">
+              <a href="#offer" className="btn-amber">Get My Cash Offer</a>
+              <a href="#how" className="btn-ghost">See recent closings →</a>
+            </div>
+          </div>
+          <div className="khero-rhs"><OfferCard /></div>
+        </div>
+      </div>
+      <div className="ticker" aria-hidden="true">
+        <div className="ticker-track">
+          {ticker.map((c, i) => (
+            <div className="ticker-item" key={i}>
+              <span className="tloc">Closed · {c.loc}</span>
+              <span>{c.cond}</span>
+              <span className="tdays">{c.days} days</span>
+              <span className="sep" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Variant 2: MARQUEE + PARALLAX
+const HeroMarquee = () => {
+  const [py, setPy] = React.useState(0);
+  React.useEffect(() => {
+    const onScroll = () => setPy(window.scrollY * 0.18);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+  const CITIES = ['STATESBORO','RINCON','SAVANNAH','METTER','SPRINGFIELD','POOLER','BROOKLET','GUYTON','BULLOCH','EFFINGHAM','CHATHAM','CANDLER'];
+  // Make 3 columns, each with a shuffled-feel list, duplicated for loop
+  const cols = [
+    [...CITIES, ...CITIES],
+    [...CITIES.slice(4), ...CITIES.slice(0,4), ...CITIES.slice(4), ...CITIES.slice(0,4)],
+    [...CITIES.slice(8), ...CITIES.slice(0,8), ...CITIES.slice(8), ...CITIES.slice(0,8)],
+  ];
+  return (
+    <section className="khero v-marquee" id="offer">
+      <div className="marquee-bg" aria-hidden="true">
+        {cols.map((col, i) => (
+          <div className="mcol" key={i}>
+            <div className="mcol-track">
+              {col.map((c, j) => <span key={j}>{c}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+      <svg className="parallax-house" width="520" height="520" viewBox="0 0 32 32" style={{'--py': py + 'px'}}>
+        <polygon points="16,2 30,12 30,30 2,30 2,12" fill="#fff"/>
+        <rect x="11" y="18" width="10" height="12" rx="1" fill="transparent" stroke="#fff" strokeWidth=".5"/>
+      </svg>
+      <div className="khero-body">
+        <div className="container" style={{display:'contents'}}>
+          <div className="khero-lhs khero-content">
+            <div className="mark-badge">Cash offer · 24 Hr turnaround</div>
+            <h1 className="kh-headline">Sell fast.<br/>Close <span className="flash">clean.</span><br/>Keep more.</h1>
+            <p className="kh-sub">We buy houses across Southeast Georgia for cash — any condition, any situation. No repairs, no agent fees, pick your close date.</p>
+            <div className="kh-ctas">
+              <a href="#offer" className="btn-amber">Get My Cash Offer</a>
+              <a href="#how" className="btn-ghost">How it works</a>
+            </div>
+          </div>
+          <div className="khero-rhs khero-content"><OfferCard compact /></div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Variant 3: STAMP / POSTAL
+const HeroStamp = () => {
+  const [ts, setTs] = React.useState('');
+  React.useEffect(() => {
+    const update = () => {
+      const d = new Date();
+      const pad = n => String(n).padStart(2,'0');
+      setTs(`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} · ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`);
+    };
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, []);
+  return (
+    <section className="khero v-stamp" id="offer">
+      <div className="paper-texture" />
+      <div className="khero-body">
+        <div className="container" style={{display:'contents'}}>
+          <div className="khero-lhs">
+            <div className="postal-bar">
+              <span className="dot" />
+              <span>File #VP-2026-0418</span>
+              <span>Priority</span>
+              <span>Southeast GA</span>
+              <span className="ts">{ts}</span>
+            </div>
+            <h1 className="kh-headline">Cash offer<br/><em>in your inbox</em>,<br/><span className="amber">by tomorrow.</span></h1>
+            <p className="kh-sub">We buy houses in Southeast Georgia for cash. A written offer within 24 hours. Close in 7 days, or on your timeline. No repairs, no fees.</p>
+            <div className="kh-ctas" style={{marginTop:28}}>
+              <a href="#offer" className="btn-amber">Get My Cash Offer</a>
+              <a href="#how" className="btn-ghost" style={{color:'var(--navy)',borderColor:'rgba(27,54,93,.3)'}}>How it works</a>
+            </div>
+            <div className="recpt" style={{maxWidth:380}}>
+              <div className="rhd"><span>Recent closing · Rincon</span><span>9 days</span></div>
+              <div className="rrow"><span className="lbl">Condition</span><span>Inherited · as-is</span></div>
+              <div className="rrow"><span className="lbl">Offer sent</span><span>{'< 24 hours'}</span></div>
+              <div className="rrow"><span className="lbl">Fees · repairs</span><span>$0</span></div>
+              <div className="rrow total"><span>Net to seller</span><span className="val">Full offer</span></div>
+            </div>
+          </div>
+          <div className="khero-rhs" style={{position:'relative'}}>
+            <div className="postmark" aria-hidden="true">
+              <div className="pm-inner">
+                <span className="t1">Cash Offer</span>
+                <div className="t2">24 HR</div>
+                <span className="t3">VP Equities</span>
+              </div>
+            </div>
+            <OfferCard />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Variant switcher + Tweaks panel wiring
+const Hero = () => {
+  const [variant, setVariant] = React.useState(HERO_VARIANTS.variant || 'ticker');
+  const [tweaksOpen, setTweaksOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const d = e.data || {};
+      if (d.type === '__activate_edit_mode') setTweaksOpen(true);
+      if (d.type === '__deactivate_edit_mode') setTweaksOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    // Announce availability AFTER listener registered
+    try { window.parent.postMessage({type:'__edit_mode_available'}, '*'); } catch(e){}
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const pick = (v) => {
+    setVariant(v);
+    try { window.parent.postMessage({type:'__edit_mode_set_keys', edits:{variant:v}}, '*'); } catch(e){}
+  };
+
+  const Variants = { ticker: HeroTicker, marquee: HeroMarquee, stamp: HeroStamp };
+  const Current = Variants[variant] || HeroTicker;
+
+  return (
+    <>
+      <Current key={variant} />
+      <div className={'tweaks ' + (tweaksOpen ? 'open' : '')}>
+        <h6>Hero variant</h6>
+        <div className="opts">
+          <button className={'opt ' + (variant==='ticker'?'active':'')} onClick={()=>pick('ticker')}>
+            <span className="k">01</span><span>Ticker + counter</span>
+          </button>
+          <button className={'opt ' + (variant==='marquee'?'active':'')} onClick={()=>pick('marquee')}>
+            <span className="k">02</span><span>Marquee + parallax</span>
+          </button>
+          <button className={'opt ' + (variant==='stamp'?'active':'')} onClick={()=>pick('stamp')}>
+            <span className="k">03</span><span>Stamp / postal</span>
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
+window.Hero = Hero;
+
+// ===== TrustBar.jsx =====
+// TrustBar.jsx
+const TrustBar = () => (
+  <section className="trust">
+    <div className="container trust-grid">
+      <div className="stat"><div className="n">24 HRS</div><div className="l">Written cash offer</div></div>
+      <div className="stat"><div className="n">7–21</div><div className="l">Days to close</div></div>
+      <div className="stat"><div className="n">0%</div><div className="l">Fees · Commissions</div></div>
+      <div className="stat"><div className="n">AS-IS</div><div className="l">Any condition</div></div>
+    </div>
+  </section>
+);
+window.TrustBar = TrustBar;
+
+
+// ===== HowItWorks.jsx =====
+// HowItWorks.jsx
+const STEPS = [
+  { n: '01', t: 'Tell us about the house', p: 'Share the address, condition, and timing. Takes under two minutes — online or over the phone.' },
+  { n: '02', t: 'Get a written offer', p: 'We review comparable sales and needed work, then send a no-obligation cash offer within 24 hours.' },
+  { n: '03', t: 'Pick your close date', p: 'Close in as little as 7 days with our local attorney, or on your schedule. We handle the paperwork.' },
+];
+const HowItWorks = () => (
+  <section className="sec" id="how">
+    <div className="container">
+      <div className="sec-head">
+        <div className="eyb">The Process</div>
+        <h2 className="sec-h">How it works — three steps, seven days</h2>
+        <p className="sec-sub">Simple, fast, predictable. No surprises between the first call and the closing table.</p>
+      </div>
+      <div className="steps">
+        {STEPS.map(s => (
+          <div className="step" key={s.n}>
+            <div className="big">{s.n}</div>
+            <div className="ct">
+              <div className="num">Step {s.n}</div>
+              <h3>{s.t}</h3>
+              <p>{s.p}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+window.HowItWorks = HowItWorks;
+
+
+// ===== Benefits.jsx =====
+// Benefits.jsx
+const BEN = [
+  { i: '$', t: 'No fees, no commissions', p: 'Keep the difference. Standard closing costs covered. Your net is clear from the first offer.' },
+  { i: '✓', t: 'As-is — no repairs, no cleaning', p: 'Leave what you want behind. We buy foundation issues, roof damage, hoarder homes, and estates.' },
+  { i: '→', t: 'You pick the close date', p: 'Need to close in a week? Prefer 60 days? Our local closing attorney works on your schedule.' },
+  { i: '★', t: 'Local — we know the market', p: 'Southeast Georgia specialists since 2018. Bulloch, Chatham, Effingham counties are our backyard.' },
+];
+const Benefits = () => (
+  <section className="sec alt">
+    <div className="container">
+      <div className="sec-head">
+        <div className="eyb">Why VP Equities</div>
+        <h2 className="sec-h">A local firm — not a call center</h2>
+        <p className="sec-sub">Every offer reviewed by our acquisitions team. Every closing handled by a Georgia attorney. Never farmed out to a national network.</p>
+      </div>
+      <div className="benefits">
+        <div className="pic">
+          <div className="pic-tag">
+            <div className="eb">Serving since 2018</div>
+            <div className="tt">Statesboro · Rincon · Savannah<br/>Metter · Springfield</div>
+          </div>
+        </div>
+        <ul className="ben-list">
+          {BEN.map(b => (
+            <li className="ben-item" key={b.t}>
+              <div className="ben-mk">{b.i}</div>
+              <div className="ben-ct">
+                <h4>{b.t}</h4>
+                <p>{b.p}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+);
+window.Benefits = Benefits;
+
+
+// ===== Situations.jsx =====
+// Situations.jsx
+const SITUATIONS = [
+  { tag: 'Time-sensitive', t: 'Facing foreclosure', p: 'We can often make an offer within 48 hours and coordinate with your lender before the sale date.' },
+  { tag: 'Estate', t: 'Inherited property', p: 'Out-of-state heirs welcome. We handle deed research and work with probate attorneys.' },
+  { tag: 'Tenants', t: 'Tired of being a landlord', p: 'Problem tenants, back rent, deferred maintenance — we buy occupied properties as-is.' },
+  { tag: 'Condition', t: 'Major repairs needed', p: 'Roof, foundation, mold, fire damage, hoarder situation. Nothing too rough.' },
+  { tag: 'Life change', t: 'Divorce or relocation', p: 'Private, fast, and clean. No public listings, no parade of showings.' },
+  { tag: 'Financial', t: 'Behind on payments', p: 'Medical bills, job change, rising rates. We can usually close before the next payment is due.' },
+];
+const Situations = () => (
+  <section className="sec" id="situations">
+    <div className="container">
+      <div className="sec-head">
+        <div className="eyb">Common Situations</div>
+        <h2 className="sec-h">If any of these sound familiar — we can help</h2>
+        <p className="sec-sub">We've bought houses in every situation on this list. Most sellers are surprised how straightforward the path is once we're on the phone.</p>
+      </div>
+      <div className="sit-grid">
+        {SITUATIONS.map(s => (
+          <div className="sit" key={s.t}>
+            <div className="tag">{s.tag}</div>
+            <h4>{s.t}</h4>
+            <p>{s.p}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+window.Situations = Situations;
+
+
+// ===== Areas.jsx =====
+// Areas.jsx
+const AREAS = [
+  { c: 'Statesboro', co: 'Bulloch County' },
+  { c: 'Rincon', co: 'Effingham County' },
+  { c: 'Savannah', co: 'Chatham County' },
+  { c: 'Metter', co: 'Candler County' },
+  { c: 'Springfield', co: 'Effingham County' },
+  { c: 'Pooler', co: 'Chatham County' },
+  { c: 'Brooklet', co: 'Bulloch County' },
+  { c: 'Guyton', co: 'Effingham County' },
+];
+const Areas = () => (
+  <section className="sec alt" id="areas">
+    <div className="container">
+      <div className="sec-head">
+        <div className="eyb">Service Area</div>
+        <h2 className="sec-h">Southeast Georgia specialists</h2>
+        <p className="sec-sub">We work exclusively across these counties. Local relationships with title companies, closing attorneys, and inspectors make our closings fast.</p>
+      </div>
+      <div className="areas-wrap">
+        <div className="areas-list">
+          {AREAS.map(a => (
+            <div className="area" key={a.c}>
+              <div>
+                <div className="c">{a.c}</div>
+                <div className="co">{a.co}</div>
+              </div>
+              <span style={{fontFamily:'var(--fh)',fontSize:11,fontWeight:700,color:'var(--amber)',letterSpacing:'.1em',textTransform:'uppercase'}}>Buying →</span>
+            </div>
+          ))}
+        </div>
+        <div style={{background:'#fff',border:'1px solid var(--border)',borderRadius:10,padding:24,borderTop:'2px solid var(--amber)'}}>
+          <div style={{fontFamily:'var(--fb)',fontSize:11,fontWeight:700,letterSpacing:'.18em',textTransform:'uppercase',color:'var(--amber)',marginBottom:10}}>Not on the list?</div>
+          <h3 style={{fontFamily:'var(--fh)',fontSize:22,fontWeight:700,color:'var(--navy)',textTransform:'uppercase',letterSpacing:'.04em',lineHeight:1.15,margin:'0 0 12px'}}>We'll still take a look</h3>
+          <p style={{fontSize:14,color:'var(--gray-500)',lineHeight:1.65,margin:'0 0 18px'}}>If your property is within roughly an hour of Savannah, send us the address. We'll tell you within a day whether we can make an offer.</p>
+          <a href="#offer" className="btn-amber" style={{fontSize:12}}>Send us the address</a>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+window.Areas = Areas;
+
+
+// ===== Testimonials.jsx =====
+// Testimonials.jsx
+const T = [
+  { q: 'Closed in nine days. They handled everything with the estate attorney — I never had to fly down from Maryland.', nm: 'Lisa R.', loc: 'Inherited · Savannah' },
+  { q: 'We were two weeks from the foreclosure sale. They made a fair written offer the next morning and we closed in time.', nm: 'Marcus T.', loc: 'Pre-foreclosure · Statesboro' },
+  { q: 'Bought my rental with the tenant still in it. No drama, no re-listing, no repairs. I netted more than my realtor quoted.', nm: 'Dana W.', loc: 'Investor · Rincon' },
+];
+const Testimonials = () => (
+  <section className="sec dark">
+    <div className="container">
+      <div className="sec-head">
+        <div className="eyb eyebrow--white" style={{color:'#F2A65A'}}>What Sellers Say</div>
+        <h2 className="sec-h">Quiet sales, fair offers, no drama</h2>
+        <p className="sec-sub">Real sellers, real Southeast Georgia houses. Names shortened for privacy.</p>
+      </div>
+      <div className="test-grid">
+        {T.map(t => (
+          <div className="quote" key={t.nm}>
+            <p className="qt">{t.q}</p>
+            <div className="who">
+              <div className="nm">{t.nm}</div>
+              <div className="loc">{t.loc}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+window.Testimonials = Testimonials;
+
+
+// ===== FAQ.jsx =====
+// FAQ.jsx
+const QS = [
+  { q: 'How fast can you actually close?', a: 'Most sellers receive a written cash offer within 24 hours. Closings typically happen in 7–21 days depending on title work — we can move faster if you have a hard deadline like a foreclosure sale date.' },
+  { q: 'Do I need to make repairs or clean?', a: 'No. We buy houses as-is. Leave what you don\'t want, skip the cleaning, skip the showings. We\'ve bought homes with major foundation issues, fire damage, and years of deferred maintenance.' },
+  { q: 'Are there any fees, commissions, or closing costs?', a: 'No commissions — you\'re selling to us directly, not listing. We typically cover standard closing costs too. Your net offer is the number you actually receive at the table.' },
+  { q: 'Can you stop a foreclosure?', a: 'Often yes — timing matters. If you contact us before the sale date, we can usually negotiate with your lender, pay off the loan, and close before the sheriff\'s sale. Call us today, don\'t wait.' },
+  { q: 'How do you calculate my offer?', a: 'We look at comparable nearby sales (the same "comps" an appraiser uses), subtract the cost of any needed repairs, and account for a reasonable margin. No lowballs — if our number doesn\'t work for you, there\'s no pressure.' },
+  { q: 'Who are you, and are you local?', a: 'VP Equities LLC is a Southeast Georgia investment firm based near Savannah. We\'re not a national call center or a wholesaler — we buy, hold, and rehab homes ourselves. Every offer is reviewed locally.' },
+];
+const FAQ = () => {
+  const [open, setOpen] = React.useState(0);
+  return (
+    <section className="sec" id="faq">
+      <div className="container">
+        <div className="sec-head" style={{textAlign:'center',margin:'0 auto 52px'}}>
+          <div className="eyb">Questions</div>
+          <h2 className="sec-h">Frequently asked</h2>
+        </div>
+        <div className="faq-list">
+          {QS.map((q, i) => (
+            <div className={`faq-item ${open === i ? 'open' : ''}`} key={i}>
+              <button className="faq-q" onClick={() => setOpen(open === i ? -1 : i)}>
+                <span>{q.q}</span>
+                <span className="ic">+</span>
+              </button>
+              <div className="faq-a">{q.a}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+window.FAQ = FAQ;
+
+
+// ===== FinalCTA.jsx =====
+// FinalCTA.jsx
+const FinalCTA = () => (
+  <section className="final">
+    <div className="container">
+      <div className="final-eb">Ready when you are</div>
+      <h2 className="final-h">Get your cash offer in 24 hours</h2>
+      <p className="final-sub">No obligation. No pressure. Just a fair written number.</p>
+      <div className="final-ctas">
+        <a href="#offer" className="btn-amber">Start My Offer</a>
+        <a href="tel:9125550120" className="btn-ghost"><span style={{color:'#F2A65A',marginRight:4}}>P</span>(912) 555-0120</a>
+      </div>
+    </div>
+  </section>
+);
+window.FinalCTA = FinalCTA;
+
+
+// ===== Footer.jsx =====
+// Footer.jsx
+const Footer = () => (
+  <footer className="ftr">
+    <div className="container">
+      <div className="ftr-grid">
+        <div className="ftr-sig">
+          <div className="ftr-logo">
+            <span className="vp">VP</span>
+            <svg width="21" height="21" viewBox="0 0 32 32"><polygon points="16,2 30,12 30,30 2,30 2,12" fill="white"/><rect x="11" y="18" width="10" height="12" rx="1" fill="#1B365D"/></svg>
+            <span style={{width:1,height:18,background:'rgba(255,255,255,.2)',margin:'0 3px'}}/>
+            <span className="eq">VP EQUITIES</span>
+          </div>
+          <p className="ftr-note">VP Equities LLC is a Southeast Georgia real estate investment firm. We buy houses for cash across Bulloch, Chatham, Effingham, and Candler counties.</p>
+          <a href="tel:9125550120" className="ftr-phone"><span className="p">P</span>(912) 555-0120</a>
+        </div>
+        <div>
+          <h5>Sell</h5>
+          <a href="#offer">Get my cash offer</a>
+          <a href="#how">How it works</a>
+          <a href="#situations">Common situations</a>
+          <a href="#faq">FAQ</a>
+        </div>
+        <div>
+          <h5>Areas</h5>
+          <a href="#areas">Statesboro</a>
+          <a href="#areas">Savannah</a>
+          <a href="#areas">Rincon</a>
+          <a href="#areas">Metter</a>
+          <a href="#areas">Springfield</a>
+        </div>
+        <div>
+          <h5>Company</h5>
+          <a href="#">About VP Equities</a>
+          <a href="#">Contact</a>
+          <a href="#">Blog</a>
+          <a href="#">Privacy · Terms</a>
+        </div>
+      </div>
+      <div className="ftr-bot">
+        <span>© {new Date().getFullYear()} VP Equities LLC · VPBUYSHOMES.COM</span>
+        <span>Southeast Georgia · Since 2018</span>
+      </div>
+    </div>
+  </footer>
+);
+window.Footer = Footer;
+
+
+// ===== App.jsx =====
+// App.jsx
+const App = () => (
+  <>
+    <Header />
+    <Hero />
+    <TrustBar />
+    <HowItWorks />
+    <Benefits />
+    <Situations />
+    <Areas />
+    <Testimonials />
+    <FAQ />
+    <FinalCTA />
+    <Footer />
+  </>
+);
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+
+
+</script>
+</body>
+</html>

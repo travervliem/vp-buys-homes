@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const NAV_LINKS = [
   { href: '/how-it-works', label: 'How It Works' },
@@ -26,8 +27,12 @@ function Logo() {
 }
 
 export function NavBar() {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+
+  // Suppress on the design-system preview route so it can showcase the new SiteHeader.
+  if (pathname?.startsWith('/design-system')) return null
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)

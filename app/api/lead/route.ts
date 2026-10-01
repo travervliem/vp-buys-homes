@@ -4,10 +4,17 @@ import { sendLeadEmail } from '@/lib/email'
 import { logToGoogleSheets } from '@/lib/loggers/googleSheets'
 import { logLocal } from '@/lib/loggers/local'
 import { RECOGNIZED_CITIES } from '@/lib/areas'
+import { parseFbCookies, sendMetaCapiEvent } from '@/lib/analytics/meta-capi'
 
 function detectCity(address: string): string | null {
   const lower = address.toLowerCase()
   return RECOGNIZED_CITIES.find(c => lower.includes(c.toLowerCase())) ?? null
+}
+
+function splitName(full: string): { first: string; last: string } {
+  const parts = full.trim().split(/\s+/)
+  if (parts.length < 2) return { first: parts[0] || '', last: '' }
+  return { first: parts[0], last: parts.slice(1).join(' ') }
 }
 
 export async function POST(req: Request) {
@@ -48,25 +55,74 @@ export async function POST(req: Request) {
   const city = detectCity(payload.address)
   const status = isPartial ? 'partial' : 'complete'
 
+  const attribution = (payload as any).attribution || {}
+  const eventId: string = (payload as any).eventId || ''
+
   const enriched = {
     ...payload,
     city,
     status,
     sessionId,
     source,
+    eventId,
+    utmSource: attribution.utm_source || '',
+    utmMedium: attribution.utm_medium || '',
+    utmCampaign: attribution.utm_campaign || '',
+    utmTerm: attribution.utm_term || '',
+    utmContent: attribution.utm_content || '',
+    gclid: attribution.gclid || '',
+    fbclid: attribution.fbclid || '',
+    referrer: attribution.referrer || '',
+    landingPage: attribution.landing_page || '',
     userAgent: req.headers.get('user-agent'),
   }
 
+  // Photo blobs go to email only — strip them out of the sheets/local rows
+  // so we don't push megabytes of base64 into the spreadsheet.
+  const { photos: _photoBlobs, ...enrichedNoPhotos } = enriched as any
+  const photoCount = Array.isArray((enriched as any).photos) ? (enriched as any).photos.length : 0
+  const sheetsRow = { ...enrichedNoPhotos, photoCount }
+
   // Always log locally first — this is the guaranteed fallback that never fails silently.
-  const localResult = await logLocal(enriched).catch((e: unknown) => {
+  const localResult = await logLocal(sheetsRow).catch((e: unknown) => {
     console.error('[lead] local log failed', e)
     return { ok: false, storage: 'local' as const }
   })
 
   // Partial leads go to sheets + local only — no email to avoid duplicate notifications
-  // when the user completes step 2. Full leads also trigger an email.
-  const tasks: Array<Promise<any>> = [logToGoogleSheets(enriched)]
-  if (!isPartial) tasks.push(sendLeadEmail(enriched))
+  // when the user completes step 2. Full leads also trigger an email + Meta CAPI.
+  const tasks: Array<Promise<any>> = [logToGoogleSheets(sheetsRow)]
+  if (!isPartial) {
+    tasks.push(sendLeadEmail(enriched))
+
+    // Server-side Meta Conversion API. Same eventId as the browser pixel
+    // for dedupe. No-ops if META_CONVERSION_API_TOKEN is unset.
+    const fb = parseFbCookies(req.headers.get('cookie'))
+    const ip =
+      req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+      req.headers.get('x-real-ip') ||
+      undefined
+    const { first, last } = splitName(payload.name)
+    const sourceUrl = attribution.landing_page
+      ? `${process.env.NEXT_PUBLIC_SITE_URL || ''}${attribution.landing_page}`
+      : undefined
+    sendMetaCapiEvent({
+      email: (payload as any).email || undefined,
+      phone: payload.phone,
+      firstName: first,
+      lastName: last,
+      city: payload.pageCity || city || undefined,
+      state: 'GA',
+      country: 'US',
+      eventName: 'Lead',
+      eventId: eventId || `${sessionId}_complete`,
+      sourceUrl,
+      ipAddress: ip,
+      userAgent: req.headers.get('user-agent') || undefined,
+      fbp: fb.fbp,
+      fbc: fb.fbc,
+    }).catch(() => null)
+  }
 
   const results = await Promise.allSettled(tasks)
 

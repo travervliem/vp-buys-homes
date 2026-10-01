@@ -1,0 +1,296 @@
+/* ==========================================================================
+   VP Equities / VP Buys Homes — Core Foundations
+   Colors, typography, spacing, radii, shadows, motion
+   Source of truth: vp-equities-brand-guidelines.html (2025)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700;800&family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&display=swap');
+
+:root {
+  /* --------------------------------------------------------------------
+     COLOR — canonical brand palette (from brand guidelines, section 02)
+     80% navy · 20% amber · white/tint for breathing room
+     -------------------------------------------------------------------- */
+
+  /* Primary */
+  --navy:       #1B365D;   /* True Navy — primary brand */
+  --navy-deep:  #0F2040;   /* deeper navy (for gradients, over-navy cards) */
+  --navy-mid:   #264D80;   /* mid tone for eyebrows on light */
+  --navy-900:   #0D1B2A;   /* Near Black — body text */
+
+  /* Accent */
+  --amber:      #F2A65A;   /* Warm Amber — CTA / accent ONLY */
+  --amber-dark: #D4862E;   /* hover / pressed amber */
+
+  /* Surfaces */
+  --white:      #FFFFFF;
+  --light:      #EEF2F7;   /* page tint — digital backgrounds */
+  --border:     #D1DCE8;   /* hairline on light */
+
+  /* Neutrals */
+  --dark:       #0D1B2A;   /* body text */
+  --gray-900:   #111827;
+  --gray-700:   #374151;
+  --gray-500:   #6B7280;   /* caption / meta */
+  --gray-400:   #9CA3AF;
+  --gray-300:   #CBD5E1;
+  --gray-100:   #F3F4F6;
+
+  /* Semantic */
+  --success:    #15803D;
+  --success-bg: #DCFCE7;
+  --warning:    #B45309;
+  --warning-bg: #FEF3E2;
+  --danger:     #B42318;
+  --danger-bg:  #FEE4E2;
+
+  /* Semantic aliases */
+  --bg:        var(--white);
+  --bg-tint:   var(--light);
+  --bg-navy:   var(--navy);
+  --bg-deep:   var(--navy-deep);
+
+  --fg:        var(--dark);
+  --fg-muted:  var(--gray-500);
+  --fg-subtle: var(--gray-400);
+  --fg-invert: var(--white);
+  --fg-brand:  var(--navy);
+  --fg-accent: var(--amber);
+
+  --border-ink:   var(--navy);
+  --border-hair:  var(--border);
+
+  /* --------------------------------------------------------------------
+     TYPE — Two families only (section 03)
+     Barlow Semi Condensed = all headlines / display
+     Nunito Sans           = all body / UI
+     -------------------------------------------------------------------- */
+
+  --fh: 'Barlow Semi Condensed', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --fb: 'Nunito Sans', 'Helvetica Neue', system-ui, sans-serif;
+  --fm: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Legacy aliases for convenience */
+  --font-head: var(--fh);
+  --font-body: var(--fb);
+
+  /* Type scale — tuned to brand specimen */
+  --fs-mega:    72px;   /* hero display */
+  --fs-h1:      56px;
+  --fs-h2:      38px;   /* section title from spec */
+  --fs-h3:      28px;
+  --fs-h4:      22px;
+  --fs-h5:      18px;
+  --fs-lead:    18px;
+  --fs-body:    15px;
+  --fs-body-sm: 13px;
+  --fs-cap:     11px;   /* eyebrow / meta — UPPERCASE tracked */
+  --fs-micro:   10px;
+
+  --lh-tight: 1.0;
+  --lh-snug:  1.15;
+  --lh-base:  1.7;      /* body is noticeably open (spec: 1.7) */
+  --lh-ui:    1.5;
+
+  --tr-display: 0.02em; /* Barlow display tracking */
+  --tr-cap:     0.14em; /* small label */
+  --tr-eyebrow: 0.18em; /* tiny eyebrow */
+  --tr-upper:   0.06em; /* button uppercase */
+
+  /* --------------------------------------------------------------------
+     SPACING — 4px base
+     -------------------------------------------------------------------- */
+  --s-0:  0;
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-14: 56px;
+  --s-16: 64px;
+  --s-18: 72px;   /* section vertical padding from spec */
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* --------------------------------------------------------------------
+     RADII — modest, professional (matches brand docs: 4–10px)
+     -------------------------------------------------------------------- */
+  --r-xs:  3px;
+  --r-sm:  4px;
+  --r-md:  6px;
+  --r-lg:  8px;    /* canonical card radius */
+  --r-xl:  10px;
+  --r-2xl: 14px;
+  --r-pill: 999px;
+
+  /* --------------------------------------------------------------------
+     SHADOWS — cool/neutral, subtle. Cards are quiet, CTAs are confident.
+     -------------------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(13, 27, 42, 0.06);
+  --shadow-sm: 0 2px 6px rgba(13, 27, 42, 0.06), 0 1px 2px rgba(13, 27, 42, 0.04);
+  --shadow-md: 0 4px 14px rgba(13, 27, 42, 0.10), 0 2px 4px rgba(13, 27, 42, 0.04);
+  --shadow-lg: 0 10px 30px rgba(13, 27, 42, 0.12), 0 4px 10px rgba(13, 27, 42, 0.06);
+  --shadow-xl: 0 24px 48px rgba(13, 27, 42, 0.18), 0 10px 20px rgba(13, 27, 42, 0.08);
+  --shadow-amber: 0 6px 20px rgba(242, 166, 90, 0.35);
+
+  /* Rings */
+  --ring-amber: 0 0 0 3px rgba(242, 166, 90, 0.45);
+  --ring-navy:  0 0 0 3px rgba(27, 54, 93, 0.25);
+
+  /* --------------------------------------------------------------------
+     MOTION — fast, direct (no bounce, no dawdling)
+     -------------------------------------------------------------------- */
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:   cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:  120ms;
+  --dur-med:   200ms;
+  --dur-slow:  360ms;
+
+  /* Layout */
+  --container-max:   1200px;
+  --container-tight: 960px;
+}
+
+/* ==========================================================================
+   SEMANTIC DEFAULTS
+   ========================================================================== */
+
+html, body {
+  font-family: var(--fb);
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Barlow display — ALL CAPS permitted for hero/H1 (brand voice); tracking 0.02em */
+.display, h1, .h1 {
+  font-family: var(--fh);
+  font-size: var(--fs-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.hero-display {
+  font-family: var(--fh);
+  font-size: var(--fs-mega);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  color: var(--navy);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+h2, .h2 {
+  font-family: var(--fh);
+  font-size: var(--fs-h2);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tr-display);
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+h3, .h3 {
+  font-family: var(--fh);
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tr-display);
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+
+h4, .h4 {
+  font-family: var(--fh);
+  font-size: var(--fs-h4);
+  line-height: var(--lh-snug);
+  letter-spacing: 0.04em;
+  font-weight: 600;
+  color: var(--navy);
+  text-transform: uppercase;
+}
+
+h5, .h5 {
+  font-family: var(--fh);
+  font-size: var(--fs-h5);
+  line-height: var(--lh-snug);
+  font-weight: 600;
+  color: var(--navy);
+}
+
+p, .body {
+  font-size: var(--fs-body);
+  line-height: var(--lh-base);
+  color: var(--gray-700);
+  text-wrap: pretty;
+}
+
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.6;
+  color: var(--gray-700);
+  text-wrap: pretty;
+}
+
+.caption {
+  font-size: var(--fs-body-sm);
+  color: var(--gray-500);
+  line-height: var(--lh-base);
+}
+
+.eyebrow {
+  font-family: var(--fb);
+  font-size: var(--fs-cap);
+  font-weight: 700;
+  letter-spacing: var(--tr-cap);
+  text-transform: uppercase;
+  color: var(--amber);
+  line-height: 1;
+}
+
+.eyebrow--navy { color: var(--navy-mid); }
+.eyebrow--white { color: rgba(255, 255, 255, 0.4); }
+
+.micro-label {
+  font-family: var(--fb);
+  font-size: var(--fs-micro);
+  font-weight: 600;
+  letter-spacing: var(--tr-eyebrow);
+  text-transform: uppercase;
+  color: var(--gray-500);
+}
+
+a {
+  color: var(--navy);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+a:hover { color: var(--amber-dark); }
+
+/* Selection */
+::selection {
+  background: var(--amber);
+  color: var(--white);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-amber);
+  border-radius: var(--r-sm);
+}

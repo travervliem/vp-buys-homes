@@ -1,5 +1,13 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Hero } from '@/components/marketing/Hero'
+import { LeadForm } from '@/components/marketing/LeadForm'
+import { UrgencyStrip } from '@/components/marketing/UrgencyStrip'
+import { FinalCTA } from '@/components/marketing/FinalCTA'
+import { SiteHeader } from '@/components/marketing/SiteHeader'
+import { SiteFooter } from '@/components/marketing/SiteFooter'
+import { MobileCTABar } from '@/components/marketing/MobileCTABar'
+import { Section } from '@/components/ui/Section'
 import { SITUATIONS } from '@/lib/situations'
 
 export const metadata: Metadata = {
@@ -11,69 +19,65 @@ export const metadata: Metadata = {
 export default function SituationsDirectoryPage() {
   return (
     <>
-      {/* Hero */}
-      <section style={{ background: '#1B365D', padding: '80px 0' }} className="circle-motif">
-        <div className="wrap">
-          <p className="eyebrow" style={{ color: '#F2A65A', marginBottom: '16px' }}>Situations We Help With</p>
-          <h1 style={{
-            fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-            fontSize: 'clamp(32px, 5vw, 54px)', fontWeight: 700, textTransform: 'uppercase',
-            letterSpacing: '0.02em', color: 'white', lineHeight: 1.05, marginBottom: '16px', maxWidth: '720px',
-          }}>
-            Real Situations, Real Cash Offers
-          </h1>
-          <p style={{
-            fontFamily: "'Nunito Sans',sans-serif", fontSize: '18px',
-            color: 'rgba(255,255,255,0.65)', lineHeight: 1.65, maxWidth: '600px',
-          }}>
-            Foreclosure, divorce, inherited property, tired-landlord exits, tax-sale redemption — Southeast Georgia homeowners come to us for fast, fair cash offers when life moves faster than the traditional listing process.
-          </p>
-        </div>
-      </section>
+      <SiteHeader />
 
-      {/* Situations grid */}
-      <section style={{ background: '#EEF2F7', padding: '80px 0' }}>
-        <div className="wrap">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(280px,1fr))', gap: '16px' }}>
-            {SITUATIONS.map(s => (
-              <Link
-                key={s.slug}
-                href={`/situations/${s.slug}`}
-                style={{ textDecoration: 'none' }}
-              >
-                <div className="card" style={{ height: '100%', borderTop: '3px solid #F2A65A' }}>
-                  <p style={{
-                    fontFamily: "'Nunito Sans',sans-serif", fontSize: '11px', fontWeight: 700,
-                    color: '#9CA3AF', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '8px',
-                  }}>
-                    {s.searchVerb}
-                  </p>
-                  <h2 style={{
-                    fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                    fontSize: '22px', fontWeight: 700, textTransform: 'uppercase',
-                    letterSpacing: '0.02em', color: '#1B365D', marginBottom: '12px', lineHeight: 1.2,
-                  }}>
-                    {s.label}
-                  </h2>
-                  <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '14px', lineHeight: 1.65, color: '#374151' }}>
-                    {s.pillarLead}
-                  </p>
-                  <p style={{ marginTop: '16px', fontFamily: "'Nunito Sans',sans-serif", fontSize: '13px', fontWeight: 700, color: '#F2A65A', letterSpacing: '0.04em' }}>
-                    Read More →
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+      <Hero
+        eyebrow="Situations we help with"
+        headline={<>Real situations, <em>real cash offers</em></>}
+        sub="Foreclosure, divorce, inherited property, tired-landlord exits, tax-sale redemption — Southeast Georgia homeowners come to us for fast, fair cash offers when life moves faster than the traditional listing process."
+        bullets={[
+          'Foreclosure · 30-day window before sale day',
+          'Probate · all heirs aligned, court-approved',
+          'Divorce · decree-matched closings',
+        ]}
+      >
+        <LeadForm source="situations-index" />
+      </Hero>
 
-          <div style={{ textAlign: 'center', marginTop: '48px' }}>
-            <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '15px', color: '#374151', marginBottom: '16px' }}>
-              Not sure which situation fits? Call us. We have heard most of them.
-            </p>
-            <a href="tel:+19125156060" className="btn-amber">(912) 515-6060 — Call or Text</a>
-          </div>
+      <UrgencyStrip />
+
+      <Section tone="paper" padding="lg">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {SITUATIONS.map(s => (
+            <Link
+              key={s.slug}
+              href={`/situations/${s.slug}`}
+              className="group block bg-white border border-hairline rounded-lg p-7 no-underline transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md hover:border-amber border-t-[3px] border-t-amber"
+            >
+              <p className="font-body text-[11px] font-bold uppercase tracking-[0.12em] text-ink-400 mb-2">
+                {s.searchVerb}
+              </p>
+              <h2 className="font-display text-[24px] font-bold text-navy mb-3 transition-colors duration-200 group-hover:text-amber-dark" style={{ lineHeight: 1.15 }}>
+                {s.label}
+              </h2>
+              <p className="font-body text-[14.5px] text-ink-700 leading-[1.7] m-0">
+                {s.pillarLead}
+              </p>
+              <p className="mt-5 font-body text-[12px] font-bold uppercase tracking-[0.14em] text-amber-dark group-hover:text-amber transition-colors">
+                Read More →
+              </p>
+            </Link>
+          ))}
         </div>
-      </section>
+
+        <div className="text-center mt-12">
+          <p className="ds-body mb-4">Not sure which situation fits? Call us. We have heard most of them.</p>
+          <a
+            href="tel:+19125156060"
+            className="inline-flex items-center gap-2 px-7 py-3.5 bg-amber text-white font-body text-[12px] font-bold tracking-[0.16em] uppercase rounded-sm no-underline shadow-amber hover:bg-amber-dark transition-colors"
+          >
+            (912) 515-6060 — Call or Text
+          </a>
+        </div>
+      </Section>
+
+      <FinalCTA
+        title={<>Whatever the <em>situation</em> — we listen first</>}
+        sub="Send us the address and a bit of context. We follow up with a real number, not a sales script."
+      />
+
+      <SiteFooter />
+      <MobileCTABar />
     </>
   )
 }
