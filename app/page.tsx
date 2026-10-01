@@ -18,7 +18,7 @@ import { faqJsonLd } from '@/lib/seo'
 
 export const metadata: Metadata = {
   title: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
-  description: 'We buy houses for cash in Statesboro, GA and surrounding Southeast Georgia. No repairs, no fees, no commissions. Cash offer in 24 hours. Close in as little as 7 days.',
+  description: 'We buy houses for cash in Statesboro, GA and surrounding Southeast Georgia. No repairs, no fees, no commissions. Cash offer in 48 hours. Close in as little as 7 days.',
   alternates: { canonical: 'https://www.vpbuyshomes.com/' },
 }
 
@@ -29,7 +29,7 @@ const STEPS = [
   },
   {
     title: 'Receive Your Cash Offer',
-    body: 'We review comparable sales and property condition, then deliver a written cash offer within 24 hours.',
+    body: 'We review comparable sales and property condition, then deliver a written cash offer within 48 hours.',
   },
   {
     title: 'Pick Your Closing Date',
@@ -136,7 +136,7 @@ export default function HomePage() {
       <UrgencyStrip
         items={[
           '50+ closings completed',
-          'Cash offer in 24 hours',
+          'Cash offer in 48 hours',
           'Close in 7 days',
           'No repairs required',
           'No fees or commissions',
@@ -275,11 +275,11 @@ export default function HomePage() {
               Get your <em className="text-amber not-italic" style={{ fontStyle: 'italic', fontWeight: 600 }}>cash offer</em> today
             </h2>
             <p className="font-body text-[16px] mb-7" style={{ color: 'rgba(255,255,255,0.72)', lineHeight: 1.65, maxWidth: 520 }}>
-              Send us the address and a few details. Written cash offer within 24 hours — often the same day. Add a few photos for a sharper, faster number.
+              Send us the address and a few details. Written cash offer within 48 hours. Add a few photos for a sharper, faster number.
             </p>
             <ul className="list-none p-0 m-0 flex flex-col gap-3 mb-7">
               {[
-                'Cash offer in 24 hours — no obligation',
+                'Cash offer in 48 hours — no obligation',
                 'Close in 7 days, or on your timeline',
                 'Optional photo upload — auto-resized, no app needed',
               ].map((b, i) => (
@@ -305,7 +305,7 @@ export default function HomePage() {
       <FinalCTA
         eyebrow="No obligation · Confidential"
         title={<>Whatever the situation — <em>we listen first</em></>}
-        sub="Three minutes to fill out. 24 hours to respond. No pressure, no hidden fees."
+        sub="Three minutes to fill out. 48 hours to respond. No pressure, no hidden fees."
       />
 
       <SiteFooter />

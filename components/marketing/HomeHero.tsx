@@ -138,7 +138,7 @@ export function HomeHero({ children }: Props) {
 
           <ul className="list-none p-0 m-0 flex flex-col gap-3">
             {[
-              'Written cash offer within 24 hours — no obligation',
+              'Written cash offer within 48 hours — no obligation',
               'Close in as little as 7 days, or on your timeline',
               'Any condition. Any situation. No showings.',
             ].map((b, i) => (

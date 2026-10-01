@@ -88,7 +88,7 @@ export function Footer() {
           <div>
             <p className="eyebrow eyebrow-white mb-4">Ready to Sell?</p>
             <p style={{ color: 'rgba(255,255,255,0.60)', fontSize: '14px', lineHeight: '1.65', fontFamily: "'Nunito Sans',sans-serif", marginBottom: '16px' }}>
-              Get a no-obligation cash offer in 24 hours. We buy houses as-is across Southeast Georgia.
+              Get a no-obligation cash offer in 48 hours. We buy houses as-is across Southeast Georgia.
             </p>
             <Link href="/sell" className="btn-amber">Get My Cash Offer</Link>
           </div>

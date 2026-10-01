@@ -56,7 +56,7 @@ export default function BlogIndex() {
 
       <FinalCTA
         title={<>Ready when you are</>}
-        sub="Have a question we haven't covered? Send us the address and a sentence — we follow up within 24 hours."
+        sub="Have a question we haven't covered? Send us the address and a sentence — we follow up within 48 hours."
       />
 
       <SiteFooter />

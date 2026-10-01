@@ -35,10 +35,10 @@ const AREAS: Record<string, AreaData> = {
     slug: 'statesboro-ga',
     state: 'GA',
     headline: 'We Buy Houses for Cash in Statesboro, GA',
-    subheadline: 'No repairs. No fees. Cash offer in 24 hours. Close in as little as 7 days.',
+    subheadline: 'No repairs. No fees. Cash offer in 48 hours. Close in as little as 7 days.',
     body: [
       'VP Buys Homes is a local cash home buyer serving Statesboro and all of Bulloch County. If you need to sell your house fast — for any reason — we make it simple. We buy homes in any condition, as-is, with no repairs required and zero realtor commissions. Whether you are searching "sell my house fast Statesboro GA" or "cash home buyers near me," you have found the right place.',
-      'Statesboro is the home of Georgia Southern University and the economic hub of Southeast Georgia. Whether your property is near campus on Fair Road, in a historic neighborhood like the Averitt Arts District, or out in the rural county, we know the Bulloch County market and can deliver a fair, written cash offer within 24 hours.',
+      'Statesboro is the home of Georgia Southern University and the economic hub of Southeast Georgia. Whether your property is near campus on Fair Road, in a historic neighborhood like the Averitt Arts District, or out in the rural county, we know the Bulloch County market and can deliver a fair, written cash offer within 48 hours.',
       'We have closed on properties throughout Bulloch County — from Statesboro to Portal, Register, Brooklet, and Stilson. We also serve nearby zip codes 30460 and 30461. Our process is discreet, fast, and straightforward — no open houses, no repairs, no uncertainty about financing falling through.',
     ],
     situations: [
@@ -59,11 +59,11 @@ const AREAS: Record<string, AreaData> = {
     slug: 'rincon-ga',
     state: 'GA',
     headline: 'We Buy Houses for Cash in Rincon, GA',
-    subheadline: 'Effingham County cash home buyers. No repairs, no commissions. Offer in 24 hours.',
+    subheadline: 'Effingham County cash home buyers. No repairs, no commissions. Offer in 48 hours.',
     body: [
       'VP Buys Homes buys houses for cash in Rincon and throughout Effingham County. If you need to sell your house fast in Rincon — with no repairs, no realtor, and no waiting — we are your local buyer. We make cash offers on any property in any condition, and we close on your schedule.',
       'Rincon has grown rapidly and is one of the fastest-growing communities in the Savannah metro area. We have bought homes across Rincon, including properties near Goshen Road, Jimmy Deloach Parkway, and out into the surrounding Effingham County countryside — from Springfield to Guyton and Rincon to Black Creek.',
-      'There are no commissions, no inspection contingencies, and no financing that can fall through at the last minute. If you are searching "we buy houses Rincon GA" or "sell my house fast Effingham County," call us today for a no-pressure cash offer within 24 hours.',
+      'There are no commissions, no inspection contingencies, and no financing that can fall through at the last minute. If you are searching "we buy houses Rincon GA" or "sell my house fast Effingham County," call us today for a no-pressure cash offer within 48 hours.',
     ],
     situations: [
       'Need to sell fast due to a job relocation to Savannah or out of state',
@@ -82,10 +82,10 @@ const AREAS: Record<string, AreaData> = {
     slug: 'savannah-ga',
     state: 'GA',
     headline: 'We Buy Houses for Cash in Savannah, GA',
-    subheadline: 'Chatham County cash home buyers. Any condition. Offer in 24 hours.',
+    subheadline: 'Chatham County cash home buyers. Any condition. Offer in 48 hours.',
     body: [
       'VP Buys Homes purchases houses for cash across Savannah and Chatham County. From the Historic District and Victorian District to Midtown, Southside, and West Chatham, we buy homes in any condition — no repairs required, no commissions, no waiting on bank financing.',
-      'Savannah is one of the most distinctive real estate markets in Georgia, with everything from antebellum historic properties to modern suburban homes in Pooler, Bloomingdale, and Garden City. No matter what condition your property is in or what situation you are facing, we can make a fair cash offer within 24 hours.',
+      'Savannah is one of the most distinctive real estate markets in Georgia, with everything from antebellum historic properties to modern suburban homes in Pooler, Bloomingdale, and Garden City. No matter what condition your property is in or what situation you are facing, we can make a fair cash offer within 48 hours.',
       'We serve all of Chatham County, including Pooler, Port Wentworth, Thunderbolt, Tybee Island, Garden City, and Bloomingdale. If you are searching "sell my house fast Savannah GA," "cash home buyers Chatham County," or "we buy ugly houses Savannah," we are the local buyer who can get it done.',
     ],
     situations: [
@@ -109,7 +109,7 @@ const AREAS: Record<string, AreaData> = {
     subheadline: 'Candler County cash home buyers. Simple, local, and fast.',
     body: [
       'VP Buys Homes buys houses for cash in Metter and across Candler County. We are a local buyer — not an out-of-state hedge fund — and we make straightforward offers with no hidden fees, no repairs required, and no drawn-out closing timelines.',
-      'Metter is a small community along I-16 with a mix of residential and rural properties. We buy all types — single-family homes in town, farmhouses, and rural parcels throughout Candler County. If you need to sell a property in Metter quickly, we deliver a written cash offer within 24 hours.',
+      'Metter is a small community along I-16 with a mix of residential and rural properties. We buy all types — single-family homes in town, farmhouses, and rural parcels throughout Candler County. If you need to sell a property in Metter quickly, we deliver a written cash offer within 48 hours.',
       'We also serve communities near Metter including Collins, Cobbtown, Pulaski, and surrounding Candler County areas. No real estate agent needed — no commission, no listing, no showings. Just a simple, fast cash sale.',
     ],
     situations: [
@@ -133,7 +133,7 @@ const AREAS: Record<string, AreaData> = {
     body: [
       'VP Buys Homes buys houses in Springfield and all of Effingham County. We are a local cash home buyer — we know the Effingham County market and we close fast with no repairs, no agent fees, and no uncertainty.',
       'Springfield is the county seat of Effingham County and one of the fastest-growing areas between Savannah and Augusta. We have purchased homes in Springfield, Guyton, Rincon, Clyo, Marlow, and across the county. Whether you need to "sell my house fast in Springfield GA" or just want to avoid the traditional listing process, we can help.',
-      'We make a written cash offer within 24 hours and close on a schedule that works for you — as fast as 7 days or on a date you choose. No home inspection contingencies, no financing delays, no commissions.',
+      'We make a written cash offer within 48 hours and close on a schedule that works for you — as fast as 7 days or on a date you choose. No home inspection contingencies, no financing delays, no commissions.',
     ],
     situations: [
       'Inherited a property in Effingham County you do not want',
@@ -156,7 +156,7 @@ const AREAS: Record<string, AreaData> = {
     body: [
       'VP Buys Homes buys houses in Swainsboro and Emanuel County. We purchase homes as-is for cash — no realtor, no repairs, no waiting on bank approval. If you want to sell your house fast in Swainsboro, we are the local buyer who can make it happen.',
       'Swainsboro is the county seat of Emanuel County and sits along the US-1 corridor in Southeast Georgia. We buy all types of residential property in the area — houses in town, older farmhouses, and rural homes throughout Emanuel County, including Twin City, Nunez, Adrian, and Oak Park.',
-      'We make a written cash offer within 24 hours and work on your timeline. There are no agent commissions, no repair requirements, and no inspections you have to pass. Just a straightforward cash transaction and a closing date that works for you.',
+      'We make a written cash offer within 48 hours and work on your timeline. There are no agent commissions, no repair requirements, and no inspections you have to pass. Just a straightforward cash transaction and a closing date that works for you.',
     ],
     situations: [
       'Estate or probate property in Emanuel County',
@@ -178,7 +178,7 @@ const AREAS: Record<string, AreaData> = {
     subheadline: 'Evans County cash buyer. No repairs, no fees.',
     body: [
       'VP Buys Homes buys houses in Claxton and Evans County. We are local cash home buyers who purchase properties in any condition and on any timeline — no repairs, no commissions, no listing required.',
-      'Claxton is known as the Fruitcake Capital of the World and sits in the heart of Evans County. We buy residential properties throughout the area, including homes in Hagan and the surrounding Evans County countryside. If you need to sell your house fast in Claxton, GA, we can deliver a written cash offer within 24 hours.',
+      'Claxton is known as the Fruitcake Capital of the World and sits in the heart of Evans County. We buy residential properties throughout the area, including homes in Hagan and the surrounding Evans County countryside. If you need to sell your house fast in Claxton, GA, we can deliver a written cash offer within 48 hours.',
       'We handle all the paperwork and work with a local closing attorney to make the process smooth and fast. No open houses, no buyer financing contingencies, no repairs before closing. Just a simple cash sale on your schedule.',
     ],
     situations: [
@@ -201,7 +201,7 @@ const AREAS: Record<string, AreaData> = {
     body: [
       'VP Buys Homes buys houses in Vidalia and Toombs County. We are cash buyers who close fast — in as little as 7 days — with no repairs required, no real estate agent fees, and no lengthy closing timelines.',
       "Vidalia is famous for its sweet onions and sits in the heart of Southeast Georgia's agricultural corridor. We buy all residential property types throughout Toombs County, including homes in Lyons, Uvalda, and the surrounding area. If you are searching \"we buy houses Vidalia GA\" or \"sell my house fast Toombs County,\" we are the local buyer who can help.",
-      'Our process is simple: you tell us about your property, we make a cash offer within 24 hours, and you pick the closing date. No contingencies, no commissions, no surprises. We buy properties in any condition — move-in ready or completely distressed.',
+      'Our process is simple: you tell us about your property, we make a cash offer within 48 hours, and you pick the closing date. No contingencies, no commissions, no surprises. We buy properties in any condition — move-in ready or completely distressed.',
     ],
     situations: [
       'Estate or inherited property in Toombs County you want to sell fast',
@@ -225,7 +225,7 @@ export async function generateMetadata({ params }: { params: { city: string } })
   if (!area) return { title: 'Area Not Found' }
 
   const title = `Sell My House Fast ${area.city}, GA — Cash Home Buyers`
-  const description = `We buy houses for cash in ${area.city}, GA (${area.county}). No repairs, no fees, no commissions. Cash offer within 24 hours. Close in as little as 7 days.`
+  const description = `We buy houses for cash in ${area.city}, GA (${area.county}). No repairs, no fees, no commissions. Cash offer within 48 hours. Close in as little as 7 days.`
 
   return {
     title,
@@ -285,7 +285,7 @@ export default function AreaPage({ params }: { params: { city: string } }) {
         }
         sub={area.subheadline}
         bullets={[
-          'Cash offer in 24 hours — no obligation',
+          'Cash offer in 48 hours — no obligation',
           'Close in 7 days or on your schedule',
           'Any condition. Any situation.',
         ]}
@@ -326,7 +326,7 @@ export default function AreaPage({ params }: { params: { city: string } }) {
 
             <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
-                { label: 'Offer in', value: '24 hours' },
+                { label: 'Offer in', value: '48 hours' },
                 { label: 'Close in as fast as', value: '7 days' },
                 { label: 'Fees', value: 'None' },
                 { label: 'Repairs required', value: 'None' },

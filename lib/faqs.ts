@@ -9,7 +9,7 @@ export type Faq = { q: string; a: string }
 export const FAQS: Faq[] = [
   {
     q: 'How fast can you make an offer?',
-    a: 'We review the property and deliver a written cash offer within 24 hours of your submission — often the same day. There is no obligation to accept.',
+    a: 'We review the property and deliver a written cash offer within 48 hours of your submission. There is no obligation to accept.',
   },
   {
     q: 'Do I need to make repairs or clean the house?',

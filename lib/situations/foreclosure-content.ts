@@ -15,7 +15,7 @@ import type { SituationContent } from './types'
 export const FORECLOSURE_CONTENT: SituationContent = {
   'statesboro-ga': {
     title: 'Sell Your House Before Foreclosure in Statesboro, GA',
-    metaDescription: 'Facing foreclosure in Bulloch County? VP Buys Homes pays cash for Statesboro houses before the sale date. No fees, no repairs, written offer in 24 hours.',
+    metaDescription: 'Facing foreclosure in Bulloch County? VP Buys Homes pays cash for Statesboro houses before the sale date. No fees, no repairs, written offer in 48 hours.',
     h1: 'Sell Your Statesboro House Before the Foreclosure Sale Date',
 
     empatheticOpening: [
@@ -335,7 +335,7 @@ export const FORECLOSURE_CONTENT: SituationContent = {
 
   'swainsboro-ga': {
     title: 'Stop Foreclosure in Swainsboro, GA — Emanuel Cash Buyer',
-    metaDescription: 'Foreclosure in Emanuel County? VP Buys Homes pays cash for Swainsboro houses before sale day. Local buyer, no fees, written offer in 24 hours.',
+    metaDescription: 'Foreclosure in Emanuel County? VP Buys Homes pays cash for Swainsboro houses before sale day. Local buyer, no fees, written offer in 48 hours.',
     h1: 'Sell Your Swainsboro House Before the Emanuel Foreclosure Sale',
 
     empatheticOpening: [
@@ -399,7 +399,7 @@ export const FORECLOSURE_CONTENT: SituationContent = {
 
   'claxton-ga': {
     title: 'Stop Foreclosure in Claxton, GA — Evans County Cash Buyer',
-    metaDescription: 'Foreclosure in Evans County, GA? VP Buys Homes pays cash for Claxton houses before the sale date. No fees, no repairs, written offer in 24 hours.',
+    metaDescription: 'Foreclosure in Evans County, GA? VP Buys Homes pays cash for Claxton houses before the sale date. No fees, no repairs, written offer in 48 hours.',
     h1: 'Sell Your Claxton House Before the Evans County Foreclosure Sale',
 
     empatheticOpening: [

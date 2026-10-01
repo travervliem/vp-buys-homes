@@ -78,7 +78,7 @@ export default function SituationPillarPage({ params }: { params: Params }) {
         headline={<>{situation.searchVerb} <em>{situation.label}</em> — Sell Your House for Cash</>}
         sub={situation.pillarLead}
         bullets={[
-          'Cash offer in 24 hours — no obligation',
+          'Cash offer in 48 hours — no obligation',
           'Statute-aware closings (OCGA citations below)',
           'Local closing attorney in your county',
         ]}
@@ -208,7 +208,7 @@ export default function SituationPillarPage({ params }: { params: Params }) {
           <aside id="get-offer" className="lg:sticky lg:top-24">
             <h2 className="ds-h4 mb-2">Get your cash offer</h2>
             <p className="font-body text-[14px] text-ink-500 leading-[1.6] mb-3">
-              Tell us about the property. Written cash offer within 24 hours. No obligation.
+              Tell us about the property. Written cash offer within 48 hours. No obligation.
             </p>
             <LeadForm source={`situation-aside-${situation.slug}`} context={{ situation: situation.slug }} />
           </aside>

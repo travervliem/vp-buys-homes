@@ -168,7 +168,7 @@ export const AREAS: Area[] = [
     county: 'Emanuel County',
     slug: 'swainsboro-ga',
     state: 'GA',
-    shortCopy: 'Cash buyers in Emanuel County. Written offer within 24 hours.',
+    shortCopy: 'Cash buyers in Emanuel County. Written offer within 48 hours.',
     superiorCourt: {
       name: 'Emanuel County Superior Court',
       courthouseAddress: '125 S. Main Street, Swainsboro, GA 30401',

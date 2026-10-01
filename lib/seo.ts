@@ -18,7 +18,7 @@ export function orgJsonLd(siteUrl: string) {
     '@id': `${siteUrl}/#organization`,
     name: 'VP Buys Homes',
     alternateName: 'VP Equities LLC',
-    description: 'We buy houses for cash in Statesboro, Rincon, Savannah, Metter, and Springfield, GA. No repairs, no fees, no commissions. Cash offer in 24 hours. Close in as little as 7 days.',
+    description: 'We buy houses for cash in Statesboro, Rincon, Savannah, Metter, and Springfield, GA. No repairs, no fees, no commissions. Cash offer in 48 hours. Close in as little as 7 days.',
     url: siteUrl,
     logo: `${siteUrl}/logo.png`,
     telephone: PHONE_RAW,

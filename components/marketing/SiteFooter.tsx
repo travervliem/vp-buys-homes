@@ -70,7 +70,7 @@ export function SiteFooter() {
           <div>
             <FooterEyebrow>Ready to sell?</FooterEyebrow>
             <p className="font-body text-[14px] mt-4 mb-4" style={{ color: 'rgba(255,255,255,0.6)', lineHeight: 1.65 }}>
-              Get a no-obligation cash offer in 24 hours. We buy houses as-is across Southeast Georgia.
+              Get a no-obligation cash offer in 48 hours. We buy houses as-is across Southeast Georgia.
             </p>
             <Link
               href="/sell"

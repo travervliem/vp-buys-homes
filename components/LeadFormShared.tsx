@@ -137,7 +137,7 @@ export function LeadFormShared({ variant = 'full', context }: Props) {
           Got It — We'll Be in Touch
         </p>
         <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '14px', color: '#6B7280', lineHeight: 1.6 }}>
-          Expect a call or text within 24 hours with your cash offer.
+          Expect a call or text within 48 hours with your cash offer.
         </p>
       </div>
     ) : (
@@ -151,7 +151,7 @@ export function LeadFormShared({ variant = 'full', context }: Props) {
           Received — We'll Call Soon
         </h3>
         <p style={{ fontFamily: "'Nunito Sans',sans-serif", fontSize: '15px', color: '#374151', lineHeight: 1.65 }}>
-          Expect a call or text within 24 hours with your no-obligation cash offer.
+          Expect a call or text within 48 hours with your no-obligation cash offer.
         </p>
       </div>
     )
@@ -374,7 +374,7 @@ export function LeadFormShared({ variant = 'full', context }: Props) {
         {loading ? 'Submitting…' : 'Submit — Get My Cash Offer'}
       </button>
       <p style={{ textAlign: 'center', fontSize: variant === 'hero' ? '11px' : '12px', color: '#9CA3AF', fontFamily: "'Nunito Sans',sans-serif" }}>
-        No obligation · 100% confidential · We respond within 24 hours
+        No obligation · 100% confidential · We respond within 48 hours
       </p>
     </form>
   )

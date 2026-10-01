@@ -8,7 +8,7 @@
 
 **Who** — VP Equities LLC. Local investor buying houses for cash.
 **Where** — Statesboro, Rincon, Savannah, Metter, Springfield (SE Georgia).
-**Promise** — Written cash offer in 24 hours. Close in 7–21 days. No repairs, no fees, no commissions.
+**Promise** — Written cash offer in 48 hours. Close in 7–21 days. No repairs, no fees, no commissions.
 **Audience** — Homeowners under real stress: foreclosure deadlines, divorce, inherited property, bad tenants, major repairs. They want *speed and certainty*, not warmth.
 **Positioning** — Direct, fast, local, credible, empathetic. Not corporate. Not hype‑y.
 
@@ -77,7 +77,7 @@
 
 - **Primary** — "WE BUY HOUSES FOR CASH IN SOUTHEAST GEORGIA"
 - **Benefits** — "NO REPAIRS. NO FEES. CLOSE IN DAYS."
-- **CTA** — "GET YOUR CASH OFFER IN 24 HOURS"
+- **CTA** — "GET YOUR CASH OFFER IN 48 HOURS"
 
 ### Punctuation
 

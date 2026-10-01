@@ -13,7 +13,7 @@ import { AREAS, areaHref } from '@/lib/areas'
 
 export const metadata: Metadata = {
   title: 'Areas We Serve — Southeast Georgia Cash Home Buyers',
-  description: 'VP Buys Homes buys houses for cash across Southeast Georgia — Statesboro, Savannah, Rincon, Metter, Springfield, and more. No repairs, no fees, cash offer in 24 hours.',
+  description: 'VP Buys Homes buys houses for cash across Southeast Georgia — Statesboro, Savannah, Rincon, Metter, Springfield, and more. No repairs, no fees, cash offer in 48 hours.',
   alternates: { canonical: 'https://www.vpbuyshomes.com/areas' },
 }
 
@@ -76,7 +76,7 @@ export default function AreasPage() {
       </Section>
 
       <FinalCTA
-        title={<>One offer. <em>Real number.</em> 24 hours.</>}
+        title={<>One offer. <em>Real number.</em> 48 hours.</>}
         sub="No matter which Southeast Georgia city you're in — same fast process, same fair offer."
       />
 

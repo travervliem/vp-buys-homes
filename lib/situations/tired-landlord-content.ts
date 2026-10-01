@@ -208,7 +208,7 @@ export const TIRED_LANDLORD_CONTENT: SituationContent = {
 
   'metter-ga': {
     title: 'Sell Your Metter Rental — Candler Tired-Landlord Cash Buyer',
-    metaDescription: 'Done with your Candler County rental? VP Buys Homes pays cash, buys with tenants in place. Local buyer, no fees, written offer in 24 hours.',
+    metaDescription: 'Done with your Candler County rental? VP Buys Homes pays cash, buys with tenants in place. Local buyer, no fees, written offer in 48 hours.',
     h1: 'Selling Your Metter Rental Without Eviction or Repairs',
 
     empatheticOpening: [
@@ -403,7 +403,7 @@ export const TIRED_LANDLORD_CONTENT: SituationContent = {
 
   'claxton-ga': {
     title: 'Sell Your Claxton Rental — Evans County Cash Buyer',
-    metaDescription: 'Tired of your Claxton, GA rental? Evans County cash buyer pays cash with tenants in place. No fees, no repairs, written offer in 24 hours.',
+    metaDescription: 'Tired of your Claxton, GA rental? Evans County cash buyer pays cash with tenants in place. No fees, no repairs, written offer in 48 hours.',
     h1: 'Selling Your Claxton Rental Without Eviction or Repairs',
 
     empatheticOpening: [

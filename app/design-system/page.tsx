@@ -60,7 +60,7 @@ const SITUATION_DEMOS = [
 
 const STEPS = [
   { title: 'Tell us about the house', body: 'Send us the address and a few details. No appraisal, no walkthrough required up front.' },
-  { title: 'Get a written cash offer', body: 'A real number from a real local buyer — not a teaser range. Sent within 24 hours.' },
+  { title: 'Get a written cash offer', body: 'A real number from a real local buyer — not a teaser range. Sent within 48 hours.' },
   { title: 'Pick your close date', body: 'Close in 7 days or 70 — your call. We pay standard closing costs at a local attorney\'s office.' },
 ]
 
@@ -90,9 +90,9 @@ export default function DesignSystemPage() {
       <Hero
         eyebrow="Southeast Georgia · Since 2021"
         headline={<>We buy houses for <em>cash</em> in Southeast Georgia</>}
-        sub={<>No repairs. No agent fees. Pick your close date. A fair written offer within 24 hours — for homeowners in Statesboro, Savannah, Rincon, Metter, Springfield, Swainsboro, Claxton, and Vidalia.</>}
+        sub={<>No repairs. No agent fees. Pick your close date. A fair written offer within 48 hours — for homeowners in Statesboro, Savannah, Rincon, Metter, Springfield, Swainsboro, Claxton, and Vidalia.</>}
         bullets={[
-          'Cash offer within 24 hours — no obligation',
+          'Cash offer within 48 hours — no obligation',
           'Close in as little as 7 days, or on your timeline',
           'Any condition. Any situation. No showings.',
         ]}
@@ -255,7 +255,7 @@ export default function DesignSystemPage() {
           bullets={[
             'Skip the showings, repairs, and inspections',
             'No agent fees, commissions, or buyer concessions',
-            'A real written offer within 24 hours',
+            'A real written offer within 48 hours',
             'Close in 7 days when title is clean',
           ]}
         />
@@ -269,7 +269,7 @@ export default function DesignSystemPage() {
 
       <FinalCTA
         title={<>Ready to <em>actually</em> sell?</>}
-        sub="Send us the address. We'll send back a written cash offer within 24 hours."
+        sub="Send us the address. We'll send back a written cash offer within 48 hours."
       />
 
       <SiteFooter />

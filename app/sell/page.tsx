@@ -21,7 +21,7 @@ const BENEFITS = [
   { title: 'No Repairs Required', body: 'We buy houses as-is — fire damage, foundation issues, outdated systems, full of belongings. Leave it exactly as-is.' },
   { title: 'No Fees or Commissions', body: 'Zero realtor fees, zero commissions, zero hidden costs. We typically cover standard closing costs as well.' },
   { title: 'Close on Your Schedule', body: 'As fast as 7 days or up to 60 days. You pick the date that works for your life.' },
-  { title: 'Written Cash Offer in 24 Hours', body: 'No wasted time. We review the property and get you a clear, written offer the same day or next business day.' },
+  { title: 'Written Cash Offer in 48 Hours', body: 'No wasted time. We review the property and get you a clear, written offer within 48 hours.' },
 ]
 
 export default function SellPage() {
@@ -34,7 +34,7 @@ export default function SellPage() {
         headline={<>Sell Your House Fast — <em>The Simple Way</em></>}
         sub={<>We purchase houses as-is in Statesboro, Savannah, Rincon, Metter, Springfield, and surrounding Southeast Georgia. Pick your closing date.</>}
         bullets={[
-          'A real written cash offer within 24 hours',
+          'A real written cash offer within 48 hours',
           'Close in 7 days, or 70 — your call',
           'As-is. No showings. No surprises.',
         ]}
@@ -79,7 +79,7 @@ export default function SellPage() {
 
       <FinalCTA
         title={<>Ready when you are</>}
-        sub="Send us the address. We'll send back a written cash offer within 24 hours."
+        sub="Send us the address. We'll send back a written cash offer within 48 hours."
       />
 
       <SiteFooter />

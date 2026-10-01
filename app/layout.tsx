@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     default: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
     template: '%s | VP Buys Homes',
   },
-  description: 'VP Buys Homes pays cash for houses in Statesboro, Savannah, Rincon, Metter, and Springfield, GA. No repairs, no fees, no commissions. Cash offer in 24 hours. Close in 7 days.',
+  description: 'VP Buys Homes pays cash for houses in Statesboro, Savannah, Rincon, Metter, and Springfield, GA. No repairs, no fees, no commissions. Cash offer in 48 hours. Close in 7 days.',
   keywords: [
     'sell my house fast Statesboro GA',
     'cash home buyers Statesboro GA',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     url: siteUrl,
     title: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
-    description: 'Local cash offer in 24 hours. No repairs, no fees, no commissions. Close in 7 days.',
+    description: 'Local cash offer in 48 hours. No repairs, no fees, no commissions. Close in 7 days.',
     siteName: 'VP Buys Homes',
     type: 'website',
     locale: 'en_US',
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'We Buy Houses for Cash in Southeast Georgia',
-    description: 'VP Buys Homes — local cash offers in 24 hours. No repairs, no fees.',
+    description: 'VP Buys Homes — local cash offers in 48 hours. No repairs, no fees.',
   },
   robots: {
     index: true,

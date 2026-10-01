@@ -31,7 +31,7 @@ const STEPS = [
     title: 'Receive a Written Cash Offer',
     body: (
       <>
-        Within 24 hours — often the same day — we deliver a written, no-obligation cash offer. We base it on recent comparable sales in your market and the property's current condition.
+        Within 48 hours we deliver a written, no-obligation cash offer. We base it on recent comparable sales in your market and the property's current condition.
         <br /><br />
         <em className="text-ink-500 not-italic text-[13px]">No pressure. No expiring windows. Review it at your own pace.</em>
       </>
@@ -50,7 +50,7 @@ const STEPS = [
 ]
 
 const COMPARE = [
-  { item: 'Cash offer timeline', vp: '24 hours', agent: '2–4 weeks', fsbo: '1–4 weeks' },
+  { item: 'Cash offer timeline', vp: '48 hours', agent: '2–4 weeks', fsbo: '1–4 weeks' },
   { item: 'Repairs required', vp: 'None', agent: 'Often yes', fsbo: 'Often yes' },
   { item: 'Commissions / fees', vp: 'None', agent: '5–6%', fsbo: 'Some costs' },
   { item: 'Showings and open houses', vp: 'None', agent: 'Many', fsbo: 'Many' },
@@ -70,7 +70,7 @@ export default function HowItWorksPage() {
         sub="From first contact to cash in hand — in as little as 7 days. No repairs, no fees, no commissions."
         bullets={[
           'Step 1 — Tell us about the property',
-          'Step 2 — Get a written cash offer in 24 hours',
+          'Step 2 — Get a written cash offer in 48 hours',
           'Step 3 — Pick your closing date',
         ]}
       >
@@ -118,7 +118,7 @@ export default function HowItWorksPage() {
 
       <FinalCTA
         title={<>Ready to <em>get started?</em></>}
-        sub="Cash offer in 24 hours. No obligation, no pressure."
+        sub="Cash offer in 48 hours. No obligation, no pressure."
       />
 
       <SiteFooter />

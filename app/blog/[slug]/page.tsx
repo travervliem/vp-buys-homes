@@ -126,7 +126,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         <div className="bg-navy rounded-xl p-7 mt-12 max-w-[760px] mx-auto">
           <h3 className="font-display text-[22px] font-bold text-white">Get your cash offer — no obligation</h3>
           <p className="font-body text-[14px] mt-1 mb-4" style={{ color: 'rgba(255,255,255,0.65)', lineHeight: 1.65 }}>
-            We respond within 24 hours. No pressure, no commitment required.
+            We respond within 48 hours. No pressure, no commitment required.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button href="/sell" variant="amber" size="md">Get My Cash Offer</Button>
@@ -155,7 +155,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
       <FinalCTA
         title={<>Ready to <em>actually</em> sell?</>}
-        sub="Send us the address. Cash offer in 24 hours."
+        sub="Send us the address. Cash offer in 48 hours."
       />
 
       <SiteFooter />

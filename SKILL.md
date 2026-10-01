@@ -47,4 +47,4 @@ Direct · Fast · Local · Credible · Empathetic.
 Use canonical headlines verbatim where they fit:
 - "WE BUY HOUSES FOR CASH IN SOUTHEAST GEORGIA"
 - "NO REPAIRS. NO FEES. CLOSE IN DAYS."
-- "GET YOUR CASH OFFER IN 24 HOURS"
+- "GET YOUR CASH OFFER IN 48 HOURS"

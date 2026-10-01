@@ -39,7 +39,7 @@ Cash sales in Statesboro work best for homeowners who:
 
 **The timeline**
 
-With VP Buys Homes, the process is: submit information → written offer within 24 hours → close in 7–21 days. The closing happens with a local attorney. You choose your date.
+With VP Buys Homes, the process is: submit information → written offer within 48 hours → close in 7–21 days. The closing happens with a local attorney. You choose your date.
 
 If you have questions about selling your Statesboro property for cash, call us directly: (912) 515-6060.`,
   },

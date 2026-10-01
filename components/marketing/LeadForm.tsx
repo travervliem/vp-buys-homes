@@ -233,7 +233,7 @@ export function LeadForm({ variant = 'card', context, source = 'hero-form' }: Pr
             Thanks — we got it
           </div>
           <p className="font-body text-[14.5px]" style={{ color: '#15803D', lineHeight: 1.6 }}>
-            Someone from VP Buys Homes will reach out within 24 hours regarding your cash offer
+            Someone from VP Buys Homes will reach out within 48 hours regarding your cash offer
             {step1.phone ? <> at <strong>{step1.phone}</strong></> : ''}.
           </p>
           {photos.length > 0 && (
@@ -266,7 +266,7 @@ export function LeadForm({ variant = 'card', context, source = 'hero-form' }: Pr
         <ProgressBar step={1} />
 
         <div className="font-body text-[10px] font-bold uppercase tracking-[0.16em] text-amber-dark mb-1.5">
-          Cash offer · 24 hours
+          Cash offer · 48 hours
         </div>
         <h3 className="font-display text-[24px] font-bold leading-[1.12] text-navy m-0">
           Tell us about your house
@@ -463,7 +463,7 @@ export function LeadForm({ variant = 'card', context, source = 'hero-form' }: Pr
 
       <div className="flex items-center justify-center gap-1.5 mt-3 font-body text-[11px] text-ink-500 font-semibold tracking-[0.04em] uppercase">
         <span className="w-1.5 h-1.5 rounded-full bg-success" aria-hidden />
-        We respond within 24 hours
+        We respond within 48 hours
       </div>
 
       <LeadFormStyles />

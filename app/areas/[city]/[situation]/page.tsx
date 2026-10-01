@@ -89,7 +89,7 @@ export default function IntersectionPage({ params }: { params: Params }) {
         headline={<>{content.h1}</>}
         sub={content.empatheticOpening[0]}
         bullets={[
-          'Cash offer in 24 hours — no obligation',
+          'Cash offer in 48 hours — no obligation',
           'Close before sale day when title is clear',
           'Local closing attorney in your county',
         ]}
@@ -205,7 +205,7 @@ export default function IntersectionPage({ params }: { params: Params }) {
           <aside id="get-offer" className="lg:sticky lg:top-24">
             <h2 className="ds-h4 mb-2">Get your cash offer — {area.name}</h2>
             <p className="font-body text-[14px] text-ink-500 leading-[1.6] mb-3">
-              Tell us about the property. Written cash offer within 24 hours. No obligation.
+              Tell us about the property. Written cash offer within 48 hours. No obligation.
             </p>
             <LeadForm source={`intersection-aside-${area.slug}-${situation.slug}`} context={{ city: area.slug, situation: situation.slug }} />
           </aside>
@@ -214,7 +214,7 @@ export default function IntersectionPage({ params }: { params: Params }) {
 
       <FinalCTA
         title={<>Cash offer in <em>{area.name}</em></>}
-        sub={`We close at a local closing attorney in ${area.county}. Tell us about the property — we send a real number within 24 hours.`}
+        sub={`We close at a local closing attorney in ${area.county}. Tell us about the property — we send a real number within 48 hours.`}
       />
 
       <SiteFooter />

@@ -473,7 +473,7 @@ export const DIVORCE_CONTENT: SituationContent = {
 
   'vidalia-ga': {
     title: 'Sell House During Divorce in Vidalia, GA — Cash Buyer',
-    metaDescription: 'Toombs County divorce sale? The courthouse is in Lyons. We coordinate with both attorneys and close cleanly. No fees, written offer in 24 hours.',
+    metaDescription: 'Toombs County divorce sale? The courthouse is in Lyons. We coordinate with both attorneys and close cleanly. No fees, written offer in 48 hours.',
     h1: 'Selling the Marital Home Through a Toombs County Divorce',
 
     empatheticOpening: [

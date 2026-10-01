@@ -112,7 +112,7 @@ export function HeroKinetic() {
               Get Your Cash Offer
             </h2>
             <p style={{ color: '#6B7280', fontSize: '13px', fontFamily: "'Nunito Sans',sans-serif", marginBottom: '20px' }}>
-              Share the basics — we'll respond within 24 hours.
+              Share the basics — we'll respond within 48 hours.
             </p>
             <LeadFormQuick />
           </div>
