@@ -76,24 +76,6 @@ const SITUATIONS_DEMO = [
   },
 ]
 
-const TESTIMONIALS = [
-  {
-    quote: "I needed to sell my mom's house after she passed. VP called the same day, made a fair offer, and closed in 11 days. I didn't have to fix a thing.",
-    name: 'Donna R.',
-    city: 'Statesboro, GA',
-  },
-  {
-    quote: "Was two months behind on payments and didn't know what to do. They got me out of the house before foreclosure hit my credit. Saved me.",
-    name: 'Marcus T.',
-    city: 'Rincon, GA',
-  },
-  {
-    quote: 'My rental had a bad tenant and needed a new roof. They bought it without me lifting a finger. Straight offer, no games, closed fast.',
-    name: 'Patricia L.',
-    city: 'Savannah, GA',
-  },
-]
-
 const FAQ_ITEMS = [
   {
     q: 'Are you really cash buyers, or do you wholesale to someone else?',
@@ -135,7 +117,6 @@ export default function HomePage() {
 
       <UrgencyStrip
         items={[
-          '50+ closings completed',
           'Cash offer in 48 hours',
           'Close in 7 days',
           'No repairs required',
@@ -228,30 +209,6 @@ export default function HomePage() {
           >
             View All Service Areas
           </Link>
-        </div>
-      </Section>
-
-      {/* Testimonials */}
-      <Section tone="paper" padding="lg" id="testimonials">
-        <div className="text-center max-w-[640px] mx-auto mb-12">
-          <Eyebrow>From Sellers Like You</Eyebrow>
-          <h2 className="ds-h2 mt-3">What Homeowners Say</h2>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-[960px] mx-auto">
-          {TESTIMONIALS.map(t => (
-            <article key={t.name} className="bg-white rounded-lg p-7 border border-hairline shadow-sm relative">
-              <span className="block font-display text-amber" style={{ fontSize: 48, lineHeight: 1, marginBottom: 12 }}>&ldquo;</span>
-              <p className="font-body text-[15px] text-ink-700 italic mb-5" style={{ lineHeight: 1.7 }}>
-                {t.quote}
-              </p>
-              <div className="border-t border-hairline pt-4">
-                <p className="font-display text-[16px] font-bold text-navy">
-                  {t.name}
-                </p>
-                <p className="font-body text-[12px] text-ink-400 mt-0.5">{t.city}</p>
-              </div>
-            </article>
-          ))}
         </div>
       </Section>
 

@@ -4,7 +4,6 @@ type Props = {
 }
 
 const DEFAULT_ITEMS = [
-  '50+ closings completed',
   'Cash offer in 48 hours',
   'Close in 7 days',
   'No repairs required',

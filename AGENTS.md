@@ -137,6 +137,12 @@ Source: `SKILL.md` and `assets/source/brand-guidelines.html`.
   navy-deep on hero), or hand-drawn illustrations.**
 - **Voice**: Direct · Fast · Local · Credible · Empathetic.
 - House mark never appears without the "VP" wordmark.
+- **Claims (owner decisions, Oct 2026 — do not reintroduce)**: the written-offer
+  turnaround is **48 hours** everywhere. No closing-count claims (for example
+  "50+ closings" or "closed in N days" tickers), no testimonials, and no
+  "guaranteed" timelines. VP Buys Homes has no public street address, business
+  hours, or Facebook page, so none may appear in copy or JSON-LD (no placeholder
+  values).
 
 ---
 
@@ -147,7 +153,7 @@ Source: `SKILL.md` and `assets/source/brand-guidelines.html`.
   (e.g. `.wrap`, `.eyebrow`, `.sec-h`, `.btn-amber`, `.btn-navy`,
   `.btn-outline`, `.badge-amber`, `.card`, `.field`, `.circle-motif`). Do
   not rewrite the styling approach. Match the local pattern.
-- **Client components** are marked `'use client'` (NavBar, HeroKinetic,
+- **Client components** are marked `'use client'` (NavBar,
   LeadForm wrappers, LeadFormShared, FaqAccordion, AddressAutocomplete).
   Pages are Server Components by default.
 - **No ORM / no database server.** Leads go to Google Sheets and email.

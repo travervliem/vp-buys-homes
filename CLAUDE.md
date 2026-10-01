@@ -98,13 +98,14 @@ Source: `SKILL.md` and `assets/source/brand-guidelines.html`.
 - **No gradients** except optional navy-to-deep on hero backgrounds.
 - **Voice**: Direct · Fast · Local · Credible · Empathetic.
 - House mark never appears without the "VP" wordmark.
+- **Claims**: written-offer turnaround is 48 hours everywhere. No closing counts, testimonials, or "guaranteed" timelines. No street address, hours, or Facebook URL anywhere (including JSON-LD) — none exist.
 
 ## Code conventions
 
 - **Styling is mixed**: Tailwind utilities + inline `style={{...}}` + `@layer components` classes in `globals.css` (`.wrap`, `.eyebrow`, `.sec-h`, `.btn-amber`, `.circle-motif`, etc.). Don't "clean this up" without being asked — match the local pattern.
 - **No ORM / no database server** — leads go to Google Sheets. This is intentional; do not suggest Postgres/Prisma unless the user raises scale.
 - **No CMS** — blog posts and city data are TypeScript arrays. Editing content = editing code.
-- **Client components** are marked `'use client'` (NavBar, HeroKinetic, LeadForm, LeadFormQuick, FaqAccordion). Pages are Server Components by default.
+- **Client components** are marked `'use client'` (NavBar, LeadForm, LeadFormQuick, FaqAccordion). Pages are Server Components by default.
 - **Fonts** currently load via Google Fonts CDN in `globals.css`. `SKILL.md` notes production should use `next/font` — flag this as tech debt if font performance comes up, but don't change unilaterally.
 
 ## Do / don't

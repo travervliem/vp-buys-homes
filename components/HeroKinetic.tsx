@@ -1,38 +1,7 @@
-'use client'
-
-import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { LeadFormQuick } from './LeadFormQuick'
 
-function useCounter(from: number, to: number, durationMs: number) {
-  const [value, setValue] = useState(from)
-  useEffect(() => {
-    const start = performance.now()
-    function tick(now: number) {
-      const t = Math.min((now - start) / durationMs, 1)
-      const eased = 1 - Math.pow(1 - t, 3)
-      setValue(Math.round(from - (from - to) * eased))
-      if (t < 1) requestAnimationFrame(tick)
-    }
-    requestAnimationFrame(tick)
-  }, [from, to, durationMs])
-  return value
-}
-
-const TICKER_ITEMS = [
-  'CLOSED · STATESBORO · 9 DAYS',
-  'CLOSED · RINCON · 11 DAYS',
-  'CLOSED · SAVANNAH · 14 DAYS',
-  'CLOSED · METTER · 8 DAYS',
-  'CLOSED · SPRINGFIELD · 12 DAYS',
-  'CLOSED · STATESBORO · 7 DAYS',
-  'CLOSED · SWAINSBORO · 10 DAYS',
-  'CLOSED · CLAXTON · 13 DAYS',
-]
-
 export function HeroKinetic() {
-  const days = useCounter(30, 7, 1400)
-
   return (
     <section
       style={{ background: '#1B365D', minHeight: 'calc(100vh - 72px)', position: 'relative', overflow: 'hidden' }}
@@ -43,34 +12,30 @@ export function HeroKinetic() {
 
       <div className="wrap relative z-10 flex flex-col lg:flex-row items-center gap-12 py-20 lg:py-0" style={{ minHeight: 'calc(100vh - 72px)' }}>
 
-        {/* Left — headline + counter */}
+        {/* Left — headline */}
         <div className="flex-1 flex flex-col justify-center">
           <p className="eyebrow mb-5 animate-fade-up" style={{ color: 'rgba(255,255,255,0.45)', letterSpacing: '0.2em' }}>
             STATESBORO · RINCON · SAVANNAH · SOUTHEAST GEORGIA
           </p>
 
-          <h1 className="hero-h animate-fade-up-1 mb-2" style={{ lineHeight: 1.06 }}>
-            CASH IN YOUR
-          </h1>
-          <div className="flex items-end gap-4 mb-2 animate-fade-up-1">
-            <span
-              style={{
-                fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                fontSize: 'clamp(100px, 18vw, 180px)',
-                fontWeight: 800,
-                lineHeight: 0.88,
-                color: '#F2A65A',
-                letterSpacing: '-0.02em',
-                display: 'block',
-              }}
-              aria-label={`${days} days`}
-            >
-              {days}
+          <h1 className="hero-h animate-fade-up-1 mb-6" style={{ lineHeight: 1.06 }}>
+            <span className="block mb-2">CASH OFFER WITHIN</span>
+            <span className="flex items-end gap-4">
+              <span
+                style={{
+                  fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
+                  fontSize: 'clamp(100px, 18vw, 180px)',
+                  fontWeight: 800,
+                  lineHeight: 0.88,
+                  color: '#F2A65A',
+                  letterSpacing: '-0.02em',
+                  display: 'block',
+                }}
+              >
+                48
+              </span>
+              <span style={{ paddingBottom: '12px' }}>HOURS</span>
             </span>
-            <span className="hero-h" style={{ paddingBottom: '12px' }}>DAYS</span>
-          </div>
-          <h1 className="hero-h animate-fade-up-2 mb-6">
-            GUARANTEED
           </h1>
 
           <p className="animate-fade-up-3" style={{ color: 'rgba(255,255,255,0.65)', fontSize: '17px', fontFamily: "'Nunito Sans',sans-serif", lineHeight: 1.65, maxWidth: '480px', marginBottom: '28px' }}>
@@ -116,36 +81,6 @@ export function HeroKinetic() {
             </p>
             <LeadFormQuick />
           </div>
-        </div>
-      </div>
-
-      {/* Ticker strip */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0, left: 0, right: 0,
-        background: '#F2A65A',
-        overflow: 'hidden',
-        height: '40px',
-        display: 'flex',
-        alignItems: 'center',
-      }}>
-        <div className="ticker-track flex items-center whitespace-nowrap" style={{ gap: 0 }}>
-          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, i) => (
-            <span
-              key={i}
-              style={{
-                fontFamily: "'Barlow Semi Condensed','Arial Narrow',sans-serif",
-                fontSize: '12px',
-                fontWeight: 700,
-                letterSpacing: '0.12em',
-                color: '#0D1B2A',
-                padding: '0 32px',
-                display: 'inline-block',
-              }}
-            >
-              {item}
-            </span>
-          ))}
         </div>
       </div>
     </section>
