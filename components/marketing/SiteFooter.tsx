@@ -8,12 +8,9 @@ const SITEMAP = [
   { href: '/areas', label: 'Areas we serve' },
   { href: '/sell', label: 'Get your offer' },
   { href: '/blog', label: 'Resources' },
-]
-
-const COMPANY = [
-  { href: '/how-it-works', label: 'About VP Equities' },
-  { href: '/sell', label: 'Privacy' },
-  { href: '/sell', label: 'Terms' },
+  { href: '/about', label: 'About' },
+  { href: '/contact', label: 'Contact' },
+  { href: '/privacy', label: 'Privacy policy' },
 ]
 
 export function SiteFooter() {

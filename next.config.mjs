@@ -13,7 +13,6 @@ const nextConfig = {
   // 301 is the canonical signal Google weights most strongly.
   async redirects() {
     return [
-      { source: '/about', destination: '/', statusCode: 301 },
       { source: '/cash-home-buyers-metter-ga', destination: '/areas/metter-ga', statusCode: 301 },
       { source: '/cash-home-buyers-brooklet-ga', destination: '/areas/statesboro-ga', statusCode: 301 },
       { source: '/sell-house-fast-statesboro-ga', destination: '/areas/statesboro-ga', statusCode: 301 },

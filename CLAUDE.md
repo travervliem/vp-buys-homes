@@ -25,6 +25,7 @@ app/
   page.tsx            # Homepage
   sell/               # Primary conversion page
   how-it-works/
+  about/, contact/, privacy/   # trust pages (about + contact embed the lead form)
   areas/
     page.tsx          # Areas directory
     [city]/page.tsx   # Per-city landing pages (hardcoded AREAS map)
