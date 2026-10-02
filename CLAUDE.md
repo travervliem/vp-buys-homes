@@ -90,13 +90,14 @@ See `.env.example` (documented inline). Required in production: `RESEND_API_KEY`
 
 ## Known tech debt (ask before changing)
 
-- **Fonts are inconsistent.** `lib/fonts.ts` loads Playfair Display + Montserrat via `next/font`, while `globals.css` still `@import`s Barlow Semi Condensed + Nunito Sans from Google's CDN (render-blocking) and uses Nunito as the base font. The brand doc specifies Barlow/Nunito. Needs an owner decision.
+- **Next.js 14 has open advisories** (fixed only in 15.5.x / 16). The ones that matter for this app need a major upgrade, which should be a deliberate task with before/after screenshots. Mitigated for now: image optimization is disabled (`next.config.mjs`) and the app uses no middleware, rewrites, or Server Actions.
 - `logLocal` writes to `.data/` and always fails on Vercel. Harmless noise in logs; see `AGENTS.md` §9.
 - `/design-system` is publicly reachable (it is `noindex, nofollow` and not in the sitemap).
 
 ## Conventions
 
-- Styling is deliberately mixed: Tailwind utilities + inline `style` + a few `@layer components` classes (`ds-*`) in `app/globals.css`. Match the local pattern; don't rewrite it.
+- Styling is deliberately mixed: Tailwind utilities + inline `style` + a few `@layer components` classes in `app/globals.css` (`ds-*`, plus `.field`, `.footer-link`, `.ticker-track`). Fonts: Playfair Display (display) + Montserrat (body) via `next/font` in `lib/fonts.ts`, per `docs/BRAND.md`. Match the local pattern; don't rewrite it.
 - No database, ORM, auth or CMS. Content is TypeScript data.
 - Client components carry `'use client'`; keep pages as Server Components.
+- **Before deleting CSS, search TSX for the class as a whole token** (e.g. `className="field leadform-field"`). A build/HTML diff will NOT catch a missing style rule — compare screenshots (headless Chrome works) before and after.
 - Brand/claims rules (48-hour offer, no testimonials, no street address or hours, no emoji/exclamation points) are in `AGENTS.md` §6.

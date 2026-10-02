@@ -134,8 +134,10 @@ Source: `SKILL.md` and `assets/source/brand-guidelines.html`.
 
 - **Colors**: navy `#1B365D` (primary) + amber `#F2A65A` (action only).
   Approx 80/20 navy/amber. Amber is never a large background.
-- **Type**: Barlow Semi Condensed (display, UPPERCASE, tracking 0.02em,
-  weight 700) + Nunito Sans (body, line-height 1.7).
+- **Type**: Playfair Display (display) + Montserrat (body), loaded via
+  `next/font` in `lib/fonts.ts` — see `docs/BRAND.md`. (The older
+  Barlow Semi Condensed / Nunito Sans spec in `SKILL.md` and the brand
+  guidelines HTML is superseded.)
 - **Case**: UPPERCASE display, sentence-case body. No Title Case.
 - **No emoji, exclamation points, fake urgency, gradients (except
   navy-deep on hero), or hand-drawn illustrations.**
@@ -154,10 +156,11 @@ Source: `SKILL.md` and `assets/source/brand-guidelines.html`.
 
 - **Styling is intentionally mixed**: Tailwind utility classes + inline
   `style={{...}}` blocks + a few `@layer components` classes in
-  `app/globals.css` (the `ds-*` set: `.ds-hero-bg`, `.ds-h1`–`.ds-h5`,
-  `.ds-body`, `.ds-lead`, `.ds-caption`, ...). The older `.wrap`, `.eyebrow`,
-  `.btn-*`, `.card`, `.field` classes were unused and have been removed. Do
-  not rewrite the styling approach. Match the local pattern.
+  `app/globals.css`: the `ds-*` set (`.ds-hero-bg`, `.ds-h1`–`.ds-h5`,
+  `.ds-body`, `.ds-lead`, `.ds-caption`, ...) plus `.field` (lead-form
+  labels/inputs), `.footer-link`, and `.ticker-track`. Do not rewrite the
+  styling approach. Match the local pattern. Deleting a CSS rule needs a
+  whole-token search of the TSX **and** before/after screenshots.
 - **Client components** are marked `'use client'` (`SiteHeader`,
   `marketing/LeadForm`, `marketing/FAQ`, `MobileCTABar`, `AddressAutocomplete`,
   `analytics/AnalyticsClient`). Pages are Server Components by default.
@@ -167,11 +170,8 @@ Source: `SKILL.md` and `assets/source/brand-guidelines.html`.
 - **No CMS.** Blog posts and city data are TypeScript arrays. Editing
   content means editing code. Do not suggest adding Contentful, Sanity,
   Notion, MDX, etc.
-- **Fonts are split.** `lib/fonts.ts` loads Playfair Display + Montserrat via
-  `next/font`; `app/globals.css` still `@import`s Barlow Semi Condensed +
-  Nunito Sans from Google's CDN and uses Nunito as the base font. Flag this
-  as tech debt if font performance or brand fidelity comes up — do not
-  change unilaterally.
+- **Fonts** are Playfair Display + Montserrat via `next/font` only (no
+  Google CDN `@import`). Don't reintroduce a render-blocking font import.
 
 ---
 

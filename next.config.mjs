@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // The site doesn't use next/image. Disabling optimization removes the
+  // /_next/image endpoint (attack surface for several Next 14 advisories).
+  images: { unoptimized: true },
   experimental: {
     serverActions: {
       allowedOrigins: [process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000']
