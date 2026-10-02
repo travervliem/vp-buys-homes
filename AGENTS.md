@@ -32,7 +32,7 @@ If a change does not make one of those four work better, question it.
 
 ## 2. Stack
 
-- Next.js 14.2.35 (App Router), React 18, TypeScript 5.4 strict (`noUnusedLocals` on), ESLint (`next/core-web-vitals`)
+- Next.js 15.5 (App Router), React 19, TypeScript 5.4 strict (`noUnusedLocals` on), ESLint (`next/core-web-vitals`)
 - Tailwind 3.4 with custom theme tokens (`tailwind.config.ts`)
 - Zod for request validation
 - Resend (transactional email), Google Apps Script webhook (lead log)

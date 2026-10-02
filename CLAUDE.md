@@ -21,7 +21,7 @@ Pushing to `main` deploys to production. Work on a branch; Vercel builds a previ
 
 ## Stack
 
-Next.js 14 (App Router) · React 18 · TypeScript (strict) · Tailwind 3.4 · Zod · Resend (email) · Google Apps Script webhook (Sheets log) · Vercel. Path alias `@/*` → project root.
+Next.js 15 (App Router) · React 19 · TypeScript (strict) · Tailwind 3.4 · Zod · Resend (email) · Google Apps Script webhook (Sheets log) · Vercel. Path alias `@/*` → project root.
 
 ## Layout
 
@@ -90,7 +90,8 @@ See `.env.example` (documented inline). Required in production: `RESEND_API_KEY`
 
 ## Known tech debt (ask before changing)
 
-- **Next.js 14 has open advisories** (fixed only in 15.5.x / 16). The ones that matter for this app need a major upgrade, which should be a deliberate task with before/after screenshots. Mitigated for now: image optimization is disabled (`next.config.mjs`) and the app uses no middleware, rewrites, or Server Actions.
+- **Remaining `npm audit` items** are build-time/transitive: `postcss` bundled inside Next (only processes our own CSS), `nanoid`, and `uuid` via `resend` (fixable with `npm audit fix`, which bumps the `resend` SDK — test a real send first). All runtime Next.js advisories were cleared by the 15.5 upgrade. Image optimization is also disabled (`next.config.mjs`).
+- `next lint` is deprecated (removed in Next 16). Migrate the `lint` script to the ESLint CLI before upgrading to 16.
 - `logLocal` writes to `.data/` and always fails on Vercel. Harmless noise in logs; see `AGENTS.md` §9.
 - `/design-system` is publicly reachable (it is `noindex, nofollow` and not in the sitemap).
 
@@ -99,5 +100,7 @@ See `.env.example` (documented inline). Required in production: `RESEND_API_KEY`
 - Styling is deliberately mixed: Tailwind utilities + inline `style` + a few `@layer components` classes in `app/globals.css` (`ds-*`, plus `.field`, `.footer-link`, `.ticker-track`). Fonts: Playfair Display (display) + Montserrat (body) via `next/font` in `lib/fonts.ts`, per `docs/BRAND.md`. Match the local pattern; don't rewrite it.
 - No database, ORM, auth or CMS. Content is TypeScript data.
 - Client components carry `'use client'`; keep pages as Server Components.
+- Dynamic route `params` are a Promise (Next 15): `const routeParams = await params` in `generateMetadata` and the page.
+- `LeadForm.tsx` styles its fields with a `<style jsx global>` block. Under Next 14's styled-jsx that block was silently truncated (labels/selects/focus rules dropped); under Next 15 it applies fully. Keep rules in it scoped carefully (e.g. `.field > label`).
 - **Before deleting CSS, search TSX for the class as a whole token** (e.g. `className="field leadform-field"`). A build/HTML diff will NOT catch a missing style rule — compare screenshots (headless Chrome works) before and after.
 - Brand/claims rules (48-hour offer, no testimonials, no street address or hours, no emoji/exclamation points) are in `AGENTS.md` §6.

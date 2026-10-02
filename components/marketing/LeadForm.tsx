@@ -520,7 +520,8 @@ function LeadFormStyles() {
         padding-right: 36px;
         cursor: pointer;
       }
-      .leadform-card .field label {
+      /* Direct child only: the nested "Add photos" label keeps its own inline-flex layout. */
+      .leadform-card .field > label {
         font-family: var(--font-body), 'Helvetica Neue', sans-serif;
         font-size: 11px;
         font-weight: 700;

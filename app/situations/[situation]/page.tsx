@@ -22,8 +22,9 @@ export async function generateStaticParams() {
   return SITUATION_SLUGS.map(slug => ({ situation: slug }))
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const situation = SITUATIONS.find(s => s.slug === params.situation)
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const routeParams = await params
+  const situation = SITUATIONS.find(s => s.slug === routeParams.situation)
   if (!situation) return { title: 'Not Found' }
 
   const title = `${situation.shortLabel} in Georgia — Cash Home Buyers`
@@ -41,8 +42,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   }
 }
 
-export default function SituationPillarPage({ params }: { params: Params }) {
-  const situation = SITUATIONS.find(s => s.slug === params.situation)
+export default async function SituationPillarPage({ params }: { params: Promise<Params> }) {
+  const routeParams = await params
+  const situation = SITUATIONS.find(s => s.slug === routeParams.situation)
   if (!situation) return notFound()
 
   const filledForThisSituation = new Set(

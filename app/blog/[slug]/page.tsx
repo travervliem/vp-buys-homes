@@ -20,8 +20,9 @@ export async function generateStaticParams() {
   return PUBLISHED_POSTS.map(p => ({ slug: p.slug }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = PUBLISHED_POSTS.find(p => p.slug === params.slug)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const routeParams = await params
+  const post = PUBLISHED_POSTS.find(p => p.slug === routeParams.slug)
   if (!post) return { title: 'Not Found' }
   return {
     title: post.title,
@@ -31,8 +32,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = PUBLISHED_POSTS.find(p => p.slug === params.slug)
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const routeParams = await params
+  const post = PUBLISHED_POSTS.find(p => p.slug === routeParams.slug)
   if (!post) return notFound()
 
   const paragraphs = post.body.split('\n\n')

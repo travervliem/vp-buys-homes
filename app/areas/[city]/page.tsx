@@ -20,8 +20,9 @@ export async function generateStaticParams() {
   return AREAS.map(a => ({ city: a.slug }))
 }
 
-export async function generateMetadata({ params }: { params: { city: string } }): Promise<Metadata> {
-  const area = AREAS.find(a => a.slug === params.city)
+export async function generateMetadata({ params }: { params: Promise<{ city: string }> }): Promise<Metadata> {
+  const routeParams = await params
+  const area = AREAS.find(a => a.slug === routeParams.city)
   if (!area) return { title: 'Area Not Found' }
 
   const title = `Sell My House Fast ${area.name}, GA — Cash Home Buyers`
@@ -55,9 +56,10 @@ export async function generateMetadata({ params }: { params: { city: string } })
   }
 }
 
-export default function AreaPage({ params }: { params: { city: string } }) {
-  const area = AREAS.find(a => a.slug === params.city)
-  const copy = AREA_PAGE_CONTENT[params.city]
+export default async function AreaPage({ params }: { params: Promise<{ city: string }> }) {
+  const routeParams = await params
+  const area = AREAS.find(a => a.slug === routeParams.city)
+  const copy = AREA_PAGE_CONTENT[routeParams.city]
   if (!area || !copy) return notFound()
 
   const schema = localBusinessAreaJsonLd(area.name, area.county, area.slug)

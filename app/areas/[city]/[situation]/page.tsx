@@ -27,26 +27,28 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
-  const content = getIntersection(params.city, params.situation)
+export async function generateMetadata({ params }: { params: Promise<Params> }): Promise<Metadata> {
+  const routeParams = await params
+  const content = getIntersection(routeParams.city, routeParams.situation)
   if (!content) return { title: 'Not Found' }
 
   return {
     title: content.title,
     description: content.metaDescription,
-    alternates: { canonical: absoluteUrl(intersectionHref(params.city, params.situation)) },
+    alternates: { canonical: absoluteUrl(intersectionHref(routeParams.city, routeParams.situation)) },
     openGraph: {
       title: content.title,
       description: content.metaDescription,
-      url: absoluteUrl(intersectionHref(params.city, params.situation)),
+      url: absoluteUrl(intersectionHref(routeParams.city, routeParams.situation)),
     },
   }
 }
 
-export default function IntersectionPage({ params }: { params: Params }) {
-  const area = AREAS.find(a => a.slug === params.city)
-  const situation = SITUATIONS.find(s => s.slug === params.situation)
-  const content = getIntersection(params.city, params.situation)
+export default async function IntersectionPage({ params }: { params: Promise<Params> }) {
+  const routeParams = await params
+  const area = AREAS.find(a => a.slug === routeParams.city)
+  const situation = SITUATIONS.find(s => s.slug === routeParams.situation)
+  const content = getIntersection(routeParams.city, routeParams.situation)
   if (!area || !situation || !content) return notFound()
 
   const business = localBusinessAreaJsonLd(area.name, area.county, area.slug)
