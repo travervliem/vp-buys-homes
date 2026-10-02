@@ -9,9 +9,8 @@ import { SiteHeader } from '@/components/marketing/SiteHeader'
 import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
-import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS } from '@/lib/areas'
-import { SITUATIONS, type SituationSlug, SITUATION_SLUGS, listFilledIntersections } from '@/lib/situations'
+import { SITUATIONS, type SituationSlug, SITUATION_SLUGS, intersectionHref, listFilledIntersections, situationHref } from '@/lib/situations'
 import { JsonLd } from '@/components/JsonLd'
 import { breadcrumbJsonLd, localBusinessSituationJsonLd } from '@/lib/seo'
 import { SITE, absoluteUrl } from '@/lib/site'
@@ -33,11 +32,11 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title,
     description,
-    alternates: { canonical: absoluteUrl(`/situations/${situation.slug}`) },
+    alternates: { canonical: absoluteUrl(situationHref(situation.slug)) },
     openGraph: {
       title: `${title} | VP Buys Homes`,
       description,
-      url: absoluteUrl(`/situations/${situation.slug}`),
+      url: absoluteUrl(situationHref(situation.slug)),
     },
   }
 }
@@ -60,7 +59,7 @@ export default function SituationPillarPage({ params }: { params: Params }) {
     [
       { name: 'Home', href: '/' },
       { name: 'Situations', href: '/situations' },
-      { name: situation.label, href: `/situations/${situation.slug}` },
+      { name: situation.label, href: situationHref(situation.slug) },
     ]
   )
 
@@ -179,7 +178,7 @@ export default function SituationPillarPage({ params }: { params: Params }) {
                 return isFilled ? (
                   <Link
                     key={area.slug}
-                    href={`/areas/${area.slug}/${situation.slug}`}
+                    href={intersectionHref(area.slug, situation.slug)}
                     className="no-underline"
                   >
                     {inner}
@@ -194,7 +193,7 @@ export default function SituationPillarPage({ params }: { params: Params }) {
               {SITUATIONS.filter(s => s.slug !== situation.slug).map(other => (
                 <Link
                   key={other.slug}
-                  href={`/situations/${other.slug}`}
+                  href={situationHref(other.slug)}
                   className="inline-block bg-white border border-hairline rounded-pill px-3.5 py-2 font-body text-[13px] font-semibold text-navy no-underline hover:border-amber transition-colors"
                 >
                   {other.label} →

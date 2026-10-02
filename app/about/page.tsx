@@ -12,7 +12,7 @@ import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS, areaHref } from '@/lib/areas'
 import { SITUATIONS, situationHref } from '@/lib/situations'
-import { SITE, absoluteUrl } from '@/lib/site'
+import { absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'About Us — Cash Home Buyers in Southeast Georgia',

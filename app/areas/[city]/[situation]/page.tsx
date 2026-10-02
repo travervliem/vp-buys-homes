@@ -11,8 +11,8 @@ import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
-import { AREAS } from '@/lib/areas'
-import { SITUATIONS, type SituationSlug, listFilledIntersections, getIntersection } from '@/lib/situations'
+import { AREAS, areaHref } from '@/lib/areas'
+import { SITUATIONS, type SituationSlug, getIntersection, intersectionHref, listFilledIntersections, situationHref } from '@/lib/situations'
 import { JsonLd } from '@/components/JsonLd'
 import { breadcrumbJsonLd, intersectionServiceJsonLd, localBusinessAreaJsonLd, faqJsonLd } from '@/lib/seo'
 import { absoluteUrl } from '@/lib/site'
@@ -34,11 +34,11 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: content.title,
     description: content.metaDescription,
-    alternates: { canonical: absoluteUrl(`/areas/${params.city}/${params.situation}`) },
+    alternates: { canonical: absoluteUrl(intersectionHref(params.city, params.situation)) },
     openGraph: {
       title: content.title,
       description: content.metaDescription,
-      url: absoluteUrl(`/areas/${params.city}/${params.situation}`),
+      url: absoluteUrl(intersectionHref(params.city, params.situation)),
     },
   }
 }
@@ -63,8 +63,8 @@ export default function IntersectionPage({ params }: { params: Params }) {
     [
       { name: 'Home', href: '/' },
       { name: 'Areas', href: '/areas' },
-      { name: `${area.name}, GA`, href: `/areas/${area.slug}` },
-      { name: situation.label, href: `/areas/${area.slug}/${situation.slug}` },
+      { name: `${area.name}, GA`, href: areaHref(area.slug) },
+      { name: situation.label, href: intersectionHref(area.slug, situation.slug) },
     ]
   )
 
@@ -99,7 +99,7 @@ export default function IntersectionPage({ params }: { params: Params }) {
             <li className="text-ink-300">/</li>
             <li><Link href="/areas" className="text-ink-500 hover:text-amber-dark no-underline">Areas</Link></li>
             <li className="text-ink-300">/</li>
-            <li><Link href={`/areas/${area.slug}`} className="text-ink-500 hover:text-amber-dark no-underline">{area.name}, GA</Link></li>
+            <li><Link href={areaHref(area.slug)} className="text-ink-500 hover:text-amber-dark no-underline">{area.name}, GA</Link></li>
             <li className="text-ink-300">/</li>
             <li className="text-ink-700">{situation.label}</li>
           </ol>
@@ -173,7 +173,7 @@ export default function IntersectionPage({ params }: { params: Params }) {
                       return (
                         <Link
                           key={slug}
-                          href={`/areas/${slug}/${situation.slug}`}
+                          href={intersectionHref(slug, situation.slug)}
                           className="inline-block bg-white border border-hairline rounded-pill px-3.5 py-2 font-body text-[13px] font-semibold text-navy no-underline hover:border-amber transition-colors"
                         >
                           {situation.label} in {neighbor.name}, GA →
@@ -186,10 +186,10 @@ export default function IntersectionPage({ params }: { params: Params }) {
             })()}
 
             <div className="mt-8 pt-6 border-t border-hairline flex flex-wrap gap-2">
-              <Link href={`/areas/${area.slug}`} className="inline-block bg-white border border-hairline rounded-pill px-3.5 py-2 font-body text-[13px] font-semibold text-navy no-underline hover:border-amber transition-colors">
+              <Link href={areaHref(area.slug)} className="inline-block bg-white border border-hairline rounded-pill px-3.5 py-2 font-body text-[13px] font-semibold text-navy no-underline hover:border-amber transition-colors">
                 More on {area.name}, GA →
               </Link>
-              <Link href={`/situations/${situation.slug}`} className="inline-block bg-white border border-hairline rounded-pill px-3.5 py-2 font-body text-[13px] font-semibold text-navy no-underline hover:border-amber transition-colors">
+              <Link href={situationHref(situation.slug)} className="inline-block bg-white border border-hairline rounded-pill px-3.5 py-2 font-body text-[13px] font-semibold text-navy no-underline hover:border-amber transition-colors">
                 {situation.label} across Georgia →
               </Link>
             </div>

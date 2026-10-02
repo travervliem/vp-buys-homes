@@ -8,7 +8,7 @@ import { SiteHeader } from '@/components/marketing/SiteHeader'
 import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
-import { SITUATIONS } from '@/lib/situations'
+import { SITUATIONS, situationHref } from '@/lib/situations'
 import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -42,7 +42,7 @@ export default function SituationsDirectoryPage() {
           {SITUATIONS.map(s => (
             <Link
               key={s.slug}
-              href={`/situations/${s.slug}`}
+              href={situationHref(s.slug)}
               className="group block bg-white border border-hairline rounded-lg p-7 no-underline transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md hover:border-amber border-t-[3px] border-t-amber"
             >
               <p className="font-body text-[11px] font-bold uppercase tracking-[0.12em] text-ink-400 mb-2">

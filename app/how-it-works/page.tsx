@@ -9,7 +9,7 @@ import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
-import { SITE, absoluteUrl } from '@/lib/site'
+import { absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'How It Works — Sell Your House Fast for Cash in Southeast Georgia',
@@ -32,7 +32,7 @@ const STEPS = [
     title: 'Receive a Written Cash Offer',
     body: (
       <>
-        Within 48 hours we deliver a written, no-obligation cash offer. We base it on recent comparable sales in your market and the property's current condition.
+        Within 48 hours we deliver a written, no-obligation cash offer. We base it on recent comparable sales in your market and the property&apos;s current condition.
         <br /><br />
         <em className="text-ink-500 not-italic text-[13px]">No pressure. No expiring windows. Review it at your own pace.</em>
       </>

@@ -8,7 +8,6 @@ import { SiteHeader } from '@/components/marketing/SiteHeader'
 import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
-import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS, areaHref } from '@/lib/areas'
 import { SITE, absoluteUrl } from '@/lib/site'
 
@@ -66,7 +65,7 @@ export default function AreasPage() {
         </div>
 
         <div className="text-center mt-12">
-          <p className="ds-body mb-4">Don't see your city? We likely buy there too — call or text us.</p>
+          <p className="ds-body mb-4">Don&apos;t see your city? We likely buy there too — call or text us.</p>
           <a
             href={SITE.phoneHref}
             className="inline-flex items-center gap-2 px-7 py-3.5 bg-amber text-white font-body text-[12px] font-bold tracking-[0.16em] uppercase rounded-sm no-underline shadow-amber hover:bg-amber-dark transition-colors"

@@ -9,7 +9,7 @@ import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { POSTS } from './posts'
-import { SITE, absoluteUrl } from '@/lib/site'
+import { absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Resources for Southeast Georgia Homeowners',

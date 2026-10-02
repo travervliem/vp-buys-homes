@@ -1,8 +1,9 @@
 // Schema.org JSON-LD builders. Render the results with `<JsonLd data={...} />`
 // (components/JsonLd.tsx). All business identity comes from `lib/site.ts`.
 
-import { AREAS } from './areas'
+import { AREAS, areaHref } from './areas'
 import { FAQS, type Faq } from './faqs'
+import { intersectionHref, situationHref, type SituationSlug } from './situations/data'
 import { SITE, absoluteUrl } from './site'
 
 // City-level only: there is no public street address, so none is published.
@@ -85,7 +86,7 @@ export function localBusinessAreaJsonLd(city: string, county: string, slug: stri
     '@context': 'https://schema.org',
     '@type': LOCAL_BUSINESS_TYPE,
     name: `${SITE.name} — ${city}, GA`,
-    url: absoluteUrl(`/areas/${slug}`),
+    url: absoluteUrl(areaHref(slug)),
     telephone: SITE.phoneE164,
     areaServed: cityNode(city, county),
     address: {
@@ -104,7 +105,7 @@ export function intersectionServiceJsonLd(args: {
   city: string
   county: string
   citySlug: string
-  situationSlug: string
+  situationSlug: SituationSlug
   situationLabel: string  // e.g. "Foreclosure"
   description: string     // the page meta description
 }) {
@@ -115,7 +116,7 @@ export function intersectionServiceJsonLd(args: {
     name: `Cash Home Purchase — ${situationLabel} — ${city}, GA`,
     serviceType: `Cash home purchase for homeowners facing ${situationLabel.toLowerCase()}`,
     description,
-    url: absoluteUrl(`/areas/${citySlug}/${situationSlug}`),
+    url: absoluteUrl(intersectionHref(citySlug, situationSlug)),
     provider: {
       '@type': LOCAL_BUSINESS_TYPE,
       name: SITE.name,
@@ -127,13 +128,13 @@ export function intersectionServiceJsonLd(args: {
 
 // Situation pillar page LocalBusiness — same shape as the area version,
 // but scoped to "GA" rather than a single city.
-export function localBusinessSituationJsonLd(args: { situationSlug: string; situationLabel: string }) {
+export function localBusinessSituationJsonLd(args: { situationSlug: SituationSlug; situationLabel: string }) {
   const { situationSlug, situationLabel } = args
   return {
     '@context': 'https://schema.org',
     '@type': LOCAL_BUSINESS_TYPE,
     name: `${SITE.name} — ${situationLabel} — Georgia`,
-    url: absoluteUrl(`/situations/${situationSlug}`),
+    url: absoluteUrl(situationHref(situationSlug)),
     telephone: SITE.phoneE164,
     areaServed: { '@type': 'AdministrativeArea', name: 'Georgia, US' },
     address: {

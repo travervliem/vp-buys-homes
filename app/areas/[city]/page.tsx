@@ -9,13 +9,12 @@ import { SiteHeader } from '@/components/marketing/SiteHeader'
 import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
-import { Eyebrow } from '@/components/ui/Eyebrow'
 import { JsonLd } from '@/components/JsonLd'
-import { AREAS } from '@/lib/areas'
+import { AREAS, areaHref } from '@/lib/areas'
 import { AREA_PAGE_CONTENT } from '@/lib/area-pages'
 import { breadcrumbJsonLd, localBusinessAreaJsonLd } from '@/lib/seo'
 import { absoluteUrl } from '@/lib/site'
-import { SITUATIONS, getIntersection } from '@/lib/situations'
+import { SITUATIONS, getIntersection, intersectionHref } from '@/lib/situations'
 
 export async function generateStaticParams() {
   return AREAS.map(a => ({ city: a.slug }))
@@ -47,11 +46,11 @@ export async function generateMetadata({ params }: { params: { city: string } })
       `sell house as is no repairs ${area.county}`,
       `fast home sale ${area.name} Georgia`,
     ],
-    alternates: { canonical: absoluteUrl(`/areas/${area.slug}`) },
+    alternates: { canonical: absoluteUrl(areaHref(area.slug)) },
     openGraph: {
       title: `${title} | VP Buys Homes`,
       description,
-      url: absoluteUrl(`/areas/${area.slug}`),
+      url: absoluteUrl(areaHref(area.slug)),
     },
   }
 }
@@ -66,7 +65,7 @@ export default function AreaPage({ params }: { params: { city: string } }) {
     [
       { name: 'Home', href: '/' },
       { name: 'Areas', href: '/areas' },
-      { name: `${area.name}, GA`, href: `/areas/${area.slug}` },
+      { name: `${area.name}, GA`, href: areaHref(area.slug) },
     ]
   )
 
@@ -160,7 +159,7 @@ export default function AreaPage({ params }: { params: { city: string } }) {
                   </div>
                 )
                 return filled ? (
-                  <Link key={s.slug} href={`/areas/${area.slug}/${s.slug}`} className="no-underline">
+                  <Link key={s.slug} href={intersectionHref(area.slug, s.slug)} className="no-underline">
                     {inner}
                   </Link>
                 ) : (
