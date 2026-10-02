@@ -110,6 +110,58 @@
 }
 
 @layer components {
+  /* Lead-form field styling — used by components/marketing/LeadForm.tsx (className="field leadform-field"). */
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label {
+    font-family: var(--fb);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--navy);
+  }
+  .field input,
+  .field select,
+  .field textarea {
+    width: 100%;
+    font-family: var(--fb);
+    font-size: 15px;
+    color: var(--dark);
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 10px 14px;
+    outline: none;
+    transition: border-color var(--dur-fast) var(--ease-std),
+                box-shadow var(--dur-fast) var(--ease-std);
+    line-height: 1.5;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    border-color: var(--navy);
+    box-shadow: var(--ring-navy);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  /* Footer link hover */
+  .footer-link {
+    color: rgba(255,255,255,0.65);
+    font-size: 14px;
+    font-family: 'Nunito Sans', 'Helvetica Neue', sans-serif;
+    text-decoration: none;
+    transition: color 120ms;
+  }
+  .footer-link:hover { color: #F2A65A; }
+
+  /* Ticker strip */
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-track { animation: ticker-scroll 34s linear infinite; }
+  .ticker-track:hover { animation-play-state: paused; }
+
   /* Design-system primitives, used by components/ui/* and components/marketing/*. */
 
   /* Hero gradient recipe (BRAND.md §6) */
