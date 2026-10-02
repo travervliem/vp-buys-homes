@@ -1,125 +1,102 @@
 # VP Buys Homes — vpbuyshomes.com
 
-Marketing + lead-capture site for **VP Equities LLC** (dba VP Buys Homes), a local cash-for-houses business serving Southeast Georgia (primary market: Statesboro / Bulloch County).
+Marketing + lead-capture site for **VP Equities LLC** (dba VP Buys Homes), a local cash-for-houses buyer in Southeast Georgia (primary market: Statesboro / Bulloch County).
 
-Domain: `https://vpbuyshomes.com`
-Phone: `(912) 515-6060` · Lead email: `traver97@gmail.com` · From address: `leads@vpbuyshomes.com`
+**Read `AGENTS.md` first.** It holds the review rules, SEO/brand constraints, "looks wrong but is intentional" list, and when to stop and ask. This file is the quick map of the code.
+
+- Production: `https://www.vpbuyshomes.com` (apex redirects to `www`). Repo: `github.com/travervliem/vp-buys-homes`, branch `main` auto-deploys to the Vercel project `vp-buys-homes`.
+- Business details (phone, email, domain) live in **`lib/site.ts`** — never type them into a page.
+
+## Commands
+
+```
+npm run dev         # local dev server (port 3000)
+npm run typecheck   # tsc --noEmit (noUnusedLocals is on)
+npm run lint        # next lint (next/core-web-vitals)
+npm run build       # production build; statically prerenders 69 pages
+npm run check       # typecheck + lint + build — run before opening a PR
+```
+
+Pushing to `main` deploys to production. Work on a branch; Vercel builds a preview for every branch.
 
 ## Stack
 
-- **Next.js 14.2.5** (App Router) — `next dev` / `next build` / `next start`
-- **React 18.3.1** + **TypeScript 5.4** (strict)
-- **Tailwind 3.4** with custom theme tokens (see `tailwind.config.ts`)
-- **Zod** for input validation
-- **Resend** for transactional email (lead notifications)
-- **Google Apps Script webhook** for lead logging to Google Sheets (via `SHEETS_WEBHOOK_URL`)
-- **Deployed on Vercel** (`.vercel/project.json` is linked)
+Next.js 14 (App Router) · React 18 · TypeScript (strict) · Tailwind 3.4 · Zod · Resend (email) · Google Apps Script webhook (Sheets log) · Vercel. Path alias `@/*` → project root.
 
-Path alias: `@/*` → project root.
-
-## Repo layout
+## Layout
 
 ```
-app/
-  layout.tsx          # Site metadata, nav, footer, org + FAQ JSON-LD
-  page.tsx            # Homepage
-  sell/               # Primary conversion page
-  how-it-works/
-  about/, contact/, privacy/   # trust pages (about + contact embed the lead form)
-  areas/
-    page.tsx          # Areas directory
-    [city]/page.tsx   # Per-city landing pages (hardcoded AREAS map)
-  blog/
-    page.tsx
-    posts.ts          # Blog data source (hardcoded array, no CMS)
-    [slug]/page.tsx
-  api/lead/route.ts   # Lead submission endpoint
-  sitemap.ts          # Auto-built from AREAS + POSTS
-  robots.ts
+app/                         routes (Server Components unless noted)
+  layout.tsx                 metadata defaults, fonts, analytics, org JSON-LD
+  page.tsx                   homepage
+  sell/ about/ contact/ privacy/ how-it-works/
+  areas/page.tsx             city directory
+  areas/[city]/page.tsx      city landing page
+  areas/[city]/[situation]/  city × situation page
+  situations/                directory + /situations/[situation] pillar pages
+  blog/  blog/posts.ts       blog index, [slug], and the post data (TS array, no CMS)
+  design-system/             internal component preview page
+  api/lead/route.ts          lead submission endpoint
+  sitemap.ts robots.ts
 components/
-  NavBar.tsx, Footer.tsx, HeroKinetic.tsx
-  LeadForm.tsx, LeadFormQuick.tsx, FaqAccordion.tsx
-  ui/                 # Button, Input, Card, Badge primitives
+  marketing/                 page blocks: SiteHeader, SiteFooter, Hero, LeadForm, FinalCTA, ...
+  ui/                        primitives: Button, Card, Badge, Input, Section, ...
+  analytics/                 GA / Meta pixel scripts + client event hooks
+  JsonLd.tsx                 renders a schema.org <script> (escapes '<')
+  AddressAutocomplete.tsx    Mapbox address field used by the lead form
 lib/
-  seo.ts              # orgJsonLd, faqJsonLd, breadcrumbJsonLd, localBusinessAreaJsonLd
-  email.ts            # Resend sender (sendLeadEmail)
-  validation.ts       # Zod leadSchema
-  logger.ts           # logLead() — try Sheets, fall back to local JSON
-  loggers/googleSheets.ts
-  loggers/local.ts    # Writes to .data/leads.json
+  site.ts                    SITE constants + absoluteUrl()
+  areas.ts                   service-area facts (single source of truth)
+  area-pages.ts              per-city landing-page copy, keyed by area slug
+  situations/                data.ts (5 situations + href helpers), types.ts, *-content.ts, index.ts (barrel)
+  faqs.ts                    FAQ list (visible UI + JSON-LD both read this)
+  seo.ts                     JSON-LD builders
+  validation.ts              Zod lead schemas + EnrichedLead type
+  email.ts                   Resend sender (escapes all submitter input)
+  loggers/                   googleSheets.ts, local.ts
+  analytics/                 client + Meta Conversions API
+scripts/                     Search Console CLI helpers (local only)
+docs/BRAND.md                design-system doc; docs/archive/ = finished migration notes
 ```
 
-## Lead flow (memorize this — it's the whole product)
+`preview/`, `ui_kits/`, `uploads/`, `assets/`, `SKILL.md`, `colors_and_type.css` and `README.md` at the repo root are design-system reference material, not part of the deployed site (Next never compiles them).
 
-1. User submits `LeadForm` → POST `/api/lead`
-2. `route.ts` validates with `leadSchema`, detects city from address string, runs in parallel:
-   - `sendLeadEmail()` → Resend → `traver97@gmail.com`
-   - `logLead()` → Google Sheets (primary), falls back to local `.data/leads.json`
-3. Returns `{ ok, email, logged }` to the client.
+## Lead flow (the whole product)
 
-Cities recognized by `detectCity`: Statesboro, Rincon, Savannah, Metter, Springfield, Swainsboro, Claxton, Vidalia, Millen, Waynesboro, Jesup, Dublin.
+1. `components/marketing/LeadForm.tsx` posts step 1 (`partial: true`) then step 2 to `POST /api/lead`.
+2. `route.ts` validates (`leadSchema` / `partialLeadSchema`), detects the city, writes `logLocal`, then in parallel `logToGoogleSheets` and — full submissions only — `sendLeadEmail` and the Meta CAPI event.
+3. Responds `{ ok, status, sessionId, saved: { local, email, sheets } }`. (`local` is false on Vercel — read-only filesystem; that is expected.)
+
+Don't change the payload shape without asking: it maps to the Google Sheet columns.
+
+## Single sources of truth
+
+| Concern | Edit here |
+|---|---|
+| Phone, email, domain | `lib/site.ts` |
+| City name / county / slug / courts | `lib/areas.ts` |
+| City landing-page copy | `lib/area-pages.ts` |
+| Situations (foreclosure, divorce, …) | `lib/situations/data.ts`; per-city copy in `lib/situations/<slug>-content.ts` |
+| FAQ | `lib/faqs.ts` |
+| Blog posts | `app/blog/posts.ts` |
+| Structured data | `lib/seo.ts` (render with `<JsonLd>`) |
+| Page URLs | `areaHref`, `situationHref`, `intersectionHref` — don't hand-build `/areas/...` strings |
+
+**Add a city:** add an `Area` to `lib/areas.ts`, add its copy to `lib/area-pages.ts`, add per-situation content under `lib/situations/`. Sitemap, homepage grid, directory, footer, JSON-LD and lead-city detection derive from `lib/areas.ts`.
 
 ## Environment variables
 
-```
-NEXT_PUBLIC_SITE_URL=https://vpbuyshomes.com
-NEXT_PUBLIC_MAPBOX_TOKEN=...          # optional — powers address autocomplete
-LEAD_NOTIFICATION_EMAIL=traver97@gmail.com  # optional, override recipient
-RESEND_API_KEY=...
-SHEETS_WEBHOOK_URL=...                # Google Apps Script web app /exec URL
-```
+See `.env.example` (documented inline). Required in production: `RESEND_API_KEY`, `SHEETS_WEBHOOK_URL`. `NEXT_PUBLIC_SITE_URL` falls back to the production host. Everything else (Mapbox, Meta, Google Ads/GA, Search Console) is optional and inert when unset.
 
-Address autocomplete (`components/AddressAutocomplete.tsx`) uses Mapbox. The component is isolated behind a standard input interface — swapping providers (Google Places, LocationIQ, etc.) only requires replacing its `fetchSuggestions` implementation.
+## Known tech debt (ask before changing)
 
-Missing Resend key → email is skipped (warns); missing Sheets env → logger falls back to local file.
+- **Fonts are inconsistent.** `lib/fonts.ts` loads Playfair Display + Montserrat via `next/font`, while `globals.css` still `@import`s Barlow Semi Condensed + Nunito Sans from Google's CDN (render-blocking) and uses Nunito as the base font. The brand doc specifies Barlow/Nunito. Needs an owner decision.
+- `logLocal` writes to `.data/` and always fails on Vercel. Harmless noise in logs; see `AGENTS.md` §9.
+- `/design-system` is publicly reachable (it is `noindex, nofollow` and not in the sitemap).
 
-## SEO architecture (current focus)
+## Conventions
 
-- **Metadata** — `app/layout.tsx` has default title/description/OG/Twitter. Each page overrides via its own `export const metadata`.
-- **Structured data** — `lib/seo.ts` is the single source of truth:
-  - `orgJsonLd` (LocalBusiness + RealEstateAgent) — injected in `layout.tsx`
-  - `faqJsonLd` — injected in `layout.tsx`
-  - `breadcrumbJsonLd` — for nested pages
-  - `localBusinessAreaJsonLd(city, county, siteUrl, slug)` — for `/areas/[city]`
-- **Sitemap** (`app/sitemap.ts`) — auto-assembles core routes + AREAS array + POSTS array. When adding a city or blog post, also add to the AREAS array here.
-- **Robots** (`app/robots.ts`) — allows all; points to `/sitemap.xml`.
-- **City pages** — `app/areas/[city]/page.tsx` has a hardcoded `AREAS` record. Adding a city means: (1) add entry here, (2) add slug to `sitemap.ts` AREAS, (3) add entry to homepage AREAS list.
-- **Blog posts** — add entry to `app/blog/posts.ts`.
-
-When asked for SEO work, default to: improving metadata coverage, adding structured data variants, expanding city/blog content, fixing internal linking, and validating Core Web Vitals — not rewriting infrastructure.
-
-## Brand constraints (non-negotiable)
-
-Source: `SKILL.md` and `assets/source/brand-guidelines.html`.
-
-- **Colors**: navy `#1B365D` (primary) + amber `#F2A65A` (action only). 80/20 navy/amber ratio max. Amber is never a large background.
-- **Type**: Barlow Semi Condensed (display, UPPERCASE, tracking 0.02em, weight 700) + Nunito Sans (body, line-height 1.7).
-- **Case**: UPPERCASE display, sentence-case body. No Title Case.
-- **No emoji. No exclamation points. No fake urgency.** (✓ allowed in bullets.)
-- **No gradients** except optional navy-to-deep on hero backgrounds.
-- **Voice**: Direct · Fast · Local · Credible · Empathetic.
-- House mark never appears without the "VP" wordmark.
-- **Claims**: written-offer turnaround is 48 hours everywhere. No closing counts, testimonials, or "guaranteed" timelines. No street address, hours, or Facebook URL anywhere (including JSON-LD) — none exist.
-
-## Code conventions
-
-- **Styling is mixed**: Tailwind utilities + inline `style={{...}}` + `@layer components` classes in `globals.css` (`.wrap`, `.eyebrow`, `.sec-h`, `.btn-amber`, `.circle-motif`, etc.). Don't "clean this up" without being asked — match the local pattern.
-- **No ORM / no database server** — leads go to Google Sheets. This is intentional; do not suggest Postgres/Prisma unless the user raises scale.
-- **No CMS** — blog posts and city data are TypeScript arrays. Editing content = editing code.
-- **Client components** are marked `'use client'` (NavBar, LeadForm, LeadFormQuick, FaqAccordion). Pages are Server Components by default.
-- **Fonts** currently load via Google Fonts CDN in `globals.css`. `SKILL.md` notes production should use `next/font` — flag this as tech debt if font performance comes up, but don't change unilaterally.
-
-## Do / don't
-
-- **Do** edit `lib/seo.ts` when tweaking structured data — it's the single source.
-- **Do** add new cities/posts in the 2–3 places listed above so sitemap + UI stay in sync.
-- **Don't** add emoji, exclamation points, or hand-drawn illustrations.
-- **Don't** introduce a database, auth, or CMS without being asked — the product is a 4-page marketing site + lead form.
-- **Don't** rewrite the styling approach. The inline-style + Tailwind mix is how this codebase works.
-- **Don't** commit `.env*` or `.data/leads.json` (both gitignored).
-
-## Related context
-
-- `SKILL.md` — invocable design skill for generating mocks/prototypes; has fuller brand voice notes.
-- `README.md` — describes this as a "handoff bundle" from claude.ai/design. The `chats/`, `scraps/`, `preview/`, `ui_kits/`, and `uploads/` directories are design-system reference material, not part of the deployed site.
-- `chats/chat1.md` — original design conversation; useful for understanding intent behind existing components.
+- Styling is deliberately mixed: Tailwind utilities + inline `style` + a few `@layer components` classes (`ds-*`) in `app/globals.css`. Match the local pattern; don't rewrite it.
+- No database, ORM, auth or CMS. Content is TypeScript data.
+- Client components carry `'use client'`; keep pages as Server Components.
+- Brand/claims rules (48-hour offer, no testimonials, no street address or hours, no emoji/exclamation points) are in `AGENTS.md` §6.

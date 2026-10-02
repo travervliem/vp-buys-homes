@@ -32,14 +32,15 @@ If a change does not make one of those four work better, question it.
 
 ## 2. Stack
 
-- Next.js 14.2.5 (App Router), React 18, TypeScript 5.4 strict
+- Next.js 14.2.35 (App Router), React 18, TypeScript 5.4 strict (`noUnusedLocals` on), ESLint (`next/core-web-vitals`)
 - Tailwind 3.4 with custom theme tokens (`tailwind.config.ts`)
 - Zod for request validation
 - Resend (transactional email), Google Apps Script webhook (lead log)
 - Deployed on Vercel (`.vercel/project.json` is linked)
 - Path alias: `@/*` → project root
 
-Run locally: `npm install && npm run dev` (port 3000). Build: `npm run build`.
+Run locally: `npm install && npm run dev` (port 3000). Before a PR: `npm run check`
+(typecheck + lint + build). Pushing to `main` deploys to production.
 
 ---
 
@@ -50,19 +51,22 @@ these files. Do not reintroduce the duplicates that were removed.**
 
 | Concern | Single source | Downstream consumers |
 |---|---|---|
-| Service-area list (name, county, slug) | `lib/areas.ts` | `app/sitemap.ts`, `app/page.tsx`, `app/areas/page.tsx`, `components/Footer.tsx`, `lib/seo.ts` (`orgJsonLd` areaServed), `app/api/lead/route.ts` (via `RECOGNIZED_CITIES`) |
-| Per-city SEO body copy | `app/areas/[city]/page.tsx` `AREAS` record | city landing page only |
-| FAQ questions + answers | `lib/faqs.ts` | `components/FaqAccordion.tsx` (visible), `lib/seo.ts#faqJsonLd` (JSON-LD) |
+| Business identity (phone, email, domain) | `lib/site.ts` (`SITE`, `absoluteUrl`) | every page, `lib/seo.ts`, `lib/email.ts`, sitemap/robots |
+| Service-area list (name, county, slug, courts) | `lib/areas.ts` | `app/sitemap.ts`, `app/page.tsx`, `app/areas/page.tsx`, `components/marketing/SiteFooter.tsx`, `lib/seo.ts` (`orgJsonLd` areaServed), `app/api/lead/route.ts` (via `RECOGNIZED_CITIES`) |
+| Per-city SEO body copy | `lib/area-pages.ts` (keyed by area slug) | `app/areas/[city]/page.tsx` only |
+| Situations + per-city situation copy | `lib/situations/data.ts`, `lib/situations/*-content.ts` (import via `@/lib/situations`) | situation pages, intersection pages, sitemap |
+| FAQ questions + answers | `lib/faqs.ts` | `components/marketing/FAQ.tsx` (visible), `lib/seo.ts#faqJsonLd` (JSON-LD) |
 | Blog posts | `app/blog/posts.ts` | blog index + `[slug]` + sitemap |
-| Structured-data generators | `lib/seo.ts` | `orgJsonLd`, `faqJsonLd`, `breadcrumbJsonLd`, `localBusinessAreaJsonLd` |
+| Page URLs | `areaHref`, `situationHref`, `intersectionHref` | all links, canonicals, JSON-LD — don't hand-build `/areas/...` |
+| Structured-data generators | `lib/seo.ts`, rendered with `components/JsonLd.tsx` | `orgJsonLd`, `faqJsonLd`, `breadcrumbJsonLd`, `localBusinessAreaJsonLd`, `intersectionServiceJsonLd`, `localBusinessSituationJsonLd` |
 | Brand tokens (colors, fonts) | `tailwind.config.ts` + `:root` in `app/globals.css` | everywhere |
 
-**To add a city**: add an `Area` to `lib/areas.ts`, then add a full entry to
-the `AREAS` record in `app/areas/[city]/page.tsx`. Nothing else. The sitemap,
-homepage grid, areas directory, footer, JSON-LD, and lead-route city
-detector pick it up automatically.
+**To add a city**: add an `Area` to `lib/areas.ts`, then add that city's copy
+to `AREA_PAGE_CONTENT` in `lib/area-pages.ts` (and per-situation content under
+`lib/situations/`). Nothing else. The sitemap, homepage grid, areas directory,
+footer, JSON-LD, and lead-route city detector pick it up automatically.
 
-**To add a FAQ**: edit `lib/faqs.ts`. Both the accordion and the JSON-LD
+**To add a FAQ**: edit `lib/faqs.ts`. Both the visible FAQ and the JSON-LD
 update automatically. Never add FAQs to only one of them.
 
 **To add a blog post**: edit `app/blog/posts.ts`. The index, dynamic route,
@@ -107,18 +111,18 @@ See `.env.example` for the full set with inline setup notes.
 
 - `metadataBase`, title templates, and default `<meta>` in `app/layout.tsx`.
 - `export const metadata` on every page. Each page has its own canonical URL.
-- `orgJsonLd` (LocalBusiness + RealEstateAgent) + `faqJsonLd` in the root
-  layout.
+- `orgJsonLd` (LocalBusiness + RealEstateAgent) in the root layout;
+  `faqJsonLd` on the homepage.
 - `localBusinessAreaJsonLd` on each city page.
 - `breadcrumbJsonLd` on city and blog pages.
 - Per-city keyword arrays in `generateMetadata` on `areas/[city]`.
 - `app/sitemap.ts` + `app/robots.ts`.
 
 **Google demotes FAQ structured data that does not match what the user can
-see.** `FaqAccordion` and `faqJsonLd()` both read from `lib/faqs.ts` for
+see.** `components/marketing/FAQ.tsx` and `faqJsonLd()` both read from `lib/faqs.ts` for
 exactly this reason. If you ever split them, you have broken SEO.
 
-**Per-city body copy on `areas/[city]/page.tsx` is intentionally distinct
+**Per-city body copy in `lib/area-pages.ts` is intentionally distinct
 per city.** Do not "deduplicate" it. The whole point is that every city
 page ranks independently on local-intent queries.
 
@@ -149,22 +153,25 @@ Source: `SKILL.md` and `assets/source/brand-guidelines.html`.
 ## 7. Conventions you must respect
 
 - **Styling is intentionally mixed**: Tailwind utility classes + inline
-  `style={{...}}` blocks + `@layer components` classes in `app/globals.css`
-  (e.g. `.wrap`, `.eyebrow`, `.sec-h`, `.btn-amber`, `.btn-navy`,
-  `.btn-outline`, `.badge-amber`, `.card`, `.field`, `.circle-motif`). Do
+  `style={{...}}` blocks + a few `@layer components` classes in
+  `app/globals.css` (the `ds-*` set: `.ds-hero-bg`, `.ds-h1`–`.ds-h5`,
+  `.ds-body`, `.ds-lead`, `.ds-caption`, ...). The older `.wrap`, `.eyebrow`,
+  `.btn-*`, `.card`, `.field` classes were unused and have been removed. Do
   not rewrite the styling approach. Match the local pattern.
-- **Client components** are marked `'use client'` (NavBar,
-  LeadForm wrappers, LeadFormShared, FaqAccordion, AddressAutocomplete).
-  Pages are Server Components by default.
+- **Client components** are marked `'use client'` (`SiteHeader`,
+  `marketing/LeadForm`, `marketing/FAQ`, `MobileCTABar`, `AddressAutocomplete`,
+  `analytics/AnalyticsClient`). Pages are Server Components by default.
 - **No ORM / no database server.** Leads go to Google Sheets and email.
   This is intentional. Do not suggest Postgres, Prisma, Supabase, or any
   other database unless the user explicitly raises scale concerns.
 - **No CMS.** Blog posts and city data are TypeScript arrays. Editing
   content means editing code. Do not suggest adding Contentful, Sanity,
   Notion, MDX, etc.
-- **Fonts load via Google Fonts CDN in `app/globals.css`.** `SKILL.md`
-  notes production should switch to `next/font`. Flag this as tech debt
-  if font performance comes up — do not change unilaterally.
+- **Fonts are split.** `lib/fonts.ts` loads Playfair Display + Montserrat via
+  `next/font`; `app/globals.css` still `@import`s Barlow Semi Condensed +
+  Nunito Sans from Google's CDN and uses Nunito as the base font. Flag this
+  as tech debt if font performance or brand fidelity comes up — do not
+  change unilaterally.
 
 ---
 
@@ -173,7 +180,7 @@ Source: `SKILL.md` and `assets/source/brand-guidelines.html`.
 When reviewing a diff, go through this list. Flag anything that fails.
 
 ### Single-source-of-truth checks
-- [ ] Adding a city: does it touch `lib/areas.ts` + `app/areas/[city]/page.tsx` and **only** those two files? If the diff also edits sitemap/footer/homepage/seo manually, that is a regression — they derive automatically now.
+- [ ] Adding a city: does it touch `lib/areas.ts`, `lib/area-pages.ts` and `lib/situations/*-content.ts` and **only** those? If the diff also edits sitemap/footer/homepage/seo manually, that is a regression — they derive automatically now.
 - [ ] Adding a FAQ: is it in `lib/faqs.ts` only?
 - [ ] Is there a new hardcoded city list, FAQ array, or "areas" array anywhere? That is drift. Point it at the shared source instead.
 
@@ -193,13 +200,15 @@ When reviewing a diff, go through this list. Flag anything that fails.
 
 ### Brand + content
 - [ ] No emoji, exclamation points, gradients beyond hero, or Title Case display text.
-- [ ] Phone number is `(912) 515-6060` and `tel:+19125156060` — not a placeholder.
+- [ ] Phone/email come from `lib/site.ts` (`(912) 515-6060`, `leads@vpbuyshomes.com`) — no new hardcoded copies.
 - [ ] From-address is `leads@vpbuyshomes.com`, lead recipient is `traver97@gmail.com` (or `LEAD_NOTIFICATION_EMAIL`).
 - [ ] Brand name is "VP Buys Homes" (doing business as) / "VP Equities LLC" (legal entity). Not "VP Equities" alone in marketing copy.
 
 ### Codebase hygiene
-- [ ] No new dependency unless it's earning its weight. Reject `clsx`, `classnames`, `nodemailer` — they were removed deliberately.
-- [ ] No new `components/ui/*` primitives. The brand classes in `app/globals.css` already cover Button, Card, Badge, Input.
+- [ ] No new dependency unless it's earning its weight. Reject `clsx`, `classnames`, `nodemailer` — they were removed deliberately. (`eslint` + `eslint-config-next` are dev-only and intentional.)
+- [ ] No new `components/ui/*` primitive if an existing one (Button, Card, Badge, Input, Section, ...) covers it.
+- [ ] `npm run check` passes (typecheck + lint + build).
+- [ ] Any user-supplied value that reaches HTML (email, JSON-LD) is escaped (`escapeHtml` in `lib/email.ts`, `<JsonLd>`).
 - [ ] No reintroduction of `next.config.ts` (keep the `.mjs` variant).
 - [ ] No re-adding `lib/logger.ts` — the route calls `logToGoogleSheets` directly.
 
@@ -216,8 +225,8 @@ When reviewing a diff, go through this list. Flag anything that fails.
   ~46 times across pages.** The user has seen this and chose not to
   extract it into utility classes in this pass. Don't refactor without
   being asked.
-- **The `preview/`, `ui_kits/`, `chats/`, `uploads/`, `scraps/`, and
-  `assets/source/` directories are design reference material**, not
+- **The `preview/`, `ui_kits/`, `uploads/`, and `assets/source/`
+  directories are design reference material**, not
   part of the deployed site. Next doesn't compile them. Ignore during
   reviews.
 - **Google Sheets webhook returns a 302 that resolves to a 200 from
