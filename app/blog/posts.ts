@@ -1,3 +1,5 @@
+import { SITE } from '@/lib/site'
+
 export type Post = {
   slug: string
   title: string
@@ -41,7 +43,7 @@ Cash sales in Statesboro work best for homeowners who:
 
 With VP Buys Homes, the process is: submit information → written offer within 48 hours → close in 7–21 days. The closing happens with a local attorney. You choose your date.
 
-If you have questions about selling your Statesboro property for cash, call us directly: (912) 515-6060.`,
+If you have questions about selling your Statesboro property for cash, call us directly: ${SITE.phoneDisplay}.`,
   },
   {
     slug: 'cash-home-buyers-bulloch-county',
@@ -72,7 +74,7 @@ Cash purchases close at a local title company or attorney's office. The closing 
 
 *What if the house has code violations or unpermitted work?* We buy as-is. Code violations and unpermitted additions are factored into our offer — not a deal-breaker.
 
-If you own a property in Bulloch County you need to sell, reach out: (912) 515-6060.`,
+If you own a property in Bulloch County you need to sell, reach out: ${SITE.phoneDisplay}.`,
   },
   {
     slug: 'sell-a-house-as-is-georgia',
@@ -102,7 +104,7 @@ As-is cash sales work best when:
 - The property is in an estate or inherited situation
 - You are facing foreclosure, divorce, or another deadline
 
-Questions about selling as-is in Southeast Georgia? Call: (912) 515-6060.`,
+Questions about selling as-is in Southeast Georgia? Call: ${SITE.phoneDisplay}.`,
   },
   {
     slug: 'stop-foreclosure-options',
@@ -128,7 +130,7 @@ A foreclosure on your credit report affects you for 7 years. A sale — even at 
 
 VP Buys Homes has helped homeowners in Statesboro, Rincon, Metter, and Springfield sell before the auction date. We move fast and work directly with your lender's payoff team.
 
-If you are facing foreclosure, do not wait. Call: (912) 515-6060.`,
+If you are facing foreclosure, do not wait. Call: ${SITE.phoneDisplay}.`,
   },
   {
     slug: 'how-to-sell-inherited-property-georgia',
@@ -157,7 +159,7 @@ None. Inherited properties often sit for months or years before heirs decide to 
 - *Back taxes owed* — These are typically resolved at closing from proceeds
 - *Tenants in place* — We buy occupied rental properties
 
-If you have inherited a property in Southeast Georgia and need to sell, reach out: (912) 515-6060.`,
+If you have inherited a property in Southeast Georgia and need to sell, reach out: ${SITE.phoneDisplay}.`,
   },
   {
     slug: 'selling-rental-property-georgia',
@@ -190,6 +192,6 @@ A property with a problem tenant, deferred maintenance, or code violations is st
 
 Georgia is a relatively landlord-friendly state. Month-to-month tenants require written notice to vacate (typically 60 days). Fixed-term leases run with the property — the new owner inherits them.
 
-If you are a tired landlord in Southeast Georgia ready to exit, call: (912) 515-6060.`,
+If you are a tired landlord in Southeast Georgia ready to exit, call: ${SITE.phoneDisplay}.`,
   },
 ]

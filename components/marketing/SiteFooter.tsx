@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { Logo } from '@/components/ui/Logo'
 import { AREAS, areaHref } from '@/lib/areas'
+import { SITE } from '@/lib/site'
 
 const SITEMAP = [
   { href: '/how-it-works', label: 'How it works' },
@@ -26,18 +27,18 @@ export function SiteFooter() {
             </p>
             <div className="mt-5 flex flex-col gap-2">
               <a
-                href="tel:+19125156060"
+                href={SITE.phoneHref}
                 className="font-body text-[14px] no-underline transition-colors duration-150"
                 style={{ color: 'rgba(255,255,255,0.75)' }}
               >
-                <span className="text-amber mr-1 font-display font-bold">P</span>(912) 515-6060
+                <span className="text-amber mr-1 font-display font-bold">P</span>{SITE.phoneDisplay}
               </a>
               <a
-                href="mailto:leads@vpbuyshomes.com"
+                href={SITE.emailHref}
                 className="font-body text-[14px] no-underline transition-colors duration-150"
                 style={{ color: 'rgba(255,255,255,0.75)' }}
               >
-                <span className="text-amber mr-1 font-display font-bold">E</span>leads@vpbuyshomes.com
+                <span className="text-amber mr-1 font-display font-bold">E</span>{SITE.email}
               </a>
             </div>
           </div>

@@ -14,12 +14,14 @@ import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS, areaHref } from '@/lib/areas'
 import { SITUATIONS, intersectionHref, situationHref } from '@/lib/situations'
+import { JsonLd } from '@/components/JsonLd'
 import { faqJsonLd } from '@/lib/seo'
+import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
   description: 'We buy houses for cash in Statesboro, GA and surrounding Southeast Georgia. No repairs, no fees, no commissions. Cash offer in 48 hours. Close in as little as 7 days.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/' },
+  alternates: { canonical: absoluteUrl('/') },
 }
 
 const STEPS = [
@@ -107,7 +109,7 @@ export default function HomePage() {
   const faq = faqJsonLd()
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }} />
+      <JsonLd data={faq} />
 
       <SiteHeader />
 
@@ -136,12 +138,12 @@ export default function HomePage() {
               fontSize: 'clamp(36px, 5.2vw, 56px)',
               lineHeight: 1.05,
               letterSpacing: '0.005em',
-              textWrap: 'balance' as any,
+              textWrap: 'balance',
             }}
           >
             How It Works
           </h2>
-          <p className="font-body text-ink-700 mx-auto" style={{ fontSize: 'clamp(16px, 1.5vw, 18px)', lineHeight: 1.6, textWrap: 'balance' as any }}>
+          <p className="font-body text-ink-700 mx-auto" style={{ fontSize: 'clamp(16px, 1.5vw, 18px)', lineHeight: 1.6, textWrap: 'balance' }}>
             Three steps from first contact to cash in hand. No showings, no negotiations, no surprises.
           </p>
         </div>
@@ -250,7 +252,7 @@ export default function HomePage() {
             </ul>
             <div className="flex items-center gap-2 font-body text-[13px]" style={{ color: 'rgba(255,255,255,0.6)' }}>
               <span className="text-amber font-display font-bold">P</span>
-              Or call <a href="tel:+19125156060" className="text-white font-semibold no-underline hover:text-amber">(912) 515-6060</a>
+              Or call <a href={SITE.phoneHref} className="text-white font-semibold no-underline hover:text-amber">{SITE.phoneDisplay}</a>
             </div>
           </div>
           <div>

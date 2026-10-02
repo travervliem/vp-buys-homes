@@ -10,11 +10,12 @@ import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Sell Your House Fast for Cash in Southeast Georgia',
   description: 'Get a no-obligation cash offer for your house in Statesboro, Savannah, Rincon, Metter, or Springfield, GA. No repairs, no fees, close in 7 days.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/sell' },
+  alternates: { canonical: absoluteUrl('/sell') },
 }
 
 const BENEFITS = [
@@ -64,8 +65,8 @@ export default function SellPage() {
               <p className="font-body text-[15px] mb-4" style={{ color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }}>
                 We answer promptly and speak plainly. No sales pressure.
               </p>
-              <Button href="tel:+19125156060" variant="amber" size="lg">
-                (912) 515-6060
+              <Button href={SITE.phoneHref} variant="amber" size="lg">
+                {SITE.phoneDisplay}
               </Button>
             </div>
           </div>

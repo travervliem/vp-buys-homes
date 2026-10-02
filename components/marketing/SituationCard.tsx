@@ -18,7 +18,7 @@ export function SituationCard({ href, tag, title, body, cta = 'Read more →' }:
         <span className="w-1.5 h-1.5 rounded-full bg-amber" aria-hidden />
         {tag}
       </span>
-      <h3 className="font-display text-[22px] font-semibold text-navy mt-4 mb-3 leading-[1.15] transition-colors duration-200 group-hover:text-amber-dark" style={{ textWrap: 'balance' as any }}>
+      <h3 className="font-display text-[22px] font-semibold text-navy mt-4 mb-3 leading-[1.15] transition-colors duration-200 group-hover:text-amber-dark" style={{ textWrap: 'balance' }}>
         {title}
       </h3>
       <p className="font-body text-[14px] text-ink-700 leading-[1.65] m-0">

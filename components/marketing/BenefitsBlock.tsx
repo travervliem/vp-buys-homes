@@ -55,7 +55,7 @@ export function BenefitsBlock({ eyebrow, title, body, bullets, imageSlot, revers
         )}
         <h2
           className="font-display font-bold text-navy m-0 mb-4"
-          style={{ fontSize: 'clamp(28px,4vw,38px)', lineHeight: 1.08, textWrap: 'balance' as any }}
+          style={{ fontSize: 'clamp(28px,4vw,38px)', lineHeight: 1.08, textWrap: 'balance' }}
         >
           {title}
         </h2>

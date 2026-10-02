@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { AddressAutocomplete } from '@/components/AddressAutocomplete'
 import { readAttribution, trackEvent } from '@/lib/analytics/client'
 import { EVENTS } from '@/lib/analytics/events'
+import { SITE } from '@/lib/site'
 
 export type LeadFormContext = {
   city?: string
@@ -196,10 +197,10 @@ export function LeadForm({ variant = 'card', context, source = 'hero-form' }: Pr
           photoCount: photos.length,
         })
       } else {
-        setError('Something went wrong. Please call (912) 515-6060.')
+        setError(`Something went wrong. Please call ${SITE.phoneDisplay}.`)
       }
     } catch {
-      setError('Connection error. Please call (912) 515-6060.')
+      setError(`Connection error. Please call ${SITE.phoneDisplay}.`)
     }
     setLoading(false)
   }

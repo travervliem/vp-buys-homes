@@ -9,11 +9,12 @@ import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { POSTS } from './posts'
+import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Resources for Southeast Georgia Homeowners',
   description: 'Guides and resources for homeowners considering selling in Statesboro, Savannah, and Southeast Georgia. Learn about cash sales, foreclosure, inherited property, and more.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/blog' },
+  alternates: { canonical: absoluteUrl('/blog') },
 }
 
 export default function BlogIndex() {

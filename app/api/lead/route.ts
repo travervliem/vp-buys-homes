@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server'
-import { leadSchema, partialLeadSchema } from '@/lib/validation'
+import { leadSchema, partialLeadSchema, type EnrichedLead } from '@/lib/validation'
 import { sendLeadEmail } from '@/lib/email'
 import { logToGoogleSheets } from '@/lib/loggers/googleSheets'
 import { logLocal } from '@/lib/loggers/local'
@@ -18,7 +18,7 @@ function splitName(full: string): { first: string; last: string } {
 }
 
 export async function POST(req: Request) {
-  let raw: any
+  let raw: Record<string, unknown>
   try {
     raw = await req.json()
   } catch {
@@ -55,10 +55,10 @@ export async function POST(req: Request) {
   const city = detectCity(payload.address)
   const status = isPartial ? 'partial' : 'complete'
 
-  const attribution = (payload as any).attribution || {}
-  const eventId: string = (payload as any).eventId || ''
+  const attribution = payload.attribution || {}
+  const eventId = payload.eventId || ''
 
-  const enriched = {
+  const enriched: EnrichedLead = {
     ...payload,
     city,
     status,
@@ -79,8 +79,8 @@ export async function POST(req: Request) {
 
   // Photo blobs go to email only — strip them out of the sheets/local rows
   // so we don't push megabytes of base64 into the spreadsheet.
-  const { photos: _photoBlobs, ...enrichedNoPhotos } = enriched as any
-  const photoCount = Array.isArray((enriched as any).photos) ? (enriched as any).photos.length : 0
+  const { photos, ...enrichedNoPhotos } = enriched
+  const photoCount = photos?.length ?? 0
   const sheetsRow = { ...enrichedNoPhotos, photoCount }
 
   // Always log locally first — this is the guaranteed fallback that never fails silently.
@@ -107,7 +107,7 @@ export async function POST(req: Request) {
       ? `${process.env.NEXT_PUBLIC_SITE_URL || ''}${attribution.landing_page}`
       : undefined
     sendMetaCapiEvent({
-      email: (payload as any).email || undefined,
+      email: payload.email || undefined,
       phone: payload.phone,
       firstName: first,
       lastName: last,

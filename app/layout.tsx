@@ -3,14 +3,15 @@ import type { Metadata } from 'next'
 import { AnalyticsScripts } from '@/components/analytics/AnalyticsScripts'
 import { AnalyticsClient } from '@/components/analytics/AnalyticsClient'
 import { fontBody, fontDisplay } from '@/lib/fonts'
+import { JsonLd } from '@/components/JsonLd'
 import { orgJsonLd } from '@/lib/seo'
+import { SITE } from '@/lib/site'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 const metaDomainVerification = process.env.META_DOMAIN_VERIFICATION || ''
 const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION || ''
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE.url),
   title: {
     default: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
     template: '%s | VP Buys Homes',
@@ -25,9 +26,9 @@ export const metadata: Metadata = {
     'we buy ugly houses Georgia',
     'sell my house fast Bulloch County',
   ],
-  alternates: { canonical: siteUrl },
+  alternates: { canonical: SITE.url },
   openGraph: {
-    url: siteUrl,
+    url: SITE.url,
     title: 'We Buy Houses for Cash in Statesboro, GA | VP Buys Homes',
     description: 'Local cash offer in 48 hours. No repairs, no fees, no commissions. Close in 7 days.',
     siteName: 'VP Buys Homes',
@@ -53,15 +54,13 @@ export const metadata: Metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const org = orgJsonLd(siteUrl)
-
   return (
     <html lang="en" className={`${fontDisplay.variable} ${fontBody.variable}`}>
       <body>
         <AnalyticsScripts />
         <AnalyticsClient />
         <main>{children}</main>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(org) }} />
+        <JsonLd data={orgJsonLd()} />
       </body>
     </html>
   )

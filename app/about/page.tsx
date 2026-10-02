@@ -12,11 +12,12 @@ import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS, areaHref } from '@/lib/areas'
 import { SITUATIONS, situationHref } from '@/lib/situations'
+import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'About Us — Cash Home Buyers in Southeast Georgia',
   description: 'VP Buys Homes is the trade name of VP Equities LLC, a direct cash home buyer based in Statesboro, GA. Learn how we buy houses across Southeast Georgia.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/about' },
+  alternates: { canonical: absoluteUrl('/about') },
 }
 
 const STEPS = [

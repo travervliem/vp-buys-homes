@@ -11,11 +11,11 @@ import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS } from '@/lib/areas'
-import { SITUATIONS, type SituationSlug, SITUATION_SLUGS } from '@/lib/situations'
-import { listFilledIntersections } from '@/lib/situations/index'
+import { SITUATIONS, type SituationSlug, SITUATION_SLUGS, listFilledIntersections } from '@/lib/situations'
+import { JsonLd } from '@/components/JsonLd'
 import { breadcrumbJsonLd, localBusinessSituationJsonLd } from '@/lib/seo'
+import { SITE, absoluteUrl } from '@/lib/site'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
 type Params = { situation: SituationSlug }
 
@@ -33,11 +33,11 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title,
     description,
-    alternates: { canonical: `${siteUrl}/situations/${situation.slug}` },
+    alternates: { canonical: absoluteUrl(`/situations/${situation.slug}`) },
     openGraph: {
       title: `${title} | VP Buys Homes`,
       description,
-      url: `${siteUrl}/situations/${situation.slug}`,
+      url: absoluteUrl(`/situations/${situation.slug}`),
     },
   }
 }
@@ -53,7 +53,6 @@ export default function SituationPillarPage({ params }: { params: Params }) {
   )
 
   const business = localBusinessSituationJsonLd({
-    siteUrl,
     situationSlug: situation.slug,
     situationLabel: situation.label,
   })
@@ -62,14 +61,13 @@ export default function SituationPillarPage({ params }: { params: Params }) {
       { name: 'Home', href: '/' },
       { name: 'Situations', href: '/situations' },
       { name: situation.label, href: `/situations/${situation.slug}` },
-    ],
-    siteUrl
+    ]
   )
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(business) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+      <JsonLd data={business} />
+      <JsonLd data={breadcrumbs} />
 
       <SiteHeader />
 
@@ -154,7 +152,7 @@ export default function SituationPillarPage({ params }: { params: Params }) {
             <h2 className="ds-h3 mt-10 mb-4">Cities Where We Help With {situation.label}</h2>
             {filledForThisSituation.size === 0 ? (
               <p className="ds-body">
-                Detailed city-by-city information for this situation is being added — meanwhile, call (912) 515-6060 or use the form to get a cash offer for your property anywhere in Southeast Georgia.
+                Detailed city-by-city information for this situation is being added — meanwhile, call {SITE.phoneDisplay} or use the form to get a cash offer for your property anywhere in Southeast Georgia.
               </p>
             ) : (
               <p className="ds-body">

@@ -11,9 +11,10 @@ import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Button } from '@/components/ui/Button'
 import { POSTS } from '../posts'
+import { JsonLd } from '@/components/JsonLd'
 import { breadcrumbJsonLd } from '@/lib/seo'
+import { SITE, absoluteUrl } from '@/lib/site'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
 export async function generateStaticParams() {
   return POSTS.map(p => ({ slug: p.slug }))
@@ -25,7 +26,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: post.title,
     description: post.metaDescription,
-    alternates: { canonical: `${siteUrl}/blog/${post.slug}` },
+    alternates: { canonical: absoluteUrl(`/blog/${post.slug}`) },
     openGraph: { title: post.title, description: post.metaDescription },
   }
 }
@@ -40,13 +41,12 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       { name: 'Home', href: '/' },
       { name: 'Resources', href: '/blog' },
       { name: post.title, href: `/blog/${post.slug}` },
-    ],
-    siteUrl
+    ]
   )
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+      <JsonLd data={breadcrumbs} />
 
       <SiteHeader />
 
@@ -130,7 +130,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           </p>
           <div className="flex flex-wrap gap-3">
             <Button href="/sell" variant="amber" size="md">Get My Cash Offer</Button>
-            <Button href="tel:+19125156060" variant="ghost" size="md">(912) 515-6060</Button>
+            <Button href={SITE.phoneHref} variant="ghost" size="md">{SITE.phoneDisplay}</Button>
           </div>
         </div>
       </Section>

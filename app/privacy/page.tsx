@@ -5,11 +5,12 @@ import { SiteHeader } from '@/components/marketing/SiteHeader'
 import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
+import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description: 'How VP Buys Homes collects, uses, and shares information submitted through vpbuyshomes.com, and the choices you have.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/privacy' },
+  alternates: { canonical: absoluteUrl('/privacy') },
 }
 
 // Update this date whenever the policy text changes.
@@ -102,7 +103,7 @@ export default function PrivacyPage() {
           <H2>Calls and text messages</H2>
           <P>
             If you give us your phone number, we may call or text you about your request. Message and data rates may apply. You can ask us to stop
-            at any time by telling us, replying STOP to a text, or emailing leads@vpbuyshomes.com.
+            at any time by telling us, replying STOP to a text, or emailing {SITE.email}.
           </P>
 
           <H2>Cookies</H2>
@@ -132,8 +133,8 @@ export default function PrivacyPage() {
           <H2>Contact us</H2>
           <P>VP Equities LLC, doing business as VP Buys Homes</P>
           <UL>
-            <li>Phone: <a href="tel:+19125156060" className={linkClass}>(912) 515-6060</a></li>
-            <li>Email: <a href="mailto:leads@vpbuyshomes.com" className={linkClass}>leads@vpbuyshomes.com</a></li>
+            <li>Phone: <a href={SITE.phoneHref} className={linkClass}>{SITE.phoneDisplay}</a></li>
+            <li>Email: <a href={SITE.emailHref} className={linkClass}>{SITE.email}</a></li>
           </UL>
           <P>
             You can also reach us through our <Link href="/contact" className={`${linkClass} underline underline-offset-4`}>contact page</Link>.

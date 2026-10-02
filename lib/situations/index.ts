@@ -1,7 +1,11 @@
-// Aggregator for all per-situation content modules. Routing and sitemap
-// code consume this to discover which intersection pages have copy yet.
+// Public entry point for everything situation-related: `import … from '@/lib/situations'`.
+//   - data.ts      the 5 situations themselves (state-level facts) + URL helpers
+//   - types.ts     per-pairing (city × situation) content shape
+//   - *-content.ts one file of intersection copy per situation
+// This file aggregates the content modules so routing and the sitemap can
+// discover which intersection pages have copy yet.
 
-import type { SituationSlug } from '../situations'
+import type { SituationSlug } from './data'
 import type { SituationContent, IntersectionContent } from './types'
 import { FORECLOSURE_CONTENT } from './foreclosure-content'
 import { DIVORCE_CONTENT } from './divorce-content'
@@ -39,4 +43,5 @@ export function getIntersection(citySlug: string, situationSlug: SituationSlug):
   return INTERSECTION_CONTENT[situationSlug]?.[citySlug]
 }
 
+export * from './data'
 export type { IntersectionContent, IntersectionFaq, SituationContent } from './types'

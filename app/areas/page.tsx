@@ -10,11 +10,12 @@ import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS, areaHref } from '@/lib/areas'
+import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Areas We Serve — Southeast Georgia Cash Home Buyers',
   description: 'VP Buys Homes buys houses for cash across Southeast Georgia — Statesboro, Savannah, Rincon, Metter, Springfield, and more. No repairs, no fees, cash offer in 48 hours.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/areas' },
+  alternates: { canonical: absoluteUrl('/areas') },
 }
 
 export default function AreasPage() {
@@ -67,10 +68,10 @@ export default function AreasPage() {
         <div className="text-center mt-12">
           <p className="ds-body mb-4">Don't see your city? We likely buy there too — call or text us.</p>
           <a
-            href="tel:+19125156060"
+            href={SITE.phoneHref}
             className="inline-flex items-center gap-2 px-7 py-3.5 bg-amber text-white font-body text-[12px] font-bold tracking-[0.16em] uppercase rounded-sm no-underline shadow-amber hover:bg-amber-dark transition-colors"
           >
-            (912) 515-6060 — Call or Text
+            {SITE.phoneDisplay} — Call or Text
           </a>
         </div>
       </Section>

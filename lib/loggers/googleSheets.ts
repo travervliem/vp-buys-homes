@@ -11,7 +11,7 @@
 // the row is written to the sheet. So: treat any non-5xx final status as
 // "Google accepted the POST" and report ok.
 
-export async function logToGoogleSheets(row: Record<string, any>) {
+export async function logToGoogleSheets(row: Record<string, unknown>) {
   const url = process.env.SHEETS_WEBHOOK_URL
   if (!url) return { ok: false, reason: 'missing-env' }
 

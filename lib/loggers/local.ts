@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-export async function logLocal(data: any) {
+export async function logLocal(data: Record<string, unknown>) {
   try {
     const dir = path.join(process.cwd(), '.data')
     if (!fs.existsSync(dir)) fs.mkdirSync(dir)

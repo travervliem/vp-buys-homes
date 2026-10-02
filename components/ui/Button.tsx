@@ -67,7 +67,7 @@ export function Button(props: Props) {
       )
     }
     return (
-      <Link href={href} className={cx} {...(rest as any)}>
+      <Link href={href} className={cx} {...rest}>
         {children}
       </Link>
     )

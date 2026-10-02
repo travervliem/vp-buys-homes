@@ -1,11 +1,11 @@
 import type { MetadataRoute } from 'next'
 import { POSTS } from './blog/posts'
 import { AREAS } from '@/lib/areas'
-import { SITUATIONS } from '@/lib/situations'
-import { listFilledIntersections } from '@/lib/situations/index'
+import { SITE } from '@/lib/site'
+import { SITUATIONS, listFilledIntersections } from '@/lib/situations'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
+  const base = SITE.url
   const now = new Date()
 
   const coreRoutes: MetadataRoute.Sitemap = [

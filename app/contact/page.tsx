@@ -8,11 +8,12 @@ import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS } from '@/lib/areas'
+import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Contact Us — Get a Cash Offer for Your House',
-  description: 'Call (912) 515-6060, email leads@vpbuyshomes.com, or send your property details for a no-obligation cash offer within 48 hours.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/contact' },
+  description: `Call ${SITE.phoneDisplay}, email ${SITE.email}, or send your property details for a no-obligation cash offer within 48 hours.`,
+  alternates: { canonical: absoluteUrl('/contact') },
 }
 
 const cardClass = 'bg-white border border-hairline rounded-lg p-7 shadow-sm'
@@ -42,12 +43,12 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1.3fr_1fr] gap-5 max-w-[960px] mx-auto">
           <div className={cardClass}>
             <p className={labelClass}>Phone</p>
-            <a href="tel:+19125156060" className={valueClass}>(912) 515-6060</a>
+            <a href={SITE.phoneHref} className={valueClass}>{SITE.phoneDisplay}</a>
             <p className="font-body text-[13px] text-ink-500 mt-2">Call or text.</p>
           </div>
           <div className={cardClass}>
             <p className={labelClass}>Email</p>
-            <a href="mailto:leads@vpbuyshomes.com" className={valueClass}>leads@vpbuyshomes.com</a>
+            <a href={SITE.emailHref} className={valueClass}>{SITE.email}</a>
           </div>
           <div className={cardClass}>
             <p className={labelClass}>Where we buy</p>

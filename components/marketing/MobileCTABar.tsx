@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { SITE } from '@/lib/site'
 
 type Props = {
   phone?: string
@@ -11,7 +12,7 @@ type Props = {
 // Fixed bottom bar visible on mobile. Three actions: Call, Text (SMS prefilled),
 // and primary "Get Offer" amber button.
 export function MobileCTABar({
-  phone = '(912) 515-6060',
+  phone = SITE.phoneDisplay,
   primaryHref = '/sell',
   smsBody = "Hi VP Buys Homes — I'd like a cash offer on my house.",
 }: Props) {

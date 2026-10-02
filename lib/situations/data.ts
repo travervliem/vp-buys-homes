@@ -1,4 +1,5 @@
 // Single source of truth for the 5 home-seller situations served by VP Buys Homes.
+// Import via the barrel: `@/lib/situations`.
 // Used by:
 //   - `app/situations/[situation]/page.tsx`        (situation pillar pages)
 //   - `app/areas/[city]/[situation]/page.tsx`      (city × situation intersection pages)

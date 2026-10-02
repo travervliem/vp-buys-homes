@@ -38,7 +38,7 @@ export function ProcessSteps({ steps, startLabel = 'Step' }: Props) {
             </span>
             <h3
               className="font-display text-[22px] font-bold text-navy mt-2.5 mb-2 leading-[1.2] transition-colors duration-200 group-hover:text-navy-deep"
-              style={{ textWrap: 'balance' as any }}
+              style={{ textWrap: 'balance' }}
             >
               {s.title}
             </h3>

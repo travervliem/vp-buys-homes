@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ReactNode } from 'react'
+import { SITE } from '@/lib/site'
 
 type Props = {
   eyebrow?: string
@@ -16,7 +17,7 @@ export function FinalCTA({
   sub,
   primaryHref = '/sell',
   primaryLabel = 'Get My Cash Offer',
-  phone = '(912) 515-6060',
+  phone = SITE.phoneDisplay,
 }: Props) {
   return (
     <section className="ds-hero-bg" style={{ paddingBlock: 96 }}>
@@ -32,7 +33,7 @@ export function FinalCTA({
             fontSize: 'clamp(32px,5vw,52px)',
             lineHeight: 1.06,
             letterSpacing: '0.005em',
-            textWrap: 'balance' as any,
+            textWrap: 'balance',
             maxWidth: 880,
           }}
         >

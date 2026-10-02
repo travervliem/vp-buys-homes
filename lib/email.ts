@@ -1,14 +1,16 @@
 import { Resend } from 'resend'
+import { SITE } from './site'
+import type { EnrichedLead } from './validation'
 
 const LEAD_EMAIL = process.env.LEAD_NOTIFICATION_EMAIL || 'traver97@gmail.com'
 
 // Preferred from-address (requires vpbuyshomes.com to be verified in Resend).
 // Resend's sandbox from-address works without domain verification and can be
 // used to confirm delivery end-to-end before DNS is configured.
-const PREFERRED_FROM = 'VP Buys Homes <leads@vpbuyshomes.com>'
-const FALLBACK_FROM = 'VP Buys Homes <onboarding@resend.dev>'
+const PREFERRED_FROM = `${SITE.name} <${SITE.email}>`
+const FALLBACK_FROM = `${SITE.name} <onboarding@resend.dev>`
 
-export async function sendLeadEmail(payload: any) {
+export async function sendLeadEmail(payload: EnrichedLead) {
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) {
     console.warn('[email] RESEND_API_KEY not set — lead email skipped. Set it in Vercel → Settings → Environment Variables.')
@@ -28,14 +30,12 @@ export async function sendLeadEmail(payload: any) {
 
   // Photo attachments — payload.photos is [{ name, type, base64 }] from the
   // browser (client-resized + base64-encoded, no data: prefix).
-  type Photo = { name?: string; type?: string; base64?: string }
-  const rawPhotos: Photo[] = Array.isArray(payload.photos) ? payload.photos : []
-  const attachments = rawPhotos
-    .filter(p => typeof p?.base64 === 'string' && p.base64.length > 0)
+  const attachments = (payload.photos ?? [])
+    .filter(p => p.base64.length > 0)
     .slice(0, 6)
     .map((p, i) => ({
       filename: (p.name || `photo-${i + 1}.jpg`).replace(/[^a-zA-Z0-9._-]/g, '_'),
-      content: p.base64 as string,
+      content: p.base64,
     }))
 
   const firstAttempt = await resend.emails.send({
@@ -52,7 +52,7 @@ export async function sendLeadEmail(payload: any) {
   }
 
   const errMsg = String(firstAttempt.error?.message || firstAttempt.error || '')
-  const errName = String((firstAttempt.error as any)?.name || '')
+  const errName = String((firstAttempt.error as { name?: string } | null)?.name || '')
   const looksLikeDomainIssue =
     /domain|verify|not.?verified|from|identity/i.test(errMsg) ||
     errName === 'validation_error'
@@ -85,11 +85,11 @@ export async function sendLeadEmail(payload: any) {
   return { ok: false, provider: 'resend', error: secondErr }
 }
 
-function buildHtml(payload: any) {
+function buildHtml(payload: EnrichedLead) {
   const statusBanner =
     payload.status === 'partial'
       ? `<div style="background:#FEF3C7;border-left:4px solid #F2A65A;padding:10px 14px;margin-bottom:16px;font-family:sans-serif;font-size:13px;color:#92400E">
-           <strong>Partial Lead:</strong> Submitted step 1 only — email + property details missing. Session: ${payload.sessionId || 'unknown'}
+           <strong>Partial Lead:</strong> Submitted step 1 only — email + property details missing. Session: ${escapeHtml(payload.sessionId || 'unknown')}
          </div>`
       : ''
 
@@ -98,23 +98,23 @@ function buildHtml(payload: any) {
       ${statusBanner}
       <div style="background:#1B365D;color:white;padding:20px 24px;border-radius:6px 6px 0 0">
         <h2 style="margin:0;font-size:20px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase">New Lead — VP Buys Homes</h2>
-        ${payload.city ? `<p style="margin:4px 0 0;color:rgba(255,255,255,0.65);font-size:13px">${payload.city}, GA</p>` : ''}
+        ${payload.city ? `<p style="margin:4px 0 0;color:rgba(255,255,255,0.65);font-size:13px">${escapeHtml(payload.city)}, GA</p>` : ''}
       </div>
       <div style="background:white;padding:24px;border-radius:0 0 6px 6px;border:1px solid #D1DCE8">
         <table style="width:100%;border-collapse:collapse;font-size:14px">
-          ${row('Name', payload.name)}
-          ${row('Phone', `<a href="tel:${payload.phone}">${payload.phone}</a>`)}
-          ${payload.email ? row('Email', `<a href="mailto:${payload.email}">${payload.email}</a>`) : ''}
-          ${row('Property Address', payload.address)}
-          ${payload.reasonForSelling ? row('Reason for Selling', payload.reasonForSelling) : ''}
-          ${payload.expectedPrice ? row('Expected Price', payload.expectedPrice) : ''}
-          ${payload.roofAge ? row('Roof Age', payload.roofAge) : ''}
-          ${payload.hvacAge ? row('HVAC Age', payload.hvacAge) : ''}
-          ${payload.timeline ? row('Ideal Timeline', payload.timeline) : ''}
-          ${payload.notes ? row('Notes', payload.notes) : ''}
-          ${payload.source ? row('Source', payload.source) : ''}
-          ${payload.pageCity ? row('Landing Page (City)', payload.pageCity) : ''}
-          ${payload.pageSituation ? row('Landing Page (Situation)', payload.pageSituation) : ''}
+          ${row('Name', escapeHtml(payload.name))}
+          ${row('Phone', `<a href="tel:${escapeHtml(payload.phone)}">${escapeHtml(payload.phone)}</a>`)}
+          ${payload.email ? row('Email', `<a href="mailto:${escapeHtml(payload.email)}">${escapeHtml(payload.email)}</a>`) : ''}
+          ${row('Property Address', escapeHtml(payload.address))}
+          ${payload.reasonForSelling ? row('Reason for Selling', escapeHtml(payload.reasonForSelling)) : ''}
+          ${payload.expectedPrice ? row('Expected Price', escapeHtml(payload.expectedPrice)) : ''}
+          ${payload.roofAge ? row('Roof Age', escapeHtml(payload.roofAge)) : ''}
+          ${payload.hvacAge ? row('HVAC Age', escapeHtml(payload.hvacAge)) : ''}
+          ${payload.timeline ? row('Ideal Timeline', escapeHtml(payload.timeline)) : ''}
+          ${payload.notes ? row('Notes', escapeHtml(payload.notes)) : ''}
+          ${payload.source ? row('Source', escapeHtml(payload.source)) : ''}
+          ${payload.pageCity ? row('Landing Page (City)', escapeHtml(payload.pageCity)) : ''}
+          ${payload.pageSituation ? row('Landing Page (Situation)', escapeHtml(payload.pageSituation)) : ''}
           ${row('Submitted', new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }))}
         </table>
       </div>
@@ -122,10 +122,21 @@ function buildHtml(payload: any) {
   `
 }
 
+// Every submitter-controlled value is escaped before it goes into the HTML email.
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 function isPlausibleEmail(s: unknown): s is string {
   return typeof s === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s)
 }
 
+// `value` must already be HTML-safe (escape it with escapeHtml).
 function row(label: string, value: string) {
   return `
     <tr>

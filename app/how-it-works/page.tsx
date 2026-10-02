@@ -9,11 +9,12 @@ import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
+import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'How It Works — Sell Your House Fast for Cash in Southeast Georgia',
   description: 'Three simple steps to sell your house fast for cash in Statesboro, GA and surrounding Southeast Georgia. No repairs, no fees, close in 7–21 days.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/how-it-works' },
+  alternates: { canonical: absoluteUrl('/how-it-works') },
 }
 
 const STEPS = [

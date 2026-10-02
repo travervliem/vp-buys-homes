@@ -30,7 +30,7 @@ export function HomeHero({ children }: Props) {
               fontSize: 'clamp(44px, 6vw, 64px)',
               lineHeight: 1.05,
               letterSpacing: '0.005em',
-              textWrap: 'balance' as any,
+              textWrap: 'balance',
             }}
           >
             Cash in <em className="text-amber not-italic" style={{ fontStyle: 'italic', fontWeight: 600 }}>your hand</em>

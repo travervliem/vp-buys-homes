@@ -62,3 +62,25 @@ export const partialLeadSchema = z.object({
 
 export type LeadInput = z.infer<typeof leadSchema>
 export type PartialLeadInput = z.infer<typeof partialLeadSchema>
+
+// What the lead route hands to the email and Sheets loggers: the validated
+// form fields (full or partial) plus server-side context. `photos` only exists
+// on a complete lead, so every non-identity field is optional here.
+export type EnrichedLead = Partial<LeadInput> &
+  Pick<LeadInput, 'name' | 'phone' | 'address'> & {
+    city: string | null
+    status: 'partial' | 'complete'
+    sessionId: string
+    source: string
+    eventId: string
+    utmSource: string
+    utmMedium: string
+    utmCampaign: string
+    utmTerm: string
+    utmContent: string
+    gclid: string
+    fbclid: string
+    referrer: string
+    landingPage: string
+    userAgent: string | null
+  }

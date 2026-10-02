@@ -12,16 +12,11 @@ import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { AREAS } from '@/lib/areas'
-import { SITUATIONS, type SituationSlug } from '@/lib/situations'
-import { listFilledIntersections, getIntersection } from '@/lib/situations/index'
-import {
-  breadcrumbJsonLd,
-  intersectionServiceJsonLd,
-  localBusinessAreaJsonLd,
-  pageFaqJsonLd,
-} from '@/lib/seo'
+import { SITUATIONS, type SituationSlug, listFilledIntersections, getIntersection } from '@/lib/situations'
+import { JsonLd } from '@/components/JsonLd'
+import { breadcrumbJsonLd, intersectionServiceJsonLd, localBusinessAreaJsonLd, faqJsonLd } from '@/lib/seo'
+import { absoluteUrl } from '@/lib/site'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.vpbuyshomes.com'
 
 type Params = { city: string; situation: SituationSlug }
 
@@ -39,11 +34,11 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   return {
     title: content.title,
     description: content.metaDescription,
-    alternates: { canonical: `${siteUrl}/areas/${params.city}/${params.situation}` },
+    alternates: { canonical: absoluteUrl(`/areas/${params.city}/${params.situation}`) },
     openGraph: {
       title: content.title,
       description: content.metaDescription,
-      url: `${siteUrl}/areas/${params.city}/${params.situation}`,
+      url: absoluteUrl(`/areas/${params.city}/${params.situation}`),
     },
   }
 }
@@ -54,9 +49,8 @@ export default function IntersectionPage({ params }: { params: Params }) {
   const content = getIntersection(params.city, params.situation)
   if (!area || !situation || !content) return notFound()
 
-  const business = localBusinessAreaJsonLd(area.name, area.county, siteUrl, area.slug)
+  const business = localBusinessAreaJsonLd(area.name, area.county, area.slug)
   const service = intersectionServiceJsonLd({
-    siteUrl,
     city: area.name,
     county: area.county,
     citySlug: area.slug,
@@ -64,23 +58,22 @@ export default function IntersectionPage({ params }: { params: Params }) {
     situationLabel: situation.label,
     description: content.metaDescription,
   })
-  const faq = pageFaqJsonLd(content.faqs)
+  const faq = faqJsonLd(content.faqs)
   const breadcrumbs = breadcrumbJsonLd(
     [
       { name: 'Home', href: '/' },
       { name: 'Areas', href: '/areas' },
       { name: `${area.name}, GA`, href: `/areas/${area.slug}` },
       { name: situation.label, href: `/areas/${area.slug}/${situation.slug}` },
-    ],
-    siteUrl
+    ]
   )
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(business) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(service) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faq) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }} />
+      <JsonLd data={business} />
+      <JsonLd data={service} />
+      <JsonLd data={faq} />
+      <JsonLd data={breadcrumbs} />
 
       <SiteHeader />
 

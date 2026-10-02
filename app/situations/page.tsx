@@ -9,11 +9,12 @@ import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { SITUATIONS } from '@/lib/situations'
+import { SITE, absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Situations We Help With — Sell Your Georgia House for Cash',
   description: 'Foreclosure, divorce, probate, tired-landlord, and tax-lien situations — VP Buys Homes pays cash and closes fast across Southeast Georgia.',
-  alternates: { canonical: 'https://www.vpbuyshomes.com/situations' },
+  alternates: { canonical: absoluteUrl('/situations') },
 }
 
 export default function SituationsDirectoryPage() {
@@ -63,10 +64,10 @@ export default function SituationsDirectoryPage() {
         <div className="text-center mt-12">
           <p className="ds-body mb-4">Not sure which situation fits? Call us. We have heard most of them.</p>
           <a
-            href="tel:+19125156060"
+            href={SITE.phoneHref}
             className="inline-flex items-center gap-2 px-7 py-3.5 bg-amber text-white font-body text-[12px] font-bold tracking-[0.16em] uppercase rounded-sm no-underline shadow-amber hover:bg-amber-dark transition-colors"
           >
-            (912) 515-6060 — Call or Text
+            {SITE.phoneDisplay} — Call or Text
           </a>
         </div>
       </Section>

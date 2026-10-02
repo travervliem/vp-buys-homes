@@ -30,7 +30,7 @@ export function FAQ({ items, defaultOpen = 0 }: Props) {
               aria-expanded={open}
               className="w-full flex items-center justify-between gap-4 py-5 text-left bg-transparent border-none cursor-pointer"
             >
-              <span className="font-display text-[18px] md:text-[20px] font-semibold text-navy" style={{ lineHeight: 1.3, textWrap: 'balance' as any }}>
+              <span className="font-display text-[18px] md:text-[20px] font-semibold text-navy" style={{ lineHeight: 1.3, textWrap: 'balance' }}>
                 {item.q}
               </span>
               <span
