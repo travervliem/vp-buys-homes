@@ -109,7 +109,7 @@
   /* Lead-form field styling — used by components/marketing/LeadForm.tsx (className="field leadform-field"). */
   .field { display: flex; flex-direction: column; gap: 5px; }
   .field label {
-    font-family: var(--fb);
+    font-family: var(--font-body), 'Helvetica Neue', system-ui, sans-serif;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.07em;
@@ -120,7 +120,7 @@
   .field select,
   .field textarea {
     width: 100%;
-    font-family: var(--fb);
+    font-family: var(--font-body), 'Helvetica Neue', system-ui, sans-serif;
     font-size: 15px;
     color: var(--dark);
     background: white;
@@ -144,7 +144,7 @@
   .footer-link {
     color: rgba(255,255,255,0.65);
     font-size: 14px;
-    font-family: 'Nunito Sans', 'Helvetica Neue', sans-serif;
+    font-family: var(--font-body), 'Helvetica Neue', system-ui, sans-serif;
     text-decoration: none;
     transition: color 120ms;
   }
