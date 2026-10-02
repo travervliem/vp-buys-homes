@@ -177,7 +177,7 @@ export function AddressAutocomplete({
             padding: '4px 0',
             maxHeight: '260px',
             overflowY: 'auto',
-            fontFamily: "'Nunito Sans','Helvetica Neue',system-ui,sans-serif",
+            fontFamily: "var(--font-body),'Helvetica Neue',system-ui,sans-serif",
             fontSize: '14px',
           }}
         >

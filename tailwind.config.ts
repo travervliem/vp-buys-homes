@@ -45,14 +45,9 @@ export default {
         danger: { DEFAULT: '#B42318', bg: '#FEE4E2' },
       },
       fontFamily: {
-        // New design fonts (loaded via next/font in app/layout.tsx). Existing
-        // pages mostly use inline `fontFamily: "'Barlow…'"` declarations, so
-        // repurposing these Tailwind keys does not affect them.
+        // Loaded via next/font in lib/fonts.ts (see docs/BRAND.md).
         display: ['var(--font-display)', 'Georgia', 'Times New Roman', 'serif'],
         body: ['var(--font-body)', '"Helvetica Neue"', 'system-ui', 'sans-serif'],
-        // Legacy aliases — kept for any code still referencing font-head/font-body-old
-        head: ['"Barlow Semi Condensed"', '"Arial Narrow"', '"Helvetica Neue"', 'sans-serif'],
-        'body-old': ['"Nunito Sans"', '"Helvetica Neue"', 'system-ui', 'sans-serif'],
         mono: ['"JetBrains Mono"', 'ui-monospace', 'Menlo', 'monospace'],
       },
       maxWidth: {
