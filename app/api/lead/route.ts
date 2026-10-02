@@ -5,6 +5,7 @@ import { logToGoogleSheets } from '@/lib/loggers/googleSheets'
 import { logLocal } from '@/lib/loggers/local'
 import { RECOGNIZED_CITIES } from '@/lib/areas'
 import { parseFbCookies, sendMetaCapiEvent } from '@/lib/analytics/meta-capi'
+import { absoluteUrl } from '@/lib/site'
 
 function detectCity(address: string): string | null {
   const lower = address.toLowerCase()
@@ -104,7 +105,7 @@ export async function POST(req: Request) {
       undefined
     const { first, last } = splitName(payload.name)
     const sourceUrl = attribution.landing_page
-      ? `${process.env.NEXT_PUBLIC_SITE_URL || ''}${attribution.landing_page}`
+      ? absoluteUrl(attribution.landing_page)
       : undefined
     sendMetaCapiEvent({
       email: payload.email || undefined,
