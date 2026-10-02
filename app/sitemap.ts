@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { POSTS } from './blog/posts'
+import { PUBLISHED_POSTS } from './blog/posts'
 import { AREAS } from '@/lib/areas'
 import { SITE } from '@/lib/site'
 import { SITUATIONS, listFilledIntersections } from '@/lib/situations'
@@ -44,7 +44,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.80,
   }))
 
-  const blogRoutes: MetadataRoute.Sitemap = POSTS.map(post => ({
+  const blogRoutes: MetadataRoute.Sitemap = PUBLISHED_POSTS.map(post => ({
     url: `${base}/blog/${post.slug}`,
     lastModified: now,
     changeFrequency: 'monthly' as const,

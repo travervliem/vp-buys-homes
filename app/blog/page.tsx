@@ -8,7 +8,7 @@ import { SiteHeader } from '@/components/marketing/SiteHeader'
 import { SiteFooter } from '@/components/marketing/SiteFooter'
 import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
-import { POSTS } from './posts'
+import { PUBLISHED_POSTS } from './posts'
 import { absoluteUrl } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -34,7 +34,7 @@ export default function BlogIndex() {
 
       <Section tone="paper" padding="lg" tight>
         <div className="flex flex-col gap-4">
-          {POSTS.map(p => (
+          {PUBLISHED_POSTS.map(p => (
             <Link
               key={p.slug}
               href={`/blog/${p.slug}`}

@@ -10,18 +10,18 @@ import { MobileCTABar } from '@/components/marketing/MobileCTABar'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Button } from '@/components/ui/Button'
-import { POSTS } from '../posts'
+import { PUBLISHED_POSTS } from '../posts'
 import { JsonLd } from '@/components/JsonLd'
-import { breadcrumbJsonLd } from '@/lib/seo'
+import { breadcrumbJsonLd, faqJsonLd } from '@/lib/seo'
 import { SITE, absoluteUrl } from '@/lib/site'
 
 
 export async function generateStaticParams() {
-  return POSTS.map(p => ({ slug: p.slug }))
+  return PUBLISHED_POSTS.map(p => ({ slug: p.slug }))
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const post = POSTS.find(p => p.slug === params.slug)
+  const post = PUBLISHED_POSTS.find(p => p.slug === params.slug)
   if (!post) return { title: 'Not Found' }
   return {
     title: post.title,
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default function BlogPost({ params }: { params: { slug: string } }) {
-  const post = POSTS.find(p => p.slug === params.slug)
+  const post = PUBLISHED_POSTS.find(p => p.slug === params.slug)
   if (!post) return notFound()
 
   const paragraphs = post.body.split('\n\n')
@@ -47,6 +47,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
   return (
     <>
       <JsonLd data={breadcrumbs} />
+      {post.faqs && <JsonLd data={faqJsonLd(post.faqs)} />}
 
       <SiteHeader />
 
@@ -114,7 +115,36 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
                 </div>
               )
             }
-            const html = para.replace(/\*\*(.+?)\*\*/g, '<strong style="color:#1B365D">$1</strong>')
+            const tableRows = para.split('\n').filter(l => l.trim().startsWith('|'))
+            if (tableRows.length >= 2) {
+              const [header, ...rest] = tableRows.map(row => row.split('|').slice(1, -1).map(c => c.trim()))
+              const bodyRows = rest.filter(row => !row.every(c => /^-+$/.test(c)))
+              return (
+                <div key={i} className="overflow-x-auto mb-6">
+                  <table className="w-full border-collapse font-body text-[14px]">
+                    <thead>
+                      <tr>
+                        {header.map((cell, j) => (
+                          <th key={j} className="bg-navy text-white text-left px-3.5 py-2.5 text-[12px] font-bold uppercase tracking-[0.08em]">{cell}</th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {bodyRows.map((row, j) => (
+                        <tr key={j} className={j % 2 === 0 ? 'bg-paper' : 'bg-white'}>
+                          {row.map((cell, k) => (
+                            <td key={k} className="px-3.5 py-2.5 text-ink-700 border-b border-hairline">{cell}</td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )
+            }
+            const html = para
+              .replace(/\*\*(.+?)\*\*/g, '<strong style="color:#1B365D">$1</strong>')
+              .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" style="color:#1B365D;font-weight:600;text-decoration:underline">$1</a>')
             return (
               <p key={i} className="font-body text-[16.5px] text-ink-700 leading-[1.78] mb-5"
                 dangerouslySetInnerHTML={{ __html: html }}
@@ -138,7 +168,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       <Section tone="white" padding="md" tight>
         <Eyebrow>More Resources</Eyebrow>
         <div className="flex flex-col gap-3 mt-5">
-          {POSTS.filter(p => p.slug !== post.slug).slice(0, 3).map(p => (
+          {PUBLISHED_POSTS.filter(p => p.slug !== post.slug).slice(0, 3).map(p => (
             <Link
               key={p.slug}
               href={`/blog/${p.slug}`}
